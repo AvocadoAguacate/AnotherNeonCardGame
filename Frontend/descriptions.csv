@@ -1,0 +1,11 @@
+number,tag, description
+7, changeOne, Cambias de mano con otro jugador
+0, changeAll, Todos los jugadores cambian de mano
+10, d4, El siguiente jugador tiene que tirar un dado de 4 caras y comer la cantidad de cartas resultantes
+11, d6, El siguiente jugador tiene que tirar un dado de 6 caras y comer la cantidad de cartas resultantes
+12, d12, El siguiente jugador tiene que tirar un dado de 12 caras y comer la cantidad de cartas resultantes
+13, d20, El siguiente jugador tiene que tirar un dado de 20 caras y comer la cantidad de cartas resultantes
+14, slice2, El jugador descarta la mitad de sus cartas y escoge color ( redondeo hacia arriba ) 
+15, slice4, El jugador descarta una cuarta parte de sus cartas ( redondeo hacia abajo )
+16, grenade, El jugador tira un dado de 20 caras y come la cantidad de cartas resultante. El juegador de la izquierda y derecha tienen que lanzar un dado de 12 caras y comer la cantidad de cartas resultantes.
+17, kick, Si un jugador tiene una carta le toca comer 4 cartas y sino el jugador con menos cartas le toca comer 1 carta
