@@ -21,16 +21,23 @@
     <ul id="messages"></ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" />
+      <label for="color">Color:</label>
+      <select name="colors" id="colors">
+        <option value="red">Rojo</option>
+        <option value="blue">Azul</option>
+        <option value="green">Verde</option>
+        <option value="yellow">Amarillo</option>
+      </select>
       <button id="sendB">Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io('http://localhost:3000');
-
       const form = document.getElementById('form');
       const input = document.getElementById('input');
       const messages = document.getElementById('messages');
       const name = document.getElementById('name');
+      const color = document.getElementById('colors')
       const sendButton = document.getElementById('sendB');
       let list = [];
       socket.on('connect', () => {
@@ -46,7 +53,8 @@
         if (input.value) {
           let toSend = {
             "player": socket.id,
-            "text": `${input.value}`
+            "text": `${input.value}`,
+            "color": color.value
           }
           socket.emit('chat message', toSend);
           input.value = '';
