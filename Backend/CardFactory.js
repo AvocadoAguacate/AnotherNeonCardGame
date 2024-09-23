@@ -1,9 +1,13 @@
-function cardFactory(number, color, isFlex = [], isWild = false, isAction = false, type = "") {
+import { v4 as uuidv4 } from 'uuid';
+
+function cardFactory(number, color, isFlex = [], isWild = false, isAction = false, type = "", isChain = false) {
   let card = {
+    "id": uuidv4(),
     "color": color,
     "isWild": isWild,
     "isAction": isAction,
-    "isFlex": isFlex.length > 0
+    "isFlex": isFlex.length > 0,
+    "isChain": isChain
   }
   if(number !== null){
     card = {"number": number, ...card};
@@ -65,7 +69,7 @@ function flexColors(color, isFlex = false) {
   return colors;
 }
 
-function mixUpDeck(deck) {
+export function mixUpDeck(deck) {
   deck.forEach((_, i) => {
       const j = Math.floor(Math.random() * deck.length);
       [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -73,7 +77,7 @@ function mixUpDeck(deck) {
   return deck;
 }
 
-export function createDeck(flexP = 0, isFlip = false) {
+export function createDeck(flexP = 0, isFlip = false, actionConfig) {
   let deck = [];
   let isFlex = flexP > 0
   // only numbers 80 (0-9 40 * 2)
@@ -86,6 +90,21 @@ export function createDeck(flexP = 0, isFlip = false) {
   let yellow0 = createNumbers('yellow', isFlex, flexP);
   let yellow1 = createNumbers('yellow', isFlex, flexP);
   deck.push(...blue0, ...blue1, ...green0, ...green1, ...red0, ...red1, ...yellow0, ...yellow1);
-  // return mixUpDeck(deck);
-  return deck;
+  console.log(deck);
+  return mixUpDeck(deck);
+}
+
+export function createActionConfig(dices = 8, slices = 8) {
+  let config = {};
+  if(dices > 0){
+    config = {"isDice": true, "dices": dices, ...config};
+  } else {
+    config = {"isDice": false, ...config};
+  }
+  if(slices > 0){
+    config = {"isSlice": true, "slices": slices, ...config};
+  } else {
+    config = {"isSlice": false, ...config};
+  }
+  return config;
 }
