@@ -13,18 +13,61 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
 });
+
 let messages = [];
+let players = [];
+let turns = [];
+let direction = 1; //? 1 -> o -1 <- 
+let turnIndex = 0;
+
+function nextTurn(changeDirection = false) {
+  if(changeDirection){
+    direction = direction * -1;
+  }
+  turns[turnIndex] = false;
+  turnIndex = (turnIndex + direction + players.length) % players.length;
+  turns[turnIndex] = true;
+}
+
+function first() {
+  if(players.length > 1){
+    let first = Math.floor(Math.random() * players.length);
+    turnIndex = first;
+    turns[turnIndex] = true;
+  }
+}
+
 io.on('connection', (socket) => {
   console.log(`${socket.id} connected`);
   messages.forEach((msg) => {
     socket.emit('chat message', msg);
   })
+  players.push({
+    "socket":socket,
+    "id": socket.id
+  });
+  turns.push(false);
+  let toSend = {
+    "list": players.map(player => player.socket.id),
+    "turns": turns
+  }
+  io.emit('list', toSend)
+  // TODO eliminar
+  if(players.length === 1){
+    turns[0] = true
+  }
 });
+
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
-    console.log('message: ' + `${msg}`);
-    io.emit('chat message', `${msg}`);
-    messages.push(msg);
+    console.log(msg)
+    if(msg.player === players[turnIndex].id){
+      console.log('message: ' + `${msg.text}`);
+      io.emit('chat message', `${msg.text}`);
+      messages.push(msg.text);
+      let turn = msg.text === 'change'
+      nextTurn(turn);
+    }
   });
 });
 

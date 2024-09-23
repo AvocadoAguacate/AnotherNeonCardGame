@@ -20,7 +20,8 @@
     <h1 id="name"></h1>
     <ul id="messages"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" />
+      <button id="sendB">Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -30,22 +31,37 @@
       const input = document.getElementById('input');
       const messages = document.getElementById('messages');
       const name = document.getElementById('name');
+      const sendButton = document.getElementById('sendB');
+      let list = [];
       socket.on('connect', () => {
         name.textContent = `${socket.id}`;
       });
+      socket.on('list', (msg) => {
+        list = msg;
+        console.log(list)
+      })
+      // sendButton.style.visibility = "hidden";
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', `${socket.id}:${input.value}`);
+          let toSend = {
+            "player": socket.id,
+            "text": `${input.value}`
+          }
+          socket.emit('chat message', toSend);
           input.value = '';
         }
       });
+      socket.on('turn', (msg) => {
+        sendButton.style.visibility = "visible";
+      })
 
       socket.on('chat message', (msg) => {
         const item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
+        // sendButton.style.visibility = "hidden";
       });
     </script>
   </body>
