@@ -48,8 +48,14 @@ io.on('connection', (socket) => {
   players.push({
     "socket":socket,
     "id": socket.id,
-    "hand": []
+    "hand": dealHand()
   });
+  players.forEach(player => {
+    console.log(`id:${player.id}`);
+    player.hand.forEach(card => {
+      console.log(card);
+    })
+  })
   turns.push(false);
   let toSend = {
     "list": players.map(player => player.socket.id),
@@ -80,5 +86,11 @@ server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
 
-deck = createDeck(0.8, false);
+deck = createDeck(0.5, false);
+console.log(`Deck:${deck.length} cartas`);
+
+function dealHand(cards = 7) {
+  return deck.splice(0,cards);
+}
+
 console.log(deck);
