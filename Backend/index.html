@@ -62,9 +62,10 @@
       });
       socket.on('hand', (msg) => {
         console.log(msg);
+        cards.innerHTML = '';
         msg.forEach(element => { 
           const item = document.createElement('option');
-          item.textContent = `${element.color} - ${element.number}${element.isFlex ? ` - ${element.secondColor}` : ''}`;
+          item.textContent = `${element.color} - ${element.number}`;
           item.value = element.id;
           cards.appendChild(item);
         });

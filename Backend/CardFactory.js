@@ -3,10 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 function cardFactory(number, color, isFlex = [], isWild = false, isAction = false, type = "", isChain = false) {
   let card = {
     "id": uuidv4(),
-    "color": color,
+    "color": [color],
     "isWild": isWild,
     "isAction": isAction,
-    "isFlex": isFlex.length > 0,
     "isChain": isChain
   }
   if(number !== null){
@@ -14,10 +13,7 @@ function cardFactory(number, color, isFlex = [], isWild = false, isAction = fals
   }
   if(isFlex.length > 0){
     let secondColorIndex = Math.floor(Math.random() * isFlex.length);
-    card = {
-      "secondColor": isFlex[secondColorIndex],
-      ...card
-    }
+    card.color =  [color, isFlex[secondColorIndex]];
   }
   if(isAction){
     card = {"type": type, ...card}

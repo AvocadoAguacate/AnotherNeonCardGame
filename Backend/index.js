@@ -51,6 +51,9 @@ io.on('connection', (socket) => {
   // TODO eliminar
   if(context.players.length === 1){
     context.turns[0] = true
+    firstCard()
+    io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
+    messages.push(`${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
   }
 });
 
@@ -69,13 +72,24 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log(msg)
     if(msg.player === context.players[context.turnIndex].id){
-      io.emit('chat message', `${msg.card}`);
-      messages.push(msg.card);
+      let play = playCard(msg.player, msg.card);
+      if(play){
+        io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
+        messages.push(msg.card);
+        sendHand();
+      } else {
+        let [card] = deal(1);
+        context.players[context.turnIndex].hand.push(card);
+        sendHand();
+      }
       context = nextTurn(context);
     }
   });
 });
 
+function sendHand() {
+  context.players[context.turnIndex].socket.emit("hand", context.players[context.turnIndex].hand);
+}
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
@@ -84,7 +98,11 @@ context.deck = createDeck(0.5, false);
 
 function firstCard() {
   let index = context.deck.findIndex(card => card.isAction === false);
-  discardCard.unshift(context.deck.slice(index,1));
+  let [card] = context.deck.splice(index, 1);
+  context.discardDeck.unshift(card);
+  //TODO eliminar
+  console.log('Primera carta:');
+  console.log(context.discardDeck[0]);
 }
 
 function deal(cards = 7) {
@@ -92,8 +110,12 @@ function deal(cards = 7) {
 }
 
 function discardCard(player, index) {
-  let card = player.hand.splice(index, 1);
+  let [card] = player.hand.splice(index, 1);
   context.discardDeck.unshift(card);
+}
+
+function checkColor(card1, card2) {
+  return card1.color.some(color => card2.color.includes(color));
 }
 
 function playCard(playerId, cardId) {
@@ -104,7 +126,7 @@ function playCard(playerId, cardId) {
     let lastCard = context.discardDeck[0];
     // cartas normales
     if(!card.isAction){
-      if(card.color === lastCard.color || card.number === lastCard.number){
+      if(checkColor(card, lastCard) || card.number === lastCard.number){
         discardCard(player, cardIndex);
         return true;
       }
@@ -113,7 +135,7 @@ function playCard(playerId, cardId) {
       if(card.isChain && lastCard.isChain){
         return true;
       }
-      if(card.color === lastCard.color || card.number === lastCard.number){
+      if(checkColor(card, lastCard) || card.number === lastCard.number){
         return true;
       }
       if(card.isWild){
