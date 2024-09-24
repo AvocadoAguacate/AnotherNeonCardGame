@@ -24,10 +24,13 @@ let context = {
   "deck": [],
   "discardDeck": []
 }
-function nextTurn() {
-  context.turns[context.turnIndex] = false;
-  context.turnIndex = (context.turnIndex + context.direction + context.players.length) % context.players.length;
-  context.turns[context.turnIndex] = true;
+
+function nextTurn(context) {
+  let {turns, turnIndex, direction, players} = context;
+  turns[turnIndex] = false;
+  turnIndex = (turnIndex + direction + players.length) % players.length;
+  turns[turnIndex] = true;
+  return {...context, "turnIndex": turnIndex, "turns": turns}
 }
 
 function firstPlayer() {
@@ -43,37 +46,31 @@ io.on('connection', (socket) => {
   messages.forEach((msg) => {
     socket.emit('chat message', msg);
   })
-  context.players.push({
-    "socket":socket,
-    "id": socket.id,
-    "hand": deal()
-  });
-  context.players.forEach(player => {
-    console.log(`id:${player.id}`);
-    player.hand.forEach(card => {
-      console.log(card);
-    })
-  })
-  context.turns.push(false);
-  let toSend = {
-    "list": context.players.map(player => player.socket.id),
-    "turns": context.turns
-  }
-  io.emit('list', toSend)
+  context = addPlayer(socket, context);
   // TODO eliminar
   if(context.players.length === 1){
     context.turns[0] = true
   }
 });
 
+function addPlayer(socket, context) {
+  let {players, turns} = context;
+  players.push({
+    "socket":socket,
+    "id": socket.id,
+    "hand": deal()
+  });
+  turns.push(false);
+  return {...context, "players": players, "turns": turns};
+}
+
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log(msg)
     if(msg.player === context.players[context.turnIndex].id){
-      console.log(`${msg.text} ${msg.color}`);
       io.emit('chat message', `${msg.text}`);
       messages.push(msg.text);
-      nextTurn();
+      context = nextTurn(context);
     }
   });
 });
