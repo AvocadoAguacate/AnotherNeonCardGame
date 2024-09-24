@@ -47,6 +47,7 @@ io.on('connection', (socket) => {
     socket.emit('chat message', msg);
   })
   context = addPlayer(socket, context);
+  socket.emit('hand', context.players[context.players.length - 1].hand);
   // TODO eliminar
   if(context.players.length === 1){
     context.turns[0] = true
@@ -68,8 +69,8 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log(msg)
     if(msg.player === context.players[context.turnIndex].id){
-      io.emit('chat message', `${msg.text}`);
-      messages.push(msg.text);
+      io.emit('chat message', `${msg.card}`);
+      messages.push(msg.card);
       context = nextTurn(context);
     }
   });
