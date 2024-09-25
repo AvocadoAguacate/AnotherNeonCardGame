@@ -147,7 +147,7 @@ function add10(context) {
 
 function wildColorChange(context) {
   let {payLoad, discardDeck} = context;
-  discardDeck[0].color = payLoad.wildColorChange;
+  discardDeck[0].color = [payLoad.wildColorChange];
   return {...context, 'payLoad':payLoad, 'discardDeck': discardDeck};
 }
 
