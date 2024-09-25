@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { sendHand } from './Utils';
 
 function cardFactory(number, color, isFlex = [], isWild = false, isAction = false, type = "", isChain = false) {
   let card = {
@@ -18,7 +19,50 @@ function cardFactory(number, color, isFlex = [], isWild = false, isAction = fals
   if(isAction){
     card = {"type": type, ...card}
   }
+  if(isAction){
+    switch (number) {
+      case 0:
+        card = {"execute": changeAll, ...card};
+        break;
+      case 7:
+        card = {"execute": changeOne, ...card};
+        break;
+      default:
+        break;
+    }
+  }
   return card
+}
+
+function changeAll(context) {
+  let {players, direction} = context;
+  let toRight = direction === 1 ? true : false;
+  let temp = toRight ? [...players[players.length - 1].hand] : [...players[0].hand]; 
+  if(toRight){
+    for (let index = 1; index < players.length; index++) {
+      players[index].hand = [...players[index - 1].hand];
+    }
+    players[0].hand = temp;
+  } else {
+    for (let index = players.length - 2; index >= 0; index--) {
+      players[index].hand = [...players[index + 1].hand];
+    }
+    players[players.length - 1].hand = temp;
+  }
+  players.forEach( player => {
+    sendHand(player);
+  })
+  return {...context, "players": players};
+}
+
+function changeOne(context) {
+  let {payLoad, players, turnIndex} = context
+  let temp = [...players[turnIndex].hand];
+  players[turnIndex].hand = [...players[payLoad.target].hand];
+  players[payLoad.target].hand = temp;
+  sendHand(players[turnIndex]);
+  sendHand(players[payLoad.target]);
+  return {...context, "payLoad": {}, "players": players}
 }
 
 function createNumbers(color, isFlex, flex) {

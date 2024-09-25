@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
 import { createDeck, mixUpDeck } from './CardFactory.js';
+import { sendHand } from './Utils.js';
 
 const app = express();
 const server = createServer(app);
@@ -47,7 +48,7 @@ io.on('connection', (socket) => {
     socket.emit('chat message', msg);
   })
   context = addPlayer(socket, context);
-  socket.emit('hand', context.players[context.players.length - 1].hand);
+  sendHand(context.players[context.players.length - 1]);
   // TODO eliminar
   if(context.players.length === 1){
     context.turns[0] = true
@@ -72,24 +73,27 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log(msg)
     if(msg.player === context.players[context.turnIndex].id){
-      let play = playCard(msg.player, msg.card);
+      let play = playCard(msg.player, msg.card, msg.payLoad);
       if(play){
         io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
         messages.push(msg.card);
-        sendHand();
+        sendHand(context.players[context.turnIndex]);
       } else {
         let [card] = deal(1);
         context.players[context.turnIndex].hand.push(card);
-        sendHand();
+        sendHand(context.players[context.turnIndex]);
       }
       context = nextTurn(context);
     }
   });
 });
 
-function sendHand() {
-  context.players[context.turnIndex].socket.emit("hand", context.players[context.turnIndex].hand);
-}
+// function sendHand() {
+//   let lhand = context.players[context.turnIndex].hand.map(card => {
+//     return {"id": card.id, "number": card.number, "color": card.color}
+//   });
+//   context.players[context.turnIndex].socket.emit("hand", lhand);
+// }
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
@@ -132,13 +136,12 @@ function playCard(playerId, cardId) {
       }
       return false
     } else {
-      if(card.isChain && lastCard.isChain){
-        return true;
-      }
-      if(checkColor(card, lastCard) || card.number === lastCard.number){
-        return true;
-      }
-      if(card.isWild){
+      if(checkColor(card, lastCard) 
+        || card.number === lastCard.number 
+        || card.isChain && lastCard.isChain 
+        || card.isWild){
+        context = {"payLoad": payLoad, ...context};
+        context = card.execute(context);
         return true;
       }
     }
