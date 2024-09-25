@@ -122,7 +122,7 @@ function checkColor(card1, card2) {
   return card1.color.some(color => card2.color.includes(color));
 }
 
-function playCard(playerId, cardId) {
+function playCard(playerId, cardId, payLoad) {
   let player = context.players.find(player => player.id === playerId);
   let cardIndex = player.hand.findIndex(card => card.id === cardId);
   if(cardIndex !== -1){
@@ -140,7 +140,8 @@ function playCard(playerId, cardId) {
         || card.number === lastCard.number 
         || card.isChain && lastCard.isChain 
         || card.isWild){
-        context = {"payLoad": payLoad, ...context};
+        discardCard(player, cardIndex);
+        context = {...context, "payLoad": payLoad};
         context = card.execute(context);
         return true;
       }

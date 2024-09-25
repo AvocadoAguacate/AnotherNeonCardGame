@@ -4,3 +4,8 @@ export function sendHand(player) {
   });
   player.socket.emit("hand", lhand);
 }
+
+export function notifyHands(players, io) {
+  let report = players.map(player => player.hand.length);
+  io.emit('hands', report);
+}

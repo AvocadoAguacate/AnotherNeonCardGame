@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { sendHand } from './Utils';
+import { sendHand } from './Utils.js';
 
 function cardFactory(number, color, isFlex = [], isWild = false, isAction = false, type = "", isChain = false) {
   let card = {
@@ -27,6 +27,29 @@ function cardFactory(number, color, isFlex = [], isWild = false, isAction = fals
       case 7:
         card = {"execute": changeOne, ...card};
         break;
+      case 22:
+        card = {"execute": add2, ...card};
+        break;
+      case 23:
+        card = {"execute": add3, ...card};
+        break;
+      case 24:
+        card = {"execute": add4, ...card};
+        break;
+      case 25:
+        card = {"execute": add5, ...card};
+      case 26:
+        card = {"execute": add6, ...card};
+        break;
+      case 27:
+        card = {"execute": add7, ...card};
+        break;
+      case 28:
+        card = {"execute": add8, ...card};
+        break;
+      case 30:
+        card = {"execute": add10, ...card};
+      break;
       default:
         break;
     }
@@ -62,7 +85,7 @@ function changeOne(context) {
   players[payLoad.target].hand = temp;
   sendHand(players[turnIndex]);
   sendHand(players[payLoad.target]);
-  return {...context, "payLoad": {}, "players": players}
+  return {...context, "players": players}
 }
 
 function createNumbers(color, isFlex, flex) {
@@ -83,6 +106,68 @@ function createNumbers(color, isFlex, flex) {
     deck.push(card);
   }
   return deck;
+}
+
+function add2(context) {
+  let newContext = wildColorChange(context);
+  return addCards(newContext, 2);
+}
+
+function add3(context) {
+  return addCards(context, 3);
+}
+
+function add4(context) {
+  let newContext = wildColorChange(context);
+  return addCards(newContext, 4);
+}
+
+function add5(context) {
+  return addCards(context, 5);
+}
+
+function add6(context) {
+  let newContext = wildColorChange(context);
+  return addCards(newContext, 6);
+}
+
+function add7(context) {
+  return addCards(context, 7);
+}
+
+function add8(context) {
+  let newContext = wildColorChange(context);
+  return addCards(newContext, 8);
+}
+
+function add10(context) {
+  let newContext = wildColorChange(context);
+  return addCards(newContext, 10);
+}
+
+function wildColorChange(context) {
+  let {payLoad, discardDeck} = context;
+  discardDeck[0].color = payLoad.wildColorChange;
+  return {...context, 'payLoad':payLoad, 'discardDeck': discardDeck};
+}
+
+function addCards(context, number) {
+  let {chain, turnIndex, players, discardDeck, deck, turns} = context
+  // TODO +2 =22 +10 =30 kami =35 dices 31-34
+  let remainder = discardDeck[1].number - discardDeck[0].number;
+  if(remainder > 0){//is unpaid
+    // TODO deal(player, quantity) in Utils
+    let [paidCards] = deck.splice(0, remainder - 1);
+    players[turnIndex].hand.push(paidCards);
+    sendHand(players[turnIndex]);
+  }
+  if(!chain.sum){ //new chain
+    chain = {
+      "sum": number,
+      "members": JSON.parse(JSON.stringify(turns)), 
+    }
+  } 
+  return {...context, "chain": chain, "players": players};
 }
 
 function flexColors(color, isFlex = false) {
