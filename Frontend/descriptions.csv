@@ -1,11 +1,34 @@
 number,tag, description
-7, changeOne, Cambias de mano con otro jugador
 0, changeAll, Todos los jugadores cambian de mano
-10, d4, El siguiente jugador tiene que tirar un dado de 4 caras y comer la cantidad de cartas resultantes
-11, d6, El siguiente jugador tiene que tirar un dado de 6 caras y comer la cantidad de cartas resultantes
-12, d12, El siguiente jugador tiene que tirar un dado de 12 caras y comer la cantidad de cartas resultantes
-13, d20, El siguiente jugador tiene que tirar un dado de 20 caras y comer la cantidad de cartas resultantes
-14, slice2, El jugador descarta la mitad de sus cartas y escoge color ( redondeo hacia arriba ) 
-15, slice4, El jugador descarta una cuarta parte de sus cartas ( redondeo hacia abajo )
-16, grenade, El jugador tira un dado de 20 caras y come la cantidad de cartas resultante. El juegador de la izquierda y derecha tienen que lanzar un dado de 12 caras y comer la cantidad de cartas resultantes.
-17, kick, Si un jugador tiene una carta le toca comer 4 cartas y sino el jugador con menos cartas le toca comer 1 carta
+7, changeOne, Cambias de mano con otro jugador
+10, slice2, El jugador descarta la mitad de sus cartas y escoge color ( redondeo hacia arriba ) 
+11, slice4, El jugador descarta una cuarta parte de sus cartas ( redondeo hacia abajo )
+12, grenade, El jugador tira un dado de 20 caras y come la cantidad de cartas resultante. El juegador de la izquierda y derecha tienen que lanzar un dado de 12 caras y comer la cantidad de cartas resultantes.
+13, kick, Si un jugador tiene una carta le toca comer 4 cartas y sino el jugador con menos cartas le toca comer 1 carta
+14, reverse10,
+15, reverse25,
+16, reverse50,
+17, reverse100,
+18, skip10,
+19, skip25,
+20, skip50,
+21, skip100,
+22, add2,
+23, add3,
+24, add4,
+25, add5,
+26, add6
+27, add7,
+28, add8,
+30, add10,
+31, d4, El siguiente jugador tiene que tirar un dado de 4 caras y comer la cantidad de cartas resultantes
+32, d6, El siguiente jugador tiene que tirar un dado de 6 caras y comer la cantidad de cartas resultantes
+33, d12, El siguiente jugador tiene que tirar un dado de 12 caras y comer la cantidad de cartas resultantes
+34, d20, El siguiente jugador tiene que tirar un dado de 20 caras y comer la cantidad de cartas resultantes
+35, kamizase, Todos los participantes de la cadena y el jugador que usó esta carta les toca comer todas las cartas de la cadena
+36, tax50,
+37, tax25,
+38, deadTax50, 100/deadLimit * 0.5
+39, deadTax90, 100/deadLimit * 0.9
+40, genocide, Todos los jugadores descartan todas las cartas que tengan el color que el jugador que jugó esta carta decida
+
