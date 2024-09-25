@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
 import { createDeck, mixUpDeck } from './CardFactory.js';
-import { sendHand } from './Utils.js';
+import { sendHand, deal, closeChain } from './Utils.js';
 
 const app = express();
 const server = createServer(app);
@@ -23,7 +23,8 @@ let context = {
   "direction": 1,
   "turnIndex":0,
   "deck": [],
-  "discardDeck": []
+  "discardDeck": [],
+  "chain": {}
 }
 
 function nextTurn(context) {
@@ -56,6 +57,7 @@ io.on('connection', (socket) => {
     io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
     messages.push(`${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
   }
+  context = deal(context, context.players.length - 1, 7);
 });
 
 function addPlayer(socket, context) {
@@ -63,7 +65,7 @@ function addPlayer(socket, context) {
   players.push({
     "socket":socket,
     "id": socket.id,
-    "hand": deal()
+    "hand": []
   });
   turns.push(false);
   return {...context, "players": players, "turns": turns};
@@ -73,44 +75,61 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log(msg)
     if(msg.player === context.players[context.turnIndex].id){
-      let play = playCard(msg.player, msg.card, msg.payLoad);
-      if(play){
-        io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
-        messages.push(msg.card);
-        sendHand(context.players[context.turnIndex]);
+      if(msg.card){
+        if(playCard(msg.player, msg.card, msg.payLoad)){
+          io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
+          messages.push(msg.card);
+          sendHand(context.players[context.turnIndex]);
+        } else {
+          context = deal(context, turnIndex, 1);
+        }
       } else {
-        let [card] = deal(1);
-        context.players[context.turnIndex].hand.push(card);
-        sendHand(context.players[context.turnIndex]);
+        payLoader(msg.payLoad);
       }
       context = nextTurn(context);
     }
   });
 });
 
-// function sendHand() {
-//   let lhand = context.players[context.turnIndex].hand.map(card => {
-//     return {"id": card.id, "number": card.number, "color": card.color}
-//   });
-//   context.players[context.turnIndex].socket.emit("hand", lhand);
-// }
+function payLoader(payLoad) {
+  if(context.chain.sum){
+    if(payLoad.challengeLuck.isEven){
+      challengeLuck(payLoad.challengeLuck);
+    } else {
+      context = closeChain(context);
+    }
+  }
+}
+
+function challengeLuck(challenge) {
+  let random = Math.floor(Math.random() * 19 + 1);
+  if(random === challenge.number){
+    context.chain = {};
+    inform('luckCompleteWin',{random, number: challenge.number});
+  } else {
+    if(challenge.isEven && random % 2 === 0){
+      context.chain.sum = Math.floor(context.chain.sum / 2);
+      inform('luckHalfWin', {random, isEven: challenge.isEven, newSum: context.chain.sum});
+    }
+    context = closeChain(context);
+  }
+}
+
+// TODO inform to players
+function inform(type, info) {
+  console.log(info);
+}
+
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
 
-context.deck = createDeck(0.5, false);
+context.deck = createDeck(0.5, undefined);
 
 function firstCard() {
   let index = context.deck.findIndex(card => card.isAction === false);
   let [card] = context.deck.splice(index, 1);
   context.discardDeck.unshift(card);
-  //TODO eliminar
-  console.log('Primera carta:');
-  console.log(context.discardDeck[0]);
-}
-
-function deal(cards = 7) {
-  return context.deck.splice(0,cards);
 }
 
 function discardCard(player, index) {
@@ -128,7 +147,12 @@ function playCard(playerId, cardId, payLoad) {
   if(cardIndex !== -1){
     let card = player.hand[cardIndex];
     let lastCard = context.discardDeck[0];
-    // cartas normales
+    //? no responder a la cadena
+    if(context.chain.sum && !card.isChain){
+      context = closeChain(context);
+      return false;
+    }
+    //? cartas normales
     if(!card.isAction){
       if(checkColor(card, lastCard) || card.number === lastCard.number){
         discardCard(player, cardIndex);
@@ -136,6 +160,7 @@ function playCard(playerId, cardId, payLoad) {
       }
       return false
     } else {
+    //? cartas de acción
       if(checkColor(card, lastCard) 
         || card.number === lastCard.number 
         || card.isChain && lastCard.isChain 
@@ -151,4 +176,3 @@ function playCard(playerId, cardId, payLoad) {
   }
 }
 // TODO cuando se juega wild, cambiar la tarjeta y reiniciarla cuando se recicla la carta
-// TODO probar el nuevo context
