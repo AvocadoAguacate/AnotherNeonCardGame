@@ -3,8 +3,8 @@ import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
-import { createDeck, mixUpDeck } from './CardFactory.js';
-import { sendHand, deal, closeChain } from './Utils.js';
+import { createDeck, mixUpDeck, createActionConfig } from './CardFactory.js';
+import { sendHand, deal, closeChain, checkColor, sendDiscardDeck } from './Utils.js';
 
 const app = express();
 const server = createServer(app);
@@ -16,15 +16,16 @@ app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
 });
 
-let messages = [];
 let context = {
-  "players": [],
-  "turns": [],
-  "direction": 1,
-  "turnIndex":0,
-  "deck": [],
-  "discardDeck": [],
-  "chain": {}
+  players: [],
+  turns: [],
+  direction: 1,
+  turnIndex:0,
+  deck: [],
+  discardDeck: [],
+  chain: {},
+  io,
+  messages: []
 }
 
 function nextTurn(context) {
@@ -45,17 +46,16 @@ function firstPlayer() {
 
 io.on('connection', (socket) => {
   console.log(`${socket.id} connected`);
-  messages.forEach((msg) => {
+  context.messages.forEach((msg) => {
     socket.emit('chat message', msg);
   })
   context = addPlayer(socket, context);
-  sendHand(context.players[context.players.length - 1]);
   // TODO eliminar
   if(context.players.length === 1){
     context.turns[0] = true
     firstCard()
     io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
-    messages.push(`${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
+    context.messages.push(`${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
   }
   context = deal(context, context.players.length - 1, 7);
 });
@@ -77,11 +77,10 @@ io.on('connection', (socket) => {
     if(msg.player === context.players[context.turnIndex].id){
       if(msg.card){
         if(playCard(msg.player, msg.card, msg.payLoad)){
-          io.emit('chat message', `${context.discardDeck[0].color} - ${context.discardDeck[0].number}`);
-          messages.push(msg.card);
+          context = sendDiscardDeck(context);
           sendHand(context.players[context.turnIndex]);
         } else {
-          context = deal(context, turnIndex, 1);
+          context = deal(context, context.turnIndex, 1);
         }
       } else {
         payLoader(msg.payLoad);
@@ -111,12 +110,14 @@ function challengeLuck(challenge) {
       context.chain.sum = Math.floor(context.chain.sum / 2);
       inform('luckHalfWin', {random, isEven: challenge.isEven, newSum: context.chain.sum});
     }
+    inform('luckLose',{random});
     context = closeChain(context);
   }
 }
 
 // TODO inform to players
 function inform(type, info) {
+  console.log(type);
   console.log(info);
 }
 
@@ -124,7 +125,7 @@ server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
 
-context.deck = createDeck(0.5, undefined);
+context.deck = createDeck(0.5, createActionConfig(0,0,0,0,0,0,0,0,0,0,100,0,100,0,0,0,0,0,0,0,0,0,0,0,0));
 
 function firstCard() {
   let index = context.deck.findIndex(card => card.isAction === false);
@@ -137,9 +138,7 @@ function discardCard(player, index) {
   context.discardDeck.unshift(card);
 }
 
-function checkColor(card1, card2) {
-  return card1.color.some(color => card2.color.includes(color));
-}
+
 
 function playCard(playerId, cardId, payLoad) {
   let player = context.players.find(player => player.id === playerId);

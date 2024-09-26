@@ -25,14 +25,23 @@
       </select>
       <button id="sendB">Send</button>
     </form>
+    <form id="dareForm" >
+      <button id="sendC">Reto</button>
+    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io('http://localhost:3000');
       const form = document.getElementById('form');
+      const dareForm = document.getElementById('dareForm');
       const messages = document.getElementById('messages');
       const name = document.getElementById('name');
       const cards = document.getElementById('cards')
       const sendButton = document.getElementById('sendB');
+      const dareButton = document.getElementById('sendC');
+      const chatM = 'chat message';
+      let toSend = {};
+      let arrayCards = [];
+
       let list = [];
       socket.on('connect', () => {
         name.textContent = `${socket.id}`;
@@ -44,12 +53,26 @@
       // sendButton.style.visibility = "hidden";
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        toSend = {
+          player: socket.id,
+          card: cards.value,
+          payLoad: {}
+        }
+        // socket.emit('chat message', toSend);
+      });
+      dareForm.addEventListener('submit', (e) =>{
+        e.preventDefault();
         let toSend = {
-          "player": socket.id,
-          "card": cards.value
+          player: socket.id,
+          payLoad: {
+            challengeLuck: {
+              isEven: true,
+              number: 5
+            }
+          }
         }
         socket.emit('chat message', toSend);
-      });
+      })
       socket.on('turn', (msg) => {
         sendButton.style.visibility = "visible";
       })
@@ -63,13 +86,33 @@
       socket.on('hand', (msg) => {
         console.log(msg);
         cards.innerHTML = '';
+        arrayCards = [];
         msg.forEach(element => { 
           const item = document.createElement('option');
           item.textContent = `${element.color} - ${element.number}`;
           item.value = element.id;
           cards.appendChild(item);
+          arrayCards.push(element);
         });
       });
+      function send() {
+        socket.emit(chatM, toSend);
+      }
+      function selectS2() {
+        const obj = Math.floor(arrayCards.length / 2);
+        toSend.payLoad.toDiscard = [];
+        arrayCards.forEach((card, index) => {
+          if(index < obj){
+            toSend.payLoad.toDiscard.push(card.id);
+          }
+        });
+        
+        send();
+      }
+      function wildTest() {
+          toSend.payLoad.wildColorChange = 'blue';
+          send(); 
+        }
     </script>
   </body>
 </html>

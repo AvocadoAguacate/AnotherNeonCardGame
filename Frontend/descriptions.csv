@@ -26,9 +26,10 @@ number,tag, description
 33, d12, El siguiente jugador tiene que tirar un dado de 12 caras y comer la cantidad de cartas resultantes
 34, d20, El siguiente jugador tiene que tirar un dado de 20 caras y comer la cantidad de cartas resultantes
 35, kamizase, Todos los participantes de la cadena y el jugador que usó esta carta les toca comer todas las cartas de la cadena
-36, tax50,
-37, tax25,
-38, deadTax50, 100/deadLimit * 0.5
-39, deadTax90, 100/deadLimit * 0.9
-40, genocide, Todos los jugadores descartan todas las cartas que tengan el color que el jugador que jugó esta carta decida
+36, genocide, Todos los jugadores descartan todas las cartas que tengan el color que el jugador que jugó esta carta decida
+37, dare,
+38, hide
+39, tax50,
+40, tax25,
+41, hideWild
 
