@@ -13,8 +13,7 @@ export function notifyHands(players, io) {
 }
 
 export function deal(context, index, number) {
-  // TODO actualizar a 80
-  context.deck.length <= 40 && (context = refillDeck(context));
+  context.deck.length <= number && (context = refillDeck(context));
   let { players, deck } = context;
   let dealCards = deck.splice(0, number);
   players[index].hand.push(...dealCards);
@@ -42,6 +41,15 @@ export function checkColor(card1, card2) {
 function refillDeck(context) {
   let {deck, discardDeck} = context
   let cards = discardDeck.splice(1, discardDeck.length - 1);
+  let colors = ['green', 'blue', 'yellow', 'red'];
+  cards.array.forEach(card => {
+    if(card.isWild){
+      card.color = [];
+    }
+    if(card.number < 10 && card.color.length === 0){ //dare card
+      card.color = [colors[Math.floor(Math.random() * 3)]];
+    }
+  });
   deck.push(...cards);
   return {...context, discardDeck, deck: mixUpDeck(deck)};
 }
