@@ -42,7 +42,7 @@ function refillDeck(context) {
   let {deck, discardDeck} = context
   let cards = discardDeck.splice(1, discardDeck.length - 1);
   let colors = ['green', 'blue', 'yellow', 'red'];
-  cards.array.forEach(card => {
+  cards.forEach(card => {
     if(card.isWild){
       card.color = [];
     }
