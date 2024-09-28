@@ -5,10 +5,18 @@ import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
 import { createDeck, mixUpDeck, createActionConfig } from './CardFactory.js';
 import { sendHand, deal, closeChain, checkColor, sendDiscardDeck } from './Utils.js';
+import cors from 'cors';
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:4200", // Permitir el origen de tu frontend
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -124,8 +132,18 @@ function inform(type, info) {
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
-
-context.deck = createDeck(0.5, createActionConfig(0,0,0,0,0,0,0,0,0,0,100,0,100,0,0,0,0,0,0,0,0,0,0,0,0));
+const slices = [0,0];
+const grenadesKicks = [0,0];
+const reversesSkips = [0,0,0,0,0,0,0,0];
+const adds = [0,0,0,0,0,0,0,0];
+const dices = [0,0,0,0];
+const kamiGenocide = [0,0];
+const dareHide = [30,1];
+const taxes = [2,0];
+const hideWild = [0];
+context.deck = createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
+  ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
+  ...hideWild));
 
 function firstCard() {
   let index = context.deck.findIndex(card => card.isAction === false);

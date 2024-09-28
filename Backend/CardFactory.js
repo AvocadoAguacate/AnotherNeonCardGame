@@ -103,11 +103,13 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: genocide, ...card, isWild: true, color:[]};
         break;
       case 37:
-        let dnumber = Math.floor(Math.random * 9); 
+        let dnumber = Math.floor(Math.random() * 9); 
+        dnumber = dnumber === 7 || dnumber === 0 ? dnumber + 1 : dnumber;
         card = {execute: dare, ...card, isAction: true, number: dnumber};
         break;
       case 38:
-        let hnumber = Math.floor(Math.random * 9); 
+        let hnumber = Math.floor(Math.random() * 9);
+        hnumber = hnumber === 7 || hnumber === 0 ? hnumber + 1 : hnumber;
         card = {execute: hide, ...card, isAction: true, number: hnumber};
         break;
       case 39:
@@ -123,6 +125,7 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
     }
   }
+  console.log(card);
   return card
 }
 
