@@ -9,7 +9,6 @@ let context = {
   deck: [],
   discardDeck: [],
   chain: {},
-  io,
   messages: []
 }
 

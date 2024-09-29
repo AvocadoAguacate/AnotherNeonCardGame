@@ -3,6 +3,32 @@ import { sendHand, deal, closeChain, discardCard, checkColor } from '../Utils.js
 
 // General 
 
+function telAdd(context, searchColor) {
+  let {players} = context;
+  let counters = players.map(() => 0);
+  players.forEach((player, playerIndex) => {
+    player.hand.forEach(card => {
+      card.color.forEach(color => {
+        if(searchColor === color){
+          counters[playerIndex] += 1;
+        }
+      })
+    })
+  });
+  const maxValue = Math.max(counters);
+  const targets = counters
+    .map((value, index) => value === maxValue ? index : -1)
+    .filter(index => index !== -1);  
+  if(targets.length === 1){
+    return deal(context, targets[0], 3);
+  } else {
+    targets.forEach(target => {
+      context = deal(context, target, 1);
+    });
+    return {... context};
+  }
+}
+
 function tax(context, number) {
   let {players} = context;
   players.forEach((player, playerIndex) => {
@@ -77,6 +103,30 @@ export function addCards(context, number) {
   return {...context, chain};
 }
 // Specific
+
+export function telAdd1(context) {
+  return telAdd(context, context.discardDeck[0].color[0]);
+}
+
+export function telAdd2(context) {
+  context = telAdd(context, context.discardDeck[0].color[0]);
+  return telAdd(context, context.discardDeck[0].color[1]);
+}
+
+export function telAdd3(context) {
+  context = wildColorChange(context);
+  context = telAdd(context, context.payLoad.color[0]);
+  context = telAdd(context, context.payLoad.color[1]);
+  return telAdd(context, context.payLoad.color[2]);
+}
+
+export function telAdd4(context) {
+  context = wildColorChange(context);
+  context = telAdd(context, 'green');
+  context = telAdd(context, 'blue');
+  context = telAdd(context, 'red');
+  return telAdd(context, 'yellow');
+}
 
 export function hideWild(context) {
   context = wildColorChange(context);
