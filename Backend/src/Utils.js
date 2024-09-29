@@ -1,4 +1,4 @@
-import { mixUpDeck } from './CardFactory.js';
+import { mixUpDeck } from './Cards/CardFactory.js';
 
 export function sendHand(player) {
   let lhand = player.hand.map(card => {

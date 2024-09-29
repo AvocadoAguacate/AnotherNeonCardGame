@@ -1,0 +1,309 @@
+import { sendHand, deal, closeChain, discardCard, checkColor } from '../Utils.js';
+
+export function hideWild(context) {
+  context = wildColorChange(context);
+  let {payLoad, discardCard} = context;
+  discardCard[0].number = payLoad.hideWildNumber;
+  return {...context, isHide:true, discardCard};
+}
+
+export function tax25(context) {
+  return tax(context, 0.25);
+}
+
+export function tax50(context) {
+  context = wildColorChange(context);
+  return tax(context, 0.5);
+}
+
+export function tax(context, number) {
+  let {players} = context;
+  players.forEach((player, playerIndex) => {
+    let tax = Math.floor(player.hand.length * number);
+    for (let index = 0; index < tax; index++) {
+      let random = Math.floor(Math.random * player.hand.length - 1);
+      context = discardCard(context, playerIndex, random);
+    }
+  });
+  return {...context};
+}
+
+export function hide(context) {
+  return {...context, isHide:true};
+}
+
+export function dare(context) {
+  let {discardDeck} = context;
+  discardDeck[0].color = [];
+  return {...context, discardDeck};
+}
+
+export function genocide(context) {
+  let {players, payLoad} = context
+  players.forEach((player, playerIndex) => {
+    player.hand.forEach((card, cardIndex) => {
+      if(checkColor(card, {color: payLoad.genocideColor})){
+        context = discardCard(context,playerIndex, cardIndex);
+      }
+    });
+  });
+  return {...context};
+}
+
+export function slice2(context) {
+  return slice(context, 2);
+}
+
+export function slice4(context) {
+  context = wildColorChange(context);
+  return slice(context, 4);
+}
+
+export function slice(context, number) {
+  let {payLoad, turnIndex, players} = context;
+  let maxDiscard = Math.floor(players[turnIndex].hand.length / number);
+  if(payLoad.toDiscard.length > maxDiscard){
+    payLoad.toDiscard = payLoad.toDiscard.splice(0, maxDiscard);
+  }
+  payLoad.toDiscard.forEach(toDiscard => {
+    context = discardCard(context, turnIndex, toDiscard);
+  })
+  return {...context};
+}
+
+export function grenate(context) {
+  let {turnIndex, direction, players} = context;
+  context = wildColorChange(context);
+  let right = (turnIndex + direction + players.length) % players.length;
+  let left = (turnIndex - direction + players.length) % players.length;
+  let explotion = Math.ceil(Math.random() * 12 + 1);
+  let explotionR = Math.floor(Math.random() * 12 + 1);
+  let explotionL = Math.floor(Math.random() * 12 + 1);
+  context = deal(context, turnIndex, explotion);
+  context = deal(context, left, explotionL);
+  context = deal(context, right, explotionR);
+  return {...context};
+}
+
+export function kick(context) {
+  let {players} = context;
+  let oneCard = players.map(player => player.hand.length === 1 ? true : false);
+  if(oneCard > 0){
+    oneCard.forEach((isOne, index) => {
+      if(isOne){
+        context = deal(context, index, 4);
+      }
+    })
+  } else {
+    let twoCards = players.map(player => player.hand.length === 2 ? true : false);
+    if(twoCards > 0){
+      twoCards.forEach((isTwo, index) => {
+        if(isTwo){
+          context = deal(context, index, 2);
+        }
+      });
+    } else {
+      players.forEach((player, index) => {
+        context = deal(context, index, 1);
+      });
+    }
+    return {...context};
+  }
+}
+
+export function defense(context, number) {
+  let {chain, turnIndex} = context;
+  let total = Math.floor(chain.sum * number); 
+  deal(context, turnIndex, total);
+  return {...context};
+}
+
+export function reverse(context) {
+  let {direction} = context;
+  direction *= -1;
+  return {...context, direction};
+}
+
+export function reverse10(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.9);
+  }
+  return reverse(context);
+}
+
+export function reverse25(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.75);
+  }
+  return reverse(context);
+}
+export function reverse50(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.5);
+  }
+  return reverse(context);
+}
+export function reverse100(context) {
+  if(context.chain.sum){
+    context = defense(context, 0);
+  }
+  return reverse(context);
+}
+
+export function skip(context) {
+  let {turns, turnIndex, direction, players} = context;
+  turns[turnIndex] = false;
+  turnIndex = (turnIndex + direction + players.length) % players.length;
+  return {...context, turns, turnIndex};
+}
+
+export function skip10(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.9);
+  }
+  return skip(context);
+}
+
+export function skip25(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.75);
+  }
+  return skip(context);
+}
+export function skip50(context) {
+  if(context.chain.sum){
+    context = defense(context, 0.5);
+  }
+  return skip(context);
+}
+export function skip100(context) {
+  if(context.chain.sum){
+    context = defense(context, 0);
+  }
+  return skip(context);
+}
+
+export function dice(context, number) {
+  let dice = Math.floor(Math.random() * number + 1);
+  context = addCards(context, dice);
+  return {...context};
+}
+
+export function d4(context) {
+  return dice(context, 4);
+}
+export function d6(context) {
+  return dice(context, 6);
+}
+export function d12(context) {
+  context = wildColorChange(context);
+  return dice(context, 12);
+}
+export function d20(context) {
+  context = wildColorChange(context);
+  return dice(context, 20);
+}
+
+export function kami(context) {
+  let {chain} = context;
+  context = wildColorChange(context);
+  chain.members.forEach((isMember, index) => {
+    if(isMember){
+      context = deal(context, index, chain.sum);
+    }
+  })
+  return {...context, chain:{}};
+}
+
+
+export function changeAll(context) {
+  let {players, direction} = context;
+  let toRight = direction === 1 ? true : false;
+  let temp = toRight ? [...players[players.length - 1].hand] : [...players[0].hand]; 
+  if(toRight){
+    for (let index = 1; index < players.length; index++) {
+      players[index].hand = [...players[index - 1].hand];
+    }
+    players[0].hand = temp;
+  } else {
+    for (let index = players.length - 2; index >= 0; index--) {
+      players[index].hand = [...players[index + 1].hand];
+    }
+    players[players.length - 1].hand = temp;
+  }
+  players.forEach( player => {
+    sendHand(player);
+  })
+  return {...context, players};
+}
+
+export function changeOne(context) {
+  let {payLoad, players, turnIndex} = context
+  let temp = [...players[turnIndex].hand];
+  players[turnIndex].hand = [...players[payLoad.target].hand];
+  players[payLoad.target].hand = temp;
+  sendHand(players[turnIndex]);
+  sendHand(players[payLoad.target]);
+  return {...context, players}
+}
+
+export function add2(context) {
+  context = wildColorChange(context);
+  return addCards(context, 2);
+}
+
+export function add3(context) {
+  return addCards(context, 3);
+}
+
+export function add4(context) {
+  context = wildColorChange(context);
+  return addCards(context, 4);
+}
+
+export function add5(context) {
+  return addCards(context, 5);
+}
+
+export function add6(context) {
+  context = wildColorChange(context);
+  return addCards(context, 6);
+}
+
+export function add7(context) {
+  return addCards(context, 7);
+}
+
+export function add8(context) {
+  context = wildColorChange(context);
+  return addCards(context, 8);
+}
+
+export function add10(context) {
+  context = wildColorChange(context);
+  return addCards(context, 10);
+}
+
+export function wildColorChange(context) {
+  let {payLoad, discardDeck} = context;
+  discardDeck[0].color = [payLoad.wildColorChange];
+  return {...context, payLoad, discardDeck};
+}
+
+export function addCards(context, number) {
+  let {chain, turnIndex, players, discardDeck, deck, turns} = context
+  if(!chain.sum){ //new chain
+    chain = {
+      sum: number,
+      members: JSON.parse(JSON.stringify(turns)), 
+    }
+  } else {
+    let remainder = discardDeck[1].number - discardDeck[0].number;
+    if(remainder > 0){//is unpaid
+      context = deal(context, turnIndex, remainder);
+    }
+    chain.members[turnIndex] = true;
+    chain.sum += number;
+  }
+  return {...context, chain};
+}

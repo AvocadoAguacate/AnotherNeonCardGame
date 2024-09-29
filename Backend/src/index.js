@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
-import { createDeck, mixUpDeck, createActionConfig } from './CardFactory.js';
+import { createDeck, mixUpDeck, createActionConfig } from './Cards/CardFactory.js';
 import { sendHand, deal, closeChain, checkColor, sendDiscardDeck } from './Utils.js';
 import cors from 'cors';
 
@@ -192,4 +192,3 @@ function playCard(playerId, cardId, payLoad) {
     return false;
   }
 }
-// TODO cuando se juega wild, cambiar la tarjeta y reiniciarla cuando se recicla la carta
