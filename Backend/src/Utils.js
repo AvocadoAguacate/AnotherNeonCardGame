@@ -66,3 +66,8 @@ export function sendDiscardDeck(context) {
   messages.push(message);
   return {...context, messages};
 }
+
+export function inform(type, info) {
+  console.log(type);
+  console.log(info);
+}
