@@ -1,5 +1,83 @@
 import { sendHand, deal, closeChain, discardCard, checkColor } from '../Utils.js';
 
+
+// General 
+
+function tax(context, number) {
+  let {players} = context;
+  players.forEach((player, playerIndex) => {
+    let tax = Math.floor(player.hand.length * number);
+    for (let index = 0; index < tax; index++) {
+      let random = Math.floor(Math.random * player.hand.length - 1);
+      context = discardCard(context, playerIndex, random);
+    }
+  });
+  return {...context};
+}
+
+function slice(context, number) {
+  let {payLoad, turnIndex, players} = context;
+  let maxDiscard = Math.floor(players[turnIndex].hand.length / number);
+  if(payLoad.toDiscard.length > maxDiscard){
+    payLoad.toDiscard = payLoad.toDiscard.splice(0, maxDiscard);
+  }
+  payLoad.toDiscard.forEach(toDiscard => {
+    context = discardCard(context, turnIndex, toDiscard);
+  })
+  return {...context};
+}
+
+function defense(context, number) {
+  let {chain, turnIndex} = context;
+  let total = Math.floor(chain.sum * number); 
+  deal(context, turnIndex, total);
+  return {...context};
+}
+
+function reverse(context) {
+  let {direction} = context;
+  direction *= -1;
+  return {...context, direction};
+}
+
+function skip(context) {
+  let {turns, turnIndex, direction, players} = context;
+  turns[turnIndex] = false;
+  turnIndex = (turnIndex + direction + players.length) % players.length;
+  return {...context, turns, turnIndex};
+}
+
+function dice(context, number) {
+  let dice = Math.floor(Math.random() * number + 1);
+  context = addCards(context, dice);
+  return {...context};
+}
+
+export function wildColorChange(context) {
+  let {payLoad, discardDeck} = context;
+  discardDeck[0].color = [payLoad.wildColorChange];
+  return {...context, payLoad, discardDeck};
+}
+
+export function addCards(context, number) {
+  let {chain, turnIndex, players, discardDeck, deck, turns} = context
+  if(!chain.sum){ //new chain
+    chain = {
+      sum: number,
+      members: JSON.parse(JSON.stringify(turns)), 
+    }
+  } else {
+    let remainder = discardDeck[1].number - discardDeck[0].number;
+    if(remainder > 0){//is unpaid
+      context = deal(context, turnIndex, remainder);
+    }
+    chain.members[turnIndex] = true;
+    chain.sum += number;
+  }
+  return {...context, chain};
+}
+// Specific
+
 export function hideWild(context) {
   context = wildColorChange(context);
   let {payLoad, discardCard} = context;
@@ -14,18 +92,6 @@ export function tax25(context) {
 export function tax50(context) {
   context = wildColorChange(context);
   return tax(context, 0.5);
-}
-
-export function tax(context, number) {
-  let {players} = context;
-  players.forEach((player, playerIndex) => {
-    let tax = Math.floor(player.hand.length * number);
-    for (let index = 0; index < tax; index++) {
-      let random = Math.floor(Math.random * player.hand.length - 1);
-      context = discardCard(context, playerIndex, random);
-    }
-  });
-  return {...context};
 }
 
 export function hide(context) {
@@ -57,18 +123,6 @@ export function slice2(context) {
 export function slice4(context) {
   context = wildColorChange(context);
   return slice(context, 4);
-}
-
-export function slice(context, number) {
-  let {payLoad, turnIndex, players} = context;
-  let maxDiscard = Math.floor(players[turnIndex].hand.length / number);
-  if(payLoad.toDiscard.length > maxDiscard){
-    payLoad.toDiscard = payLoad.toDiscard.splice(0, maxDiscard);
-  }
-  payLoad.toDiscard.forEach(toDiscard => {
-    context = discardCard(context, turnIndex, toDiscard);
-  })
-  return {...context};
 }
 
 export function grenate(context) {
@@ -111,19 +165,6 @@ export function kick(context) {
   }
 }
 
-export function defense(context, number) {
-  let {chain, turnIndex} = context;
-  let total = Math.floor(chain.sum * number); 
-  deal(context, turnIndex, total);
-  return {...context};
-}
-
-export function reverse(context) {
-  let {direction} = context;
-  direction *= -1;
-  return {...context, direction};
-}
-
 export function reverse10(context) {
   if(context.chain.sum){
     context = defense(context, 0.9);
@@ -150,13 +191,6 @@ export function reverse100(context) {
   return reverse(context);
 }
 
-export function skip(context) {
-  let {turns, turnIndex, direction, players} = context;
-  turns[turnIndex] = false;
-  turnIndex = (turnIndex + direction + players.length) % players.length;
-  return {...context, turns, turnIndex};
-}
-
 export function skip10(context) {
   if(context.chain.sum){
     context = defense(context, 0.9);
@@ -181,12 +215,6 @@ export function skip100(context) {
     context = defense(context, 0);
   }
   return skip(context);
-}
-
-export function dice(context, number) {
-  let dice = Math.floor(Math.random() * number + 1);
-  context = addCards(context, dice);
-  return {...context};
 }
 
 export function d4(context) {
@@ -282,28 +310,4 @@ export function add8(context) {
 export function add10(context) {
   context = wildColorChange(context);
   return addCards(context, 10);
-}
-
-export function wildColorChange(context) {
-  let {payLoad, discardDeck} = context;
-  discardDeck[0].color = [payLoad.wildColorChange];
-  return {...context, payLoad, discardDeck};
-}
-
-export function addCards(context, number) {
-  let {chain, turnIndex, players, discardDeck, deck, turns} = context
-  if(!chain.sum){ //new chain
-    chain = {
-      sum: number,
-      members: JSON.parse(JSON.stringify(turns)), 
-    }
-  } else {
-    let remainder = discardDeck[1].number - discardDeck[0].number;
-    if(remainder > 0){//is unpaid
-      context = deal(context, turnIndex, remainder);
-    }
-    chain.members[turnIndex] = true;
-    chain.sum += number;
-  }
-  return {...context, chain};
 }
