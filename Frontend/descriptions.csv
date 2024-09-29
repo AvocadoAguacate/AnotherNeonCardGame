@@ -32,4 +32,8 @@ number,tag, description
 39, tax50,
 40, tax25,
 41, hideWild
+42, tel1, 
+43, tel2,
+44, tel3,
+45, tel4,
 

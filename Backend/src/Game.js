@@ -21,10 +21,11 @@ const kamiGenocide = [0,0];
 const dareHide = [30,1];
 const taxes = [2,0];
 const hideWild = [0];
+const telAdds = [0,0,0,0]
 
 context.deck = createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
   ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-  ...hideWild));
+  ...hideWild, ...telAdds));
 
 export function addIO(io){
   context = {io, ...context};

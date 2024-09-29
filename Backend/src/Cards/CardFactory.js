@@ -5,7 +5,11 @@ import {
   skip10, skip25, skip50, skip100,
   add2, add3, add4, add5, add6, add7, add8, add10,
   d4, d6, d12, d20, kami, genocide, dare, hide,
-  tax25, tax50, hideWild, changeAll, changeOne
+  tax25, tax50, hideWild, changeAll, changeOne,
+  telAdd1,
+  telAdd2,
+  telAdd3,
+  telAdd4
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -128,6 +132,18 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
       case 41:
         card ={execute: hideWild, ...card, isAction:true, color:[], isWild: true};
         break;
+      case 42:
+        card = {execute: telAdd1, ...card, isAction: true, color: [color[0]]};
+        break;
+      case 43:
+        card = {execute: telAdd2, ...card, isAction: true};
+        break;
+      case 44:
+        card = {execute: telAdd3, ...card, isAction:true, color:[], isWild: true};
+        break;
+      case 45:
+        card = {execute: telAdd4, ...card, isAction:true, color:[], isWild: true};
+        break;
       default:
         break;
     }
@@ -203,7 +219,8 @@ export function createActionConfig(
   add6 = 6, add7 = 6, add8 = 5, add10 = 4,
   d4 =  8, d6 = 8, d12 = 6, d20 = 4,
   kami = 8, genocide = 4, dare = 40, hide = 40,//35-38
-  tax25 = 8, tax50 = 4, hideWild = 8
+  tax25 = 8, tax50 = 4, hideWild = 8, //39-41
+  telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -215,6 +232,7 @@ export function createActionConfig(
     add8, 0 ,add10,//28-30
     d4, d6, d12, d20, //31-34
     kami, genocide, dare, hide, //35-38
-    tax25, tax50, hideWild //39-41
+    tax25, tax50, hideWild, //39-41
+    telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
   ];
 }
