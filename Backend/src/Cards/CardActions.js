@@ -25,7 +25,7 @@ function telAdd(context, searchColor) {
     targets.forEach(target => {
       context = deal(context, target, 1);
     });
-    return {... context};
+    return {...context};
   }
 }
 
