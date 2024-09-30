@@ -142,7 +142,7 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: telAdd4, ...card, isAction:true, color:[], isWild: true};
         break;
       case 46:
-        card = {execute: redirect, ...card, isAction:true};
+        card = {execute: redirect, ...card, isAction:true, isChain: true};
         break;
       default:
         break;
