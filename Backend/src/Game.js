@@ -204,7 +204,7 @@ export function playChallenge(msg) {
     if(oneCase){
       playChallenge({challengeId: challenge.id});
     }
-    inform('createChallenge', {challenge, oneCase});
+    inform('createChallenge', {oneCase, ...challenge});
   } else {
     const {oponent, challenger} = challenges.find(challenge => challenge.id === challengeId);
     const oponentTry = Math.floor(Math.random() * 19 + 1);
