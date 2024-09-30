@@ -30,6 +30,10 @@ const hideWild = [1];
 const telAdds = [100,0,0,0]
 const redirect = [100]
 
+let deckConfig = createActionConfig(...slices, ...grenadesKicks, 
+  ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
+  ...hideWild, ...telAdds, ...redirect);
+let votedDeck = [];
 
 export function addIO(io){
   context = {io, ...context};
@@ -53,6 +57,7 @@ export function firstPlayer() {
 
 export function addPlayer(payLoad) {
   let {players, turns} = context;
+  let playerIndex = players.length;
   players.push({
     socket:payLoad.socket,
     id: payLoad.socket.id,
@@ -63,11 +68,22 @@ export function addPlayer(payLoad) {
   turns.push(false);
   if(gameStarted){
     readyList.push(true);
+    votedDeck.push(true);
     context = deal(context, context.players.length -1, 9);
   } else {
     readyList.push(false);
+    votedDeck.push(false);
+    sendVoteOptions(playerIndex);
   }
   context = {...context, "players": players, "turns": turns};
+}
+
+function sendVoteOptions(playerIndex) {
+  let options = [];
+  for (let index = 0; index < 6; index++) {
+    options.push(Math.floor(Math.random() * deckConfig.length - 1));
+  }
+  context.players[playerIndex].socket.emit('voteOptions', {options});
 }
 
 export function firstCard() {
@@ -178,9 +194,7 @@ export function playerReady(msg) {
 
 function startGame() {
   gameStarted = true;
-  createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
-    ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-    ...hideWild, ...telAdds, ...redirect));
+  createDeck(0.7, deckConfig);
   firstCard(context);
   firstPlayer();
   //TODO update
@@ -188,7 +202,19 @@ function startGame() {
 }
 
 export function voteDeck(msg) {
-  //TODO
+  voterIndex = context.players.findIndex(player => player.id === msg.id);
+  if(!votedDeck[voterIndex]){
+    const randInc0 = Math.floor(Math.random() * 9 + 1);
+    const randInc1 = Math.floor(Math.random() * 5 + 1);
+    deckConfig[msg.vote[0]] += randInc0;
+    deckConfig[msg.vote[1]] += randInc1;
+    votedDeck[voterIndex] = true;
+  }
+}
+
+function resetVotes() {
+  deckConfig = createActionConfig();
+  votedDeck.forEach(player => false);
 }
 
 export function playChallenge(msg) {
