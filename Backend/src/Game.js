@@ -1,5 +1,6 @@
 import { createDeck, mixUpDeck, createActionConfig } from './Cards/CardFactory.js';
-import { sendHand, deal, closeChain, checkColor, sendDiscardDeck } from './Utils.js';
+import { sendHand, deal, closeChain, checkColor, sendDiscardDeck, inform } from './Utils.js';
+import { v4 as uuidv4 } from 'uuid';
 
 let context = {
   players: [],
@@ -12,31 +13,33 @@ let context = {
   messages: []
 }
 
+let challenges = [];
+let gameStarted = false;
+let readyList = [];
+
+//TODO test zone, eliminate
 const slices = [0,0];
 const grenadesKicks = [0,0];
 const reversesSkips = [0,0,0,0,0,0,0,0];
 const adds = [0,0,0,0,0,0,0,0];
 const dices = [0,0,0,0];
 const kamiGenocide = [0,0];
-const dareHide = [30,1];
-const taxes = [2,0];
-const hideWild = [0];
-const telAdds = [0,0,0,0]
+const dareHide = [100,100];
+const taxes = [100,0];
+const hideWild = [1];
+const telAdds = [100,0,0,0]
 
-context.deck = createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
-  ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-  ...hideWild, ...telAdds));
 
 export function addIO(io){
   context = {io, ...context};
 }
 
-export function nextTurn(context) {
+export function nextTurn() {
   let {turns, turnIndex, direction, players} = context;
   turns[turnIndex] = false;
   turnIndex = (turnIndex + direction + players.length) % players.length;
   turns[turnIndex] = true;
-  return {...context, "turnIndex": turnIndex, "turns": turns}
+  context = {...context, "turnIndex": turnIndex, "turns": turns};
 }
 
 export function firstPlayer() {
@@ -57,15 +60,21 @@ export function addPlayer(payLoad) {
     picIndex: payLoad.picIndex
   });
   turns.push(false);
+  if(gameStarted){
+    readyList.push(true);
+    context = deal(context, context.players.length -1, 9);
+  } else {
+    readyList.push(false);
+  }
   context = {...context, "players": players, "turns": turns};
 }
 
-export function firstCard(context) {
+export function firstCard() {
   let {deck, discardDeck} = context;
   let index = deck.findIndex(card => card.isAction === false);
   let [card] = deck.splice(index, 1);
   discardDeck.unshift(card);
-  return {...context, deck, discardDeck};
+  context = {...context, deck, discardDeck};
 }
 
 function discardCard(player, index) {
@@ -85,7 +94,7 @@ export function playTurn(msg) {
     } else {
       payLoader(msg.payLoad);
     }
-    context = nextTurn(context);
+    nextTurn();
   }
 }
 
@@ -150,7 +159,31 @@ function challengeLuck(challenge) {
 }
 
 export function playerReady(msg) {
-  //TODO 
+  let {playerId, status} = msg;
+  let playerIndex = context.players.findIndex(player => player.id ===playerId);
+  readyList[playerIndex] = status;
+  let initGame = true;
+  readyList.forEach(playerStatus => {
+    if(!playerStatus){
+      initGame = playerStatus
+    }
+  });
+  if(initGame){
+    startGame();
+  } else {
+    inform('isReady', {playerId, status});
+  }
+}
+
+function startGame() {
+  gameStarted = true;
+  createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
+    ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
+    ...hideWild, ...telAdds));
+  firstCard(context);
+  firstPlayer();
+  //TODO update
+  inform('gameStarted', {turns: context.turns});
 }
 
 export function voteDeck(msg) {
@@ -158,5 +191,25 @@ export function voteDeck(msg) {
 }
 
 export function playChallenge(msg) {
-  //TODO
+  const {challengeId} = msg;
+  if(!challengeId){
+    let {oponent, challenger} = msg;
+    let challenge = {
+      id: uuidv4(),
+      oponent,
+      challenger
+    };
+    challenges.push(challenge);
+    const oneCase = context.players[oponent].hand.length === 1;
+    if(oneCase){
+      playChallenge({challengeId: challenge.id});
+    }
+    inform('createChallenge', {challenge, oneCase});
+  } else {
+    const {oponent, challenger} = challenges.find(challenge => challenge.id === challengeId);
+    const oponentTry = Math.floor(Math.random() * 19 + 1);
+    const challengerTry = Math.floor(Math.random() * 19 + 1);
+    deal(context, challengerTry > oponentTry ? oponent : challenger, 1);
+    inform('resultChallenge', {oponentTry, challengerTry});
+  }
 }
