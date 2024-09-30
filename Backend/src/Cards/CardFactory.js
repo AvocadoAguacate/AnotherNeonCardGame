@@ -4,9 +4,10 @@ import {
   reverse10, reverse25, reverse50, reverse100,
   skip10, skip25, skip50, skip100,
   add2, add3, add4, add5, add6, add7, add8, add10,
-  d4, d6, d12, d20, kami, genocide, dare, hide,
+  d8, d6, d12, d20, kami, genocide, dare, hide,
   tax25, tax50, hideWild, changeAll, changeOne,
-  telAdd1, telAdd2, telAdd3, telAdd4, redirect
+  telAdd1, telAdd2, telAdd3, telAdd4, redirect,
+  rulete
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -93,10 +94,10 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: add10, ...card, isWild: true, color:[], isChain: true};
         break;
       case 31:
-        card = {execute: d4, ...card, isChain: true};
+        card = {execute: d6, ...card, isChain: true};
         break;
       case 32:
-        card = {execute: d6, ...card, isChain: true};
+        card = {execute: d8, ...card, isChain: true};
         break;
       case 33:
         card = {execute: d12, ...card, isWild: true, color:[], isChain: true};
@@ -143,6 +144,9 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
       case 46:
         card = {execute: redirect, ...card, isAction:true, isChain: true};
+        break;
+      case 47:
+        card = {execute: rulete, ...card, isAction:true};
         break;
       default:
         break;
@@ -217,11 +221,11 @@ export function createActionConfig(
   s10 =  8, s25 = 8, s50 = 6, s100 = 6,
   add2 = 6, add3 = 8, add4 = 6, add5 = 8, 
   add6 = 6, add7 = 6, add8 = 5, add10 = 4,
-  d4 =  8, d6 = 8, d12 = 6, d20 = 4,
+  d8 =  8, d6 = 8, d12 = 6, d20 = 4,
   kami = 8, genocide = 4, dare = 40, hide = 40,//35-38
   tax25 = 8, tax50 = 4, hideWild = 8, //39-41
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
-  redirect = 8, //46
+  redirect = 8, rulete = 4//46
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -231,10 +235,10 @@ export function createActionConfig(
     add2, add3, add4,//22-24
     add5, add6, add7,//25-27
     add8, 0 ,add10,//28-30
-    d4, d6, d12, d20, //31-34
+    d6, d8, d12, d20, //31-34
     kami, genocide, dare, hide, //35-38
     tax25, tax50, hideWild, //39-41
     telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
-    redirect, //46
+    redirect, rulete, //46-47
   ];
 }

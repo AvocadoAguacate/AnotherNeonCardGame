@@ -1,4 +1,4 @@
-import { sendHand, deal, closeChain, discardCard, checkColor } from '../Utils.js';
+import { sendHand, deal, closeChain, discardCard, checkColor, inform } from '../Utils.js';
 
 
 // General 
@@ -102,7 +102,35 @@ export function addCards(context, number) {
   }
   return {...context, chain};
 }
+
+function ruleteShot(context, count) {
+  const max = count === 1 ? 5 : 4;
+  const lucky = Math.floor(Math.random() * max);
+  let {players, turnIndex, direction} = context;
+  let ruleteIndex = turnIndex;
+  for (let index = 0; index < lucky; index++) {
+    ruleteIndex = (turnIndex + direction + players.length) % players.length;
+    inform('ruleteWin', {saved: players[ruleteIndex]});
+  }
+  if(count === 1){
+    context = deal(context, ruleteIndex + direction, 6);
+  } else {
+    context = deal(context, ruleteIndex + direction, 3);
+    context = deal(context, ruleteIndex + direction + direction, 3);
+  }
+  inform('ruleteLoser', {lucky, count});
+  return {...context};
+}
 // Specific
+
+export function rulete(context) {
+  let {discardDeck} = context;
+  let count = 1
+  if(discardDeck[1].number === 47){
+    count ++;
+  }
+  return ruleteShot(context, count);
+}
 
 export function redirect(context) {
   let {turns, turnIndex, direction, players, payLoad} = context;
@@ -274,8 +302,8 @@ export function skip100(context) {
   return skip(context);
 }
 
-export function d4(context) {
-  return dice(context, 4);
+export function d8(context) {
+  return dice(context, 8);
 }
 export function d6(context) {
   return dice(context, 6);
