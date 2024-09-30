@@ -28,6 +28,7 @@ const dareHide = [100,100];
 const taxes = [100,0];
 const hideWild = [1];
 const telAdds = [100,0,0,0]
+const redirect = [100]
 
 
 export function addIO(io){
@@ -179,7 +180,7 @@ function startGame() {
   gameStarted = true;
   createDeck(0.7, createActionConfig(...slices, ...grenadesKicks, 
     ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-    ...hideWild, ...telAdds));
+    ...hideWild, ...telAdds, ...redirect));
   firstCard(context);
   firstPlayer();
   //TODO update

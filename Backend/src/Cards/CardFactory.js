@@ -6,10 +6,7 @@ import {
   add2, add3, add4, add5, add6, add7, add8, add10,
   d4, d6, d12, d20, kami, genocide, dare, hide,
   tax25, tax50, hideWild, changeAll, changeOne,
-  telAdd1,
-  telAdd2,
-  telAdd3,
-  telAdd4
+  telAdd1, telAdd2, telAdd3, telAdd4, redirect
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -144,6 +141,9 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
       case 45:
         card = {execute: telAdd4, ...card, isAction:true, color:[], isWild: true};
         break;
+      case 46:
+        card = {execute: redirect, ...card, isAction:true};
+        break;
       default:
         break;
     }
@@ -221,6 +221,7 @@ export function createActionConfig(
   kami = 8, genocide = 4, dare = 40, hide = 40,//35-38
   tax25 = 8, tax50 = 4, hideWild = 8, //39-41
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
+  redirect = 8, //46
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -234,5 +235,6 @@ export function createActionConfig(
     kami, genocide, dare, hide, //35-38
     tax25, tax50, hideWild, //39-41
     telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
+    redirect, //46
   ];
 }

@@ -104,6 +104,13 @@ export function addCards(context, number) {
 }
 // Specific
 
+export function redirect(context) {
+  let {turns, turnIndex, direction, players, payLoad} = context;
+  turns[turnIndex] = false;
+  turnIndex = (payLoad.objetive - direction + players.length) % players.length;
+  return {...context, turns, turnIndex}
+}
+
 export function telAdd1(context) {
   return telAdd(context, context.discardDeck[0].color[0]);
 }
