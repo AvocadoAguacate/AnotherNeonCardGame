@@ -122,6 +122,25 @@ function ruleteShot(context, count) {
   return {...context};
 }
 // Specific
+
+export function reset(context) {
+  context = wildColorChange(context);
+  let {players, turnIndex} = context;
+  const target = players[turnIndex].hand.length;
+  for (let index = 0; index < target; index++) {
+    context = discardCard(context, turnIndex, 0, false);
+  }
+  context = deal(context, turnIndex, 7);
+  return {...context};
+}
+
+export function gift(context) {
+  let {players, turnIndex, payLoad} = context;
+  const cardIndex = players[turnIndex].hand.findIndex(card => card.id === payLoad.cardIndex);
+  let [card] = players[turnIndex].hand.splice(cardIndex, 1);
+  players[payLoad.oponentIndex].hand.push(card);
+  return {...context, players};
+}
 export function communism(context){
   let {players, payLoad} = context;
   if(payLoad.communismDeal > 5){

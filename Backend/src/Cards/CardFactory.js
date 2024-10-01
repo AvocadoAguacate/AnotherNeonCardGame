@@ -7,8 +7,8 @@ import {
   d8, d6, d12, d20, kami, genocide, dare, hide,
   tax25, tax50, hideWild, changeAll, changeOne,
   telAdd1, telAdd2, telAdd3, telAdd4, redirect,
-  rulete,
-  communism
+  rulete, communism, gift,
+  reset
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -150,8 +150,13 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: rulete, ...card, isAction:true};
         break;
       case 48:
-        card = {execute: communism, ...card, isAction, color: ['red']};
+        card = {execute: communism, ...card, isAction:true, color: ['red']};
         break;
+      case 49:
+        card = {execute: gift, ...card, isAction:true, color: ['red', 'green']};
+        break;
+      case 50:
+        card = {execute: reset, ...card, isAction:true, color:[], isWild: true};
       default:
         break;
     }
@@ -229,7 +234,8 @@ export function createActionConfig(
   kami = 8, genocide = 4, dare = 40, hide = 40,//35-38
   tax25 = 8, tax50 = 4, hideWild = 8, //39-41
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
-  redirect = 8, rulete = 4//46
+  redirect = 8, rulete = 4, communism = 4, gift = 8,
+  reset = 4,
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -243,6 +249,7 @@ export function createActionConfig(
     kami, genocide, dare, hide, //35-38
     tax25, tax50, hideWild, //39-41
     telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
-    redirect, rulete, //46-47
+    redirect, rulete, communism, gift,//46-49
+    reset
   ];
 }

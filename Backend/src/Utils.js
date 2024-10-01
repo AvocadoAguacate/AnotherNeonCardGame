@@ -26,10 +26,10 @@ export function closeChain(context) {
   return {...context, 'chain': {}};
 }
 
-export function discardCard(context, playerIndex, cardIndex) {
+export function discardCard(context, playerIndex, cardIndex, isUnshift = true) {
   let {players, discardCard, discardDeck} = context;
   let [card] = players[playerIndex].hand.splice(cardIndex, 1);
-  discardDeck.unshift(card);
+  isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
   sendHand(players[playerIndex]);
   return {...context, discardCard, players};
 }
@@ -39,7 +39,7 @@ export function discardCards(context, playerIndex, number) {
     const handLen = context.players[playerIndex].hand.length;
     if(handLen > 0){
       const cardIndex = Math.floor(Math.random() * handLen);
-      context = discardCard(context, playerIndex, cardIndex);
+      context = discardCard(context, playerIndex, cardIndex, false);
     } else {
       //TODO informar derrota
     }

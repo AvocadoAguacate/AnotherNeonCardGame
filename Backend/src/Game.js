@@ -27,12 +27,13 @@ const kamiGenocide = [0,0];
 const dareHide = [100,100];
 const taxes = [100,0];
 const hideWild = [1];
-const telAdds = [100,0,0,0]
-const redirectRulete = [100,100]
+const telAdds = [100,0,0,0];
+const redirectRuleteComunGift = [0,0,0,0];
+const reset = [0]
 
 let deckConfig = createActionConfig(...slices, ...grenadesKicks, 
   ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-  ...hideWild, ...telAdds, ...redirectRulete);
+  ...hideWild, ...telAdds, ...redirectRuleteComunGift, ...reset);
 let votedDeck = [];
 
 export function addIO(io){
