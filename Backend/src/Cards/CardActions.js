@@ -1,4 +1,4 @@
-import { sendHand, deal, closeChain, discardCard, checkColor, inform } from '../Utils.js';
+import { sendHand, deal, closeChain, discardCard, checkColor, inform, discardCards } from '../Utils.js';
 
 
 // General 
@@ -122,6 +122,20 @@ function ruleteShot(context, count) {
   return {...context};
 }
 // Specific
+export function communism(context){
+  let {players, payLoad} = context;
+  if(payLoad.communismDeal > 5){
+    payLoad.communismDeal = 5;
+  }
+  if(payLoad.communismDiscard > 5){
+    payLoad.communismDiscard = 5;
+  }
+  players.forEach((player, index) => {
+    context = deal(context, index, payLoad.communismDeal);
+    context = discardCards(context, index, payLoad.communismDiscard);
+  });
+  return {...context};
+}
 
 export function rulete(context) {
   let {discardDeck} = context;

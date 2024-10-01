@@ -34,6 +34,19 @@ export function discardCard(context, playerIndex, cardIndex) {
   return {...context, discardCard, players};
 }
 
+export function discardCards(context, playerIndex, number) {
+  for (let index = 0; index < number; index++) {
+    const handLen = context.players[playerIndex].hand.length;
+    if(handLen > 0){
+      const cardIndex = Math.floor(Math.random() * handLen);
+      context = discardCard(context, playerIndex, cardIndex);
+    } else {
+      //TODO informar derrota
+    }
+  }
+  return {...context};
+}
+
 export function checkColor(card1, card2) {
   return card1.color.some(color => card2.color.includes(color));
 }

@@ -7,7 +7,8 @@ import {
   d8, d6, d12, d20, kami, genocide, dare, hide,
   tax25, tax50, hideWild, changeAll, changeOne,
   telAdd1, telAdd2, telAdd3, telAdd4, redirect,
-  rulete
+  rulete,
+  communism
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -147,6 +148,9 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
       case 47:
         card = {execute: rulete, ...card, isAction:true};
+        break;
+      case 48:
+        card = {execute: communism, ...card, isAction, color: ['red']};
         break;
       default:
         break;

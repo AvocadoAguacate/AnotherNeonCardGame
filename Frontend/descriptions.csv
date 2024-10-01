@@ -21,8 +21,8 @@ number,tag, description
 27, add7,
 28, add8,
 30, add10,
-31, d4, El siguiente jugador tiene que tirar un dado de 4 caras y comer la cantidad de cartas resultantes
-32, d6, El siguiente jugador tiene que tirar un dado de 6 caras y comer la cantidad de cartas resultantes
+31, d6, El siguiente jugador tiene que tirar un dado de 6 caras y comer la cantidad de cartas resultantes
+32, d8, El siguiente jugador tiene que tirar un dado de 8 caras y comer la cantidad de cartas resultantes
 33, d12, El siguiente jugador tiene que tirar un dado de 12 caras y comer la cantidad de cartas resultantes
 34, d20, El siguiente jugador tiene que tirar un dado de 20 caras y comer la cantidad de cartas resultantes
 35, kamizase, Todos los participantes de la cadena y el jugador que usó esta carta les toca comer todas las cartas de la cadena
@@ -36,4 +36,7 @@ number,tag, description
 43, tel2,
 44, tel3,
 45, tel4,
+46, redirect,
+47, rulet,
+48, communism,
 
