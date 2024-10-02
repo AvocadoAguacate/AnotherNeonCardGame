@@ -8,7 +8,10 @@ import {
   tax25, tax50, hideWild, changeAll, changeOne,
   telAdd1, telAdd2, telAdd3, telAdd4, redirect,
   rulete, communism, gift,
-  reset
+  reset,
+  duelDeal2,
+  duelDiscard2,
+  duelDD
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -157,6 +160,15 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
       case 50:
         card = {execute: reset, ...card, isAction:true, color:[], isWild: true};
+      case 51:
+        card = {execute: duelDeal2, ...card, isAction:true};
+        break;
+      case 52:
+        card = {execute: duelDiscard2, ...card, isAction:true};
+        break;
+      case 53:
+        card = {execute: duelDD, ...card, isAction:true, color:[], isWild: true};
+        break;
       default:
         break;
     }
@@ -235,7 +247,7 @@ export function createActionConfig(
   tax25 = 8, tax50 = 4, hideWild = 8, //39-41
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
   redirect = 8, rulete = 4, communism = 4, gift = 8,
-  reset = 4,
+  reset = 4, duelDeal = 4, duelDiscard = 4, duelDD = 2,//
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -250,6 +262,6 @@ export function createActionConfig(
     tax25, tax50, hideWild, //39-41
     telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
     redirect, rulete, communism, gift,//46-49
-    reset
+    reset, duelDeal, duelDiscard, duelDD,//50-53
   ];
 }

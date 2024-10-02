@@ -29,11 +29,11 @@ const taxes = [100,0];
 const hideWild = [1];
 const telAdds = [100,0,0,0];
 const redirectRuleteComunGift = [0,0,0,0];
-const reset = [0]
+const resetDuels = [0,0,0,0]
 
 let deckConfig = createActionConfig(...slices, ...grenadesKicks, 
   ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-  ...hideWild, ...telAdds, ...redirectRuleteComunGift, ...reset);
+  ...hideWild, ...telAdds, ...redirectRuleteComunGift, ...resetDuels);
 let votedDeck = [];
 
 export function addIO(io){

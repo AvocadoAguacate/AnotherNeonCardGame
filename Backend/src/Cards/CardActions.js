@@ -3,6 +3,17 @@ import { sendHand, deal, closeChain, discardCard, checkColor, inform, discardCar
 
 // General 
 
+function duel() {
+  const throwPlayer = Math.floor(Math.random() * 20);
+  const throwOponent = Math.floor(Math.random() * 16);
+  // const params = [context, payLoad.oponentIndex, number];
+  // if(throwPlayer <= throwOponent){
+  //   params[1] = turnIndex;
+  // }
+  // isDeal ? deal(...params) : discardCards(...params);
+  return throwPlayer > throwOponent;
+}
+
 function telAdd(context, searchColor) {
   let {players} = context;
   let counters = players.map(() => 0);
@@ -122,6 +133,30 @@ function ruleteShot(context, count) {
   return {...context};
 }
 // Specific
+
+export function duelDeal2(context) {
+  const {payLoad, turnIndex} = context;
+  return duel() ? deal(context, payLoad.oponentIndex, 2) : deal(context, turnIndex, 2);
+}
+
+export function duelDiscard2(context) {
+  const {payLoad, turnIndex} = context;
+  return duel() ? discardCards(context, payLoad.oponentIndex, 2) : discardCards(context, turnIndex, 2);
+}
+
+export function duelDD(context) {
+  context = wildColorChange(context);
+  const {payLoad, turnIndex} = context;
+  const playerWin = duel();
+  if(playerWin){
+    context = deal(context, payLoad.oponentIndex, 2);
+    context = discardCards(context, turnIndex, 2);
+  } else {
+    context = deal(context, turnIndex, 2);
+    context = discardCards(context, payLoad.oponentIndex, 2);
+  }
+  return {...context};
+}
 
 export function reset(context) {
   context = wildColorChange(context);
