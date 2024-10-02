@@ -32,8 +32,8 @@ io.on('connection', (socket) => {
 
 io.on('connection', (socket) => {
   socket.on('setPlayer', msg => {
-    console.log(msg); 
-    addPlayer(msg);
+    const socket = sockets.find(s => s.id === msg.id);
+    addPlayer({socket, ...msg});
   })
 });
 

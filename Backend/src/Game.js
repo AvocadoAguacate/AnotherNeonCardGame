@@ -61,7 +61,7 @@ export function addPlayer(payLoad) {
   let playerIndex = players.length;
   players.push({
     socket:payLoad.socket,
-    id: payLoad.socket.id,
+    id: payLoad.id,
     hand: [],
     name: payLoad.name,
     picIndex: payLoad.picIndex
