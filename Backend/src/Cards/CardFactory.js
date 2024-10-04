@@ -11,7 +11,9 @@ import {
   reset,
   duelDeal2,
   duelDiscard2,
-  duelDD
+  duelDD,
+  vudu,
+  gini0
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -31,12 +33,6 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
   }
   if(isAction){
     switch (number) {
-      case 0:
-        card = {execute: changeAll, ...card};
-        break;
-      case 7:
-        card = {execute: changeOne, ...card};
-        break;
       case 10:
         card = {execute: slice2, ...card , isWild: true, color:[]};
         break;
@@ -116,13 +112,11 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: genocide, ...card, isWild: true, color:[]};
         break;
       case 37:
-        let dnumber = Math.floor(Math.random() * 9); 
-        dnumber = dnumber === 7 || dnumber === 0 ? dnumber + 1 : dnumber;
+        let dnumber = Math.floor(Math.random() * 9);
         card = {execute: dare, ...card, isAction: true, number: dnumber};
         break;
       case 38:
         let hnumber = Math.floor(Math.random() * 9);
-        hnumber = hnumber === 7 || hnumber === 0 ? hnumber + 1 : hnumber;
         card = {execute: hide, ...card, isAction: true, number: hnumber};
         break;
       case 39:
@@ -168,6 +162,18 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
       case 53:
         card = {execute: duelDD, ...card, isAction:true, color:[], isWild: true};
+        break;
+      case 54:
+        card = {execute: changeAll, ...card, isAction:true, color:[], isWild: true};
+        break;
+      case 55:
+        card = {execute: changeOne, ...card, isAction:true,};
+        break;
+      case 56:
+        card = {execute: vudu, ...card, isAction:true};
+        break;
+      case 57:
+        card = {execute:gini0, ...card, isAction:true, isChain:true}
         break;
       default:
         break;
@@ -247,7 +253,8 @@ export function createActionConfig(
   tax25 = 8, tax50 = 4, hideWild = 8, //39-41
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
   redirect = 8, rulete = 4, communism = 4, gift = 8,
-  reset = 4, duelDeal = 4, duelDiscard = 4, duelDD = 2,//
+  reset = 4, duelDeal = 4, duelDiscard = 4, duelDD = 2,
+  changeAll = 4,changeOne = 6,vudu = 6,gini0 = 6,
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -263,5 +270,6 @@ export function createActionConfig(
     telAdd1, telAdd2, telAdd3, telAdd4, //42 - 45
     redirect, rulete, communism, gift,//46-49
     reset, duelDeal, duelDiscard, duelDD,//50-53
+    changeAll, changeOne, vudu, gini0,//54-57
   ];
 }

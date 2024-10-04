@@ -6,11 +6,6 @@ import { sendHand, deal, closeChain, discardCard, checkColor, inform, discardCar
 function duel() {
   const throwPlayer = Math.floor(Math.random() * 20);
   const throwOponent = Math.floor(Math.random() * 16);
-  // const params = [context, payLoad.oponentIndex, number];
-  // if(throwPlayer <= throwOponent){
-  //   params[1] = turnIndex;
-  // }
-  // isDeal ? deal(...params) : discardCards(...params);
   return throwPlayer > throwOponent;
 }
 
@@ -26,6 +21,7 @@ function telAdd(context, searchColor) {
       })
     })
   });
+
   const maxValue = Math.max(counters);
   const targets = counters
     .map((value, index) => value === maxValue ? index : -1)
@@ -133,6 +129,29 @@ function ruleteShot(context, count) {
   return {...context};
 }
 // Specific
+
+export function gini0(context) {
+  let {players, deck} = context;
+  let array = [];
+  players.forEach(player => {
+    array.push(...player.hand);
+  })
+  const res = array.length % players.length;
+  if(res > 0){
+    const neededCards = players.length - res;
+    array.push(...deck.splice(0, neededCards));
+  }
+  const part = array.length / players.length;
+  players.forEach(player => {
+    player.hand = array.splice(0, part);
+  });
+  return {...context, players, deck};
+}
+
+export function vudu(context) {
+  const {payLoad} = context;
+  return deal(context, payLoad.targetIndex, 4);
+}
 
 export function duelDeal2(context) {
   const {payLoad, turnIndex} = context;
