@@ -13,7 +13,9 @@ import {
   duelDiscard2,
   duelDD,
   vudu,
-  gini0
+  gini0,
+  changePos,
+  changeAllPos
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -173,7 +175,13 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: vudu, ...card, isAction:true};
         break;
       case 57:
-        card = {execute:gini0, ...card, isAction:true, isChain:true}
+        card = {execute:gini0, ...card, isAction:true, isChain:true};
+        break;
+      case 58:
+        card = {execute:changePos, ...card, isAction:true};
+        break;
+      case 59:
+        card = {execute:changeAllPos, ...card, isAction:true};
         break;
       default:
         break;
@@ -254,7 +262,8 @@ export function createActionConfig(
   telAdd1 = 4, telAdd2 = 4, telAdd3 = 2, telAdd4 = 2, //42 - 45
   redirect = 8, rulete = 4, communism = 4, gift = 8,
   reset = 4, duelDeal = 4, duelDiscard = 4, duelDD = 2,
-  changeAll = 4,changeOne = 6,vudu = 6,gini0 = 6,
+  changeAll = 4,changeOne = 6,vudu = 6, gini0 = 6,
+  changePos = 4, changeAllPos = 6,
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -263,7 +272,7 @@ export function createActionConfig(
     s10, s25, s50, s100,//18-21
     add2, add3, add4,//22-24
     add5, add6, add7,//25-27
-    add8, 0 ,add10,//28-30
+    add8, 0 ,add10,//28-30 //? add9 no existe
     d6, d8, d12, d20, //31-34
     kami, genocide, dare, hide, //35-38
     tax25, tax50, hideWild, //39-41
@@ -271,5 +280,6 @@ export function createActionConfig(
     redirect, rulete, communism, gift,//46-49
     reset, duelDeal, duelDiscard, duelDD,//50-53
     changeAll, changeOne, vudu, gini0,//54-57
+    changePos, changeAllPos, //58-59
   ];
 }

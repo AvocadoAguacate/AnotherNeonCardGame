@@ -41,3 +41,12 @@ number,tag, description
 48, communism,
 49, gift,
 50, reset,
+51, duelDeal2,
+52, duelDiscard2,
+53, duelDD,
+54, changeAll,
+55, changeOne
+56, vudu,
+57, gini0,
+58, changeOnePos,
+59, changeAllPos,

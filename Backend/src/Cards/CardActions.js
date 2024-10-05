@@ -1,5 +1,5 @@
 import { sendHand, deal, closeChain, discardCard, checkColor, inform, discardCards } from '../Utils.js';
-
+import { mixUpDeck } from './CardFactory.js';
 
 // General 
 
@@ -129,6 +129,18 @@ function ruleteShot(context, count) {
   return {...context};
 }
 // Specific
+
+export function changeAllPos(context) {
+  let {players} = context;
+  players = mixUpDeck(players);
+  return {...context, players}
+}
+
+export function changePos(context) {
+  let {players, payLoad, turnIndex} = context;
+  [players[turnIndex], players[payLoad.targetIndex]] = [players[payLoad.targetIndex], players[turnIndex]];
+  return {...context, players};
+}
 
 export function gini0(context) {
   let {players, deck} = context;
