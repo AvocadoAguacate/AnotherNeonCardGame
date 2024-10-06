@@ -6,4 +6,5 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'game', component: GameComponent},
   {path: '**', redirectTo: 'login'},
+  {path: '**/**', redirectTo: 'login'},
 ];
