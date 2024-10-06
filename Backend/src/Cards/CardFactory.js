@@ -7,14 +7,8 @@ import {
   d8, d6, d12, d20, kami, genocide, dare, hide,
   tax25, tax50, hideWild, changeAll, changeOne,
   telAdd1, telAdd2, telAdd3, telAdd4, redirect,
-  rulete, communism, gift,
-  reset,
-  duelDeal2,
-  duelDiscard2,
-  duelDD,
-  vudu,
-  gini0,
-  changePos,
+  rulete, communism, gift, reset, duelDeal2,
+  duelDiscard2, duelDD, vudu, gini0, changePos,
   changeAllPos
 } from './CardActions.js';
 
