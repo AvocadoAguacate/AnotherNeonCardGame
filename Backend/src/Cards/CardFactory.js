@@ -10,7 +10,8 @@ import {
   rulete, communism, gift, reset, duelDeal2,
   duelDiscard2, duelDD, vudu, gini0, changePos,
   changeAllPos,timeBomb, floorIsLava, floorIsIce,
-  deathCard, cureCard, nuclearDisarmament, nuclearBomb
+  deathCard, cureCard, nuclearDisarmament, nuclearBomb,
+  actionsDeal, colorless, colorChange, smallDiscard
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -198,6 +199,18 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         break;
       case 66:
         card = {execute: nuclearBomb, ...card, isAction: true, color: ['green']};
+        break;
+      case 67:
+        card = {execute: actionsDeal, ...card, isAction: true, color: ['green']};
+        break;
+      case 68:
+        card = {execute: colorless, ...card, isAction: true};
+        break;
+      case 69:
+        card = {execute: colorChange, ...card, isAction: true};
+        break;
+      case 70:
+        card = {execute: smallDiscard, ...card, isAction: true};
         break;
       default:
         break;

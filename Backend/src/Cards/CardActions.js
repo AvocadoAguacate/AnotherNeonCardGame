@@ -158,6 +158,22 @@ export function nuclearBomb(context) {
   //TODO
 }
 
+export function actionsDeal(context) {
+  //TODO
+}
+
+export function colorless(context) {
+  //TODO
+}
+
+export function colorChange(context) {
+  //TODO
+}
+
+export function smallDiscard(context) {
+  //TODO
+}
+
 export function changeAllPos(context) {
   let {players} = context;
   players = mixUpDeck(players);
