@@ -130,6 +130,34 @@ function ruleteShot(context, count) {
 }
 // Specific
 
+export function timeBomb(context) {
+  //TODO
+}
+
+export function floorIsLava(context) {
+  //TODO
+}
+
+export function floorIsIce(context) {
+  //TODO
+}
+
+export function deathCard(context) {
+  //TODO
+}
+
+export function cureCard(context) {
+  //TODO
+}
+
+export function nuclearDisarmament(context) {
+  //TODO
+}
+
+export function nuclearBomb(context) {
+  //TODO
+}
+
 export function changeAllPos(context) {
   let {players} = context;
   players = mixUpDeck(players);

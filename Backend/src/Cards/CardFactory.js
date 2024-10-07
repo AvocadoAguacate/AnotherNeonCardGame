@@ -9,7 +9,8 @@ import {
   telAdd1, telAdd2, telAdd3, telAdd4, redirect,
   rulete, communism, gift, reset, duelDeal2,
   duelDiscard2, duelDD, vudu, gini0, changePos,
-  changeAllPos
+  changeAllPos,timeBomb, floorIsLava, floorIsIce,
+  deathCard, cureCard, nuclearDisarmament, nuclearBomb
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -131,51 +132,72 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
         card = {execute: telAdd2, ...card, isAction: true};
         break;
       case 44:
-        card = {execute: telAdd3, ...card, isAction:true, color:[], isWild: true};
+        card = {execute: telAdd3, ...card, isAction: true, color:[], isWild: true};
         break;
       case 45:
-        card = {execute: telAdd4, ...card, isAction:true, color:[], isWild: true};
+        card = {execute: telAdd4, ...card, isAction: true, color:[], isWild: true};
         break;
       case 46:
-        card = {execute: redirect, ...card, isAction:true, isChain: true};
+        card = {execute: redirect, ...card, isAction: true, isChain: true};
         break;
       case 47:
-        card = {execute: rulete, ...card, isAction:true};
+        card = {execute: rulete, ...card, isAction: true};
         break;
       case 48:
-        card = {execute: communism, ...card, isAction:true, color: ['red']};
+        card = {execute: communism, ...card, isAction: true, color: ['red']};
         break;
       case 49:
-        card = {execute: gift, ...card, isAction:true, color: ['red', 'green']};
+        card = {execute: gift, ...card, isAction: true, color: ['red', 'green']};
         break;
       case 50:
-        card = {execute: reset, ...card, isAction:true, color:[], isWild: true};
+        card = {execute: reset, ...card, isAction: true, color: [], isWild: true};
       case 51:
-        card = {execute: duelDeal2, ...card, isAction:true};
+        card = {execute: duelDeal2, ...card, isAction: true};
         break;
       case 52:
-        card = {execute: duelDiscard2, ...card, isAction:true};
+        card = {execute: duelDiscard2, ...card, isAction: true};
         break;
       case 53:
-        card = {execute: duelDD, ...card, isAction:true, color:[], isWild: true};
+        card = {execute: duelDD, ...card, isAction: true, color:[], isWild: true};
         break;
       case 54:
-        card = {execute: changeAll, ...card, isAction:true, color:[], isWild: true};
+        card = {execute: changeAll, ...card, isAction: true, color:[], isWild: true};
         break;
       case 55:
-        card = {execute: changeOne, ...card, isAction:true,};
+        card = {execute: changeOne, ...card, isAction: true,};
         break;
       case 56:
-        card = {execute: vudu, ...card, isAction:true};
+        card = {execute: vudu, ...card, isAction: true};
         break;
       case 57:
-        card = {execute:gini0, ...card, isAction:true, isChain:true};
+        card = {execute: gini0, ...card, isAction: true, isChain: true};
         break;
       case 58:
-        card = {execute:changePos, ...card, isAction:true};
+        card = {execute: changePos, ...card, isAction: true};
         break;
       case 59:
-        card = {execute:changeAllPos, ...card, isAction:true};
+        card = {execute: changeAllPos, ...card, isAction: true};
+        break;
+      case 60:
+        card = {execute: timeBomb,...card, isAction: true, isWild: true, color: []};
+        break;
+      case 61:
+        card = {execute: floorIsLava, ...card, isAction: true, color: ['red']};
+        break;
+      case 62:
+        card = {execute: floorIsIce, ...card, isAction: true, color: ['blue']};
+        break;
+      case 63:
+        card = {execute: deathCard, ...card, isAction: true, isWild: true, color: []};
+        break;
+      case 64:
+        card = {execute: cureCard, ...card, isAction: true, isWild: true, color: []};
+        break;
+      case 65:
+        card = {execute: nuclearDisarmament, ...card, isAction: true, isWild: true, color: []};
+        break;
+      case 66:
+        card = {execute: nuclearBomb, ...card, isAction: true, color: ['green']};
         break;
       default:
         break;
