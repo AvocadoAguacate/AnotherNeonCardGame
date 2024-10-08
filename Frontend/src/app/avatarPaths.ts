@@ -1,0 +1,23 @@
+export const avatarPaths: string[] = [
+  "./Media/Players/anubis.svg",
+  "./Media/Players/astronaut.svg",
+  "./Media/Players/batman.svg",
+  "./Media/Players/bot.svg",
+  "./Media/Players/caesar.svg",
+  "./Media/Players/doctor.svg",
+  "./Media/Players/dog.svg",
+  "./Media/Players/dracula.svg",
+  "./Media/Players/god.svg",
+  "./Media/Players/helicopter.svg",
+  "./Media/Players/luchador.svg",
+  "./Media/Players/medusa.svg",
+  "./Media/Players/ninja.svg",
+  "./Media/Players/pirate.svg",
+  "./Media/Players/power-ranger.svg",
+  "./Media/Players/prayer.svg",
+  "./Media/Players/schrodingers-cat.svg",
+  "./Media/Players/viking.svg",
+  "./Media/Players/vile.svg",
+  "./Media/Players/vr-player.svg",
+  "./Media/Players/warlord.svg"
+];
