@@ -1,16 +1,23 @@
-<div class="row">
+<div class="">
   <input
   type="text"
   placeholder="Nombre"
   class="form-control"
   #name
   >
-  <input
-  type="number"
-  placeholder="indexPic"
-  class="form-control"
-  #pic
-  >
+  <div class="form-check bg-dark">
+    @for(option of optionsPic; track $index){
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" [id]="option" [value]="option">
+        <label class="form-check-label" [for]="option">
+          <img [src]="avatarPaths[option]"  alt="Avatar" style="width: 100px">
+        </label>
+      </div>
+    }
+
+    
+  </div>
+  
   <button
   class="btn btn-primary"
   [routerLink]="['/game']"

@@ -15,6 +15,7 @@ export class FormComponent {
   public onValue = new EventEmitter<string>();
   
   public optionsPic: number[] = [];
+  public avatarPaths = avatarPaths;
   constructor(){
     this.optionsPic = this.chooseRandomPics();
   }
