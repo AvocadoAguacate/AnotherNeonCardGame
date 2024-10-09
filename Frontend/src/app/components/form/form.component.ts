@@ -1,12 +1,15 @@
 import { avatarPaths } from './../../avatarPaths';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule, AngularSvgIconModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
@@ -16,8 +19,11 @@ export class FormComponent {
   
   public optionsPic: number[] = [];
   public avatarPaths = avatarPaths;
+  public selectedOption: string;
+
   constructor(){
     this.optionsPic = this.chooseRandomPics();
+    this.selectedOption = "";
   }
 
   chooseRandomPics():number[]{

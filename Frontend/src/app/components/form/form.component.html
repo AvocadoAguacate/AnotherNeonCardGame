@@ -8,14 +8,20 @@
   <div class="form-check bg-dark">
     @for(option of optionsPic; track $index){
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" [id]="option" [value]="option">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="inlineRadioOptions" 
+          [id]="option" 
+          [value]="option"
+          [(ngModel)]="selectedOption"
+          >
         <label class="form-check-label" [for]="option">
-          <img [src]="avatarPaths[option]"  alt="Avatar" style="width: 100px">
+          <svg-icon [src]="avatarPaths[option]"  [svgStyle]="{ 'width.px': 100,'height.px': 100, 'fill': 'red'}" ></svg-icon>
+          <!-- <img [src]="avatarPaths[option]"  alt="Avatar" style="width: 100px"> -->
         </label>
       </div>
     }
-
-    
   </div>
   
   <button
