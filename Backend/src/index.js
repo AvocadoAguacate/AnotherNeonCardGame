@@ -28,10 +28,12 @@ let sockets = [];
 
 io.on('connection', (socket) => {
   sockets.push(socket);
+  console.log(`Acaba de conectarse ${socket.id}`);
 });
 
 io.on('connection', (socket) => {
   socket.on('setPlayer', msg => {
+    console.log(msg);
     const socket = sockets.find(s => s.id === msg.id);
     addPlayer({socket, ...msg});
   })

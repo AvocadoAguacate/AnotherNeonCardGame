@@ -79,6 +79,10 @@ export function addPlayer(payLoad) {
     votedDeck.push(false);
     sendVoteOptions(playerIndex);
   }
+  payLoad.socket.emit('setPlayer', { 
+    playerAdded: true,
+    isGameStarted: gameStarted 
+  });
   context = {...context, "players": players, "turns": turns};
 }
 
