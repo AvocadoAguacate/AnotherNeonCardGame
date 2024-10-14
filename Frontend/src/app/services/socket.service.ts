@@ -1,21 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { card } from '../interfaces/card.models';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService  {
 
+  public playerAccepted$ = new BehaviorSubject<boolean>(false);
+  public isGameStarted$ = new BehaviorSubject<boolean>(false);
+  public hand: card[] = [];
+
   constructor(private socket: Socket) {
     
   }
-  public hand: card[] = [];
+  
+  listenForUserAcceptance() {
+    this.socket.on('setPlayer', (data: any) => {
+      if(data.playerAdded){
+        this.playerAccepted$.next(true);
+        if(data.isGameStarted){
+          this.isGameStarted$.next(true)
+        }
+      }
+    });
+  }
+
   getHand(){
     this.socket.on('hand', (msg: card[]) => {
       this.hand = msg;
     });
   }
+  
 
   setReady(status: boolean) {
     this.send('ready', {playerId: this.socket.ioSocket.id, status});
