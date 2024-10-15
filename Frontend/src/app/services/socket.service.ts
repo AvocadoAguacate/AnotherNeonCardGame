@@ -13,11 +13,11 @@ export class SocketService  {
   public hand: card[] = [];
 
   constructor(private socket: Socket) {
-    
+    this.listenForUserAcceptance();
   }
   
-  listenForUserAcceptance() {
-    this.socket.on('setPlayer', (data: any) => {
+  listenForUserAcceptance(): void {
+    this.socket.fromEvent<any>('setPlayer').subscribe( data => {
       if(data.playerAdded){
         this.playerAccepted$.next(true);
         if(data.isGameStarted){

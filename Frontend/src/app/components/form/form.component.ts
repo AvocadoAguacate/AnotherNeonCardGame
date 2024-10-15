@@ -39,4 +39,8 @@ export class FormComponent {
   sendPlayer(name:string, pic:number){
     this._socketService.setPlayer(name, pic);
   }
+
+  parseNumber(value: string): number {
+    return parseInt(value, 10); 
+  }
 }

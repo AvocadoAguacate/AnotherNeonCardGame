@@ -1,0 +1,2 @@
+- Actualizar ruta al recibir info de setPlayer
+- Actualizar apariciencia del selector de imagenes de perfil

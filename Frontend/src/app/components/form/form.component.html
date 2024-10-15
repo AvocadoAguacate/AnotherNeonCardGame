@@ -26,7 +26,7 @@
   
   <button
   class="btn btn-primary"
-  [routerLink]="['/game']"
+  (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
   >
     Jugar
   </button>
