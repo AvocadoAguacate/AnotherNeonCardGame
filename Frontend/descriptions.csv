@@ -61,3 +61,6 @@ number,tag, description
 68, colorless,
 69, colorChange,
 70, smallDiscard,
+71, aquiles, cambia de color al color que no tenga el siguiente jugador y en caso de tener todos los colores o un wild que coma una carta
+72, spy, obten datos sobre la mano de un oponente
+73, spyAll, todos obtienen los datos de todos 
