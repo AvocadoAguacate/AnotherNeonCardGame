@@ -174,6 +174,18 @@ export function smallDiscard(context) {
   //TODO
 }
 
+export function aquiles(context) {
+  //TODO
+}
+
+export function spy(context) {
+  //TODO
+}
+
+export function spyAll(context) {
+  //TODO
+}
+
 export function changeAllPos(context) {
   let {players} = context;
   players = mixUpDeck(players);

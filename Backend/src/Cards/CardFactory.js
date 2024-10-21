@@ -11,7 +11,8 @@ import {
   duelDiscard2, duelDD, vudu, gini0, changePos,
   changeAllPos,timeBomb, floorIsLava, floorIsIce,
   deathCard, cureCard, nuclearDisarmament, nuclearBomb,
-  actionsDeal, colorless, colorChange, smallDiscard
+  actionsDeal, colorless, colorChange, smallDiscard,
+  aquiles, spy, spyAll
 } from './CardActions.js';
 
 function cardFactory(number, color, isFlex = [], isAction = false) {
@@ -212,6 +213,15 @@ function cardFactory(number, color, isFlex = [], isAction = false) {
       case 70:
         card = {execute: smallDiscard, ...card, isAction: true};
         break;
+      case 71:
+        card = {execute: aquiles, ...card, isAction: true, isWild: true, color:[]};
+        break;
+      case 72:
+        card = {execute: spy, ...card, isAction: true};
+        break;
+      case 73:
+        card = {execute: spyAll, ...card, isAction: true, isWild: true, color:[]};
+        break;
       default:
         break;
     }
@@ -292,7 +302,11 @@ export function createActionConfig(
   redirect = 8, rulete = 4, communism = 4, gift = 8,
   reset = 4, duelDeal = 4, duelDiscard = 4, duelDD = 2,
   changeAll = 4,changeOne = 6,vudu = 6, gini0 = 6,
-  changePos = 4, changeAllPos = 6,
+  changePos = 4, changeAllPos = 6, timeBomb = 4,
+  floorIsLava = 3, floorIsIce = 3, deathCard = 2,
+  cureCard = 4, nuclearDisarmament = 8, nuclearBomb = 4,
+  actionsDeal = 4, colorless = 4, colorChange = 4,
+  smallDiscard = 8, aquiles = 4, spy = 8, spyAll = 4
 ) {
   return [
     8, 8, 8, 8, 8, 8, 8, 8, 8, 8,//0-9
@@ -309,6 +323,10 @@ export function createActionConfig(
     redirect, rulete, communism, gift,//46-49
     reset, duelDeal, duelDiscard, duelDD,//50-53
     changeAll, changeOne, vudu, gini0,//54-57
-    changePos, changeAllPos, //58-59
-  ];
+    changePos, changeAllPos, timeBomb,//58-60
+    floorIsLava, floorIsIce, deathCard,//61-63
+    cureCard, nuclearDisarmament, nuclearBomb,//64-66
+    actionsDeal, colorless, colorChange,//67-69
+    smallDiscard, aquiles, spy, spyAll,//70-73
+  ]; 
 }
