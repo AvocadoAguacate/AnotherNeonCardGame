@@ -18,25 +18,13 @@ let gameStarted = false;
 let readyList = [];
 
 //TODO test zone, eliminate
-const slices = [0,0];
-const grenadesKicks = [0,0];
-const reversesSkips = [0,0,0,0,0,0,0,0];
-const adds = [0,0,0,0,0,0,0,0];
-const dices = [0,0,0,0];
-const kamiGenocide = [0,0];
-const dareHide = [100,100];
-const taxes = [100,0];
-const hideWild = [1];
-const telAdds = [100,0,0,0];
-const redirectRuleteComunGift = [0,0,0,0];
-const resetDuels = [0,0,0,0];
-const anothers = [0, 0, 0, 0, 0, 0];
-
-let deckConfig = createActionConfig(...slices, ...grenadesKicks, 
-  ...reversesSkips,...adds, ...dices, ...kamiGenocide, ...dareHide, ...taxes, 
-  ...hideWild, ...telAdds, ...redirectRuleteComunGift, ...resetDuels, ...anothers,
-  
-);
+let deckConfig = createActionConfig()
+deckConfig.forEach((_,index) => {
+  if(index > 9){
+    deckConfig[index] = 0;
+  }
+});
+deckConfig[37] = 100;
 let votedDeck = [];
 
 export function addIO(io){
