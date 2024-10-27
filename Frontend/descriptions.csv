@@ -1,6 +1,4 @@
 number,tag, description
-0, changeAll, Todos los jugadores cambian de mano
-7, changeOne, Cambias de mano con otro jugador
 10, slice2, El jugador descarta la mitad de sus cartas y escoge color ( redondeo hacia arriba ) 
 11, slice4, El jugador descarta una cuarta parte de sus cartas ( redondeo hacia abajo )
 12, grenade, El jugador tira un dado de 20 caras y come la cantidad de cartas resultante. El juegador de la izquierda y derecha tienen que lanzar un dado de 12 caras y comer la cantidad de cartas resultantes.
@@ -48,8 +46,8 @@ number,tag, description
 55, changeOne
 56, vudu,
 57, gini0,
-58, changeOnePos,
-59, changeAllPos,
+58, changeOnePos, Cambias de mano con otro jugador
+59, changeAllPos, Todos los jugadores cambian de mano
 60, timeBomb,
 61, floorIsLava,
 62, floorIsIce,
