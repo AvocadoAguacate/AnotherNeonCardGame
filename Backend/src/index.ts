@@ -2,7 +2,7 @@ import { Message } from './interfaces/message.model';
 import express from 'express'
 import { createServer } from 'node:http';
 import { Server, Socket } from 'socket.io';
-import { Game } from './game';
+import { Game } from './Game';
 
 
 const app = express()
@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
     console.log(`${msg.id} quiere ejecutar ${msg.type}`);
     const socket = sockets.find(s => s.id === msg.id);
     if (socket){
-      game.execute(msg);
+      game.execute({...msg, socket});
     }
   })
 });
