@@ -1,3 +1,4 @@
+import { createDeck } from "./cards/CardBuilder";
 import { Context } from "./interfaces/context.model";
 import { EditPlayerMessage, Message, ReadyMessage } from "./interfaces/message.model";
 import { deal } from "./Utils";
@@ -9,10 +10,15 @@ export class Game {
       sum: 0,
       members: []
     },
-    deck: [],
+    deck: createDeck(0.5,['green', 'red', 'purple', 'yellow']),
     discardDeck: [],
     direction: 1,
-    turn: 0
+    turn: 0,
+    deadlyCounter:{
+      turns: 25,
+      deadNumber: 25,
+      speed: 1
+    }
   };
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
@@ -72,6 +78,18 @@ export class Game {
     this.context.players.forEach(player => {
       this.context = deal(this.context, player.id, 7);
       // TODO send start game to every player
+      this.updateDeadlyCounter()
     });
+  }
+
+  private updateDeadlyCounter(): void {
+    this.context.deadlyCounter.turns -= 1;
+    if(this.context.deadlyCounter.turns === 0){
+      this.context.deadlyCounter.deadNumber -= 1;
+      const newCountDown = Math.floor(
+        this.context.deadlyCounter.deadNumber 
+        / this.context.deadlyCounter.speed);
+      this.context.deadlyCounter.turns = newCountDown > 0 ? newCountDown : 1;
+    }
   }
 }

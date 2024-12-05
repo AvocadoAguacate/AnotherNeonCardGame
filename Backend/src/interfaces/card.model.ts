@@ -1,6 +1,6 @@
 import { Context } from "./context.model"
 
-export type CardType = 'add' | 'wild' 
+export type CardType = 'add' | 'wild' | 'regular'
 export type Color = 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'brown'
 
 export interface Card{

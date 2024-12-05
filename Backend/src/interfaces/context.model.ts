@@ -7,7 +7,14 @@ export interface Context {
   discardDeck     : Card[],
   turn            : number,
   direction       : number,
-  chain           : Chain
+  chain           : Chain,
+  deadlyCounter   : DeadlyCounter
+}
+
+export interface DeadlyCounter{
+  turns           : number,
+  deadNumber      : number,
+  speed           : number
 }
 
 export interface Player{
