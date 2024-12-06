@@ -1,6 +1,7 @@
 import { Socket } from "socket.io"
+import { Color } from "./card.model"
 
-export type MessageType = 'editPlayer' | 'readyPlayer' | 'play' | 'voteDeck' | 'challenge'
+export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge'
 
 export interface Message {
   id       : string,
@@ -21,4 +22,13 @@ export interface EditPlayerMessage extends Message{
     img  ?: number
   },
   socket  : Socket
+}
+
+export interface PlayCardMessage extends Message{
+  payload :{
+    cardId        : string,
+    discardCards ?: string[],
+    target       ?: string,
+    wildColor    ?: Color
+  }
 }

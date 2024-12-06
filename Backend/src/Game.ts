@@ -1,7 +1,7 @@
 import { createDeck } from "./cards/CardBuilder";
 import { Context } from "./interfaces/context.model";
-import { EditPlayerMessage, Message, ReadyMessage } from "./interfaces/message.model";
-import { deal } from "./Utils";
+import { EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
+import { checkColor, deal, discardCard } from "./Utils";
 
 export class Game {
   private context: Context = {
@@ -31,10 +31,36 @@ export class Game {
       case 'editPlayer':
         this.editPlayer(message as EditPlayerMessage);
         break;
+      case 'playCard':
+        this.playCard(message as PlayCardMessage);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
     }
+  }
+  playCard(msg: PlayCardMessage):void {
+    const playerInd = this.context.players
+    .findIndex(player => player.id === msg.id);
+    const cardInd = this.context.players[playerInd].hand
+    .findIndex(card => card.id === msg.payload.cardId);
+    if(this.context.chain.sum > 0 && this.context.players[playerInd].hand[cardInd].type !== 'chain'){
+      // TODO close chain
+    }
+    if(this.context.players[playerInd].hand[cardInd]?.number === this.context.discardDeck[0]?.number 
+    || checkColor(this.context.players[playerInd].hand[cardInd], this.context.discardDeck[0])){
+      this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
+      if(this.context.players[playerInd].hand[cardInd].isAction){
+        this.context = this.context.discardDeck[0]!.playCard!(this.context);
+      }
+    } else {
+      if(this.context.players[playerInd].hand[cardInd].isWild){
+        this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
+        this.context = this.context.discardDeck[0]!.playCard!(this.context);
+      }
+      this.context = deal(this.context, msg.id, 1);
+    }
+    // TODO update UI
   }
 
   editPlayer(msg: EditPlayerMessage):void {
@@ -70,8 +96,6 @@ export class Game {
         this.startGame();
       }
     }
-    console.log(this.readyList);
-    console.log(`isGameOn: ${this.isGameOn}`);
   }
 
   private startGame(): void {
