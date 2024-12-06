@@ -63,6 +63,7 @@ export class Game {
     }
     // TODO update UI
     this.context = nextTurn(this.context);
+    this.updateDeadlyCounter();
   }
 
   editPlayer(msg: EditPlayerMessage):void {
@@ -103,8 +104,8 @@ export class Game {
   private startGame(): void {
     this.context.players.forEach(player => {
       this.context = deal(this.context, player.id, 7);
+      this.firstTurn();
       // TODO send start game to every player
-      this.updateDeadlyCounter()
     });
   }
 
@@ -117,5 +118,11 @@ export class Game {
         / this.context.deadlyCounter.speed);
       this.context.deadlyCounter.turns = newCountDown > 0 ? newCountDown : 1;
     }
+  }
+
+  private firstTurn():void{
+    this.context.turn = Math.floor(
+      Math.random() * this.context.players.length
+    );
   }
 }
