@@ -1,5 +1,6 @@
 import { Card, Color } from "./interfaces/card.model";
-import { Context } from "./interfaces/context.model";
+import { Challenge, Context, Player } from "./interfaces/context.model";
+import { CardUI, ChallengeUI, PlayerUI, UpdateUI } from "./interfaces/update.model";
 
 export function deal(context:Context, playerId:string, amount: number): Context {
   if(context.deck.length <= amount){
@@ -78,4 +79,71 @@ export function nextTurn(context: Context):Context{
   let {turn, direction, players} = context;
   turn = (turn + direction + players.length) % players.length;
   return {...context, turn};
+}
+export function updChallengeUI(context: Context, challlege: Challenge):void {
+  let {players} = context;
+  players.forEach((player, index) => {
+    if(player.id === challlege.challenger
+    || player.id === challlege.oponent
+    ){
+      updatePlayerUI(context, index, true, false, true);
+    } else {
+      updatePlayerUI(context, index, false, false, true);
+    }
+  })
+}
+
+export function updatePlayerUI(
+context: Context, playerInd: number,
+updateHand: boolean, updateDeadNum: boolean,
+updatePlayers: boolean ,
+):void{
+  let {players, discardDeck, turn} = context;
+  let updateMsg: UpdateUI ={
+    lastDiscard: mapCardUI(discardDeck[0]),
+    turn,
+    type: 'updateUI'
+  }
+  if(updateHand){
+    let handUI: CardUI[] = players[playerInd].hand
+      .map(card => mapCardUI(card));
+    updateMsg.hand = handUI
+  }
+  if(updateDeadNum){
+    updateMsg.deadNumber = context.deadlyCounter.deadNumber;
+  }
+  if(updatePlayers){
+    updateMsg.players = players.map(pl => mapPlayerUI(pl));
+  }
+  players[playerInd].socket.emit("message", updateMsg);
+}
+
+function mapCardUI(card: Card): CardUI {
+  let newCardUI: CardUI = {
+    colors: card.colors ?? [],
+    id: card.id,
+  };
+  if(card.number) newCardUI.number = card.number!;
+  return newCardUI
+}
+function mapPlayerUI(player: Player):PlayerUI {
+  let newPlayerUI: PlayerUI = {
+    name: player.name,
+    img: player.img,
+    hand: player.hand.length
+  }
+  return newPlayerUI;
+}
+
+export function sendChallenge(players: Player[], challenge: Challenge):void{
+  const playerInd = players
+    .findIndex(pl => pl.id === challenge.oponent);
+  const challengerInd = players
+    .findIndex(pl => pl.id === challenge.challenger);
+  const msg:ChallengeUI = {
+    oponent: challengerInd,
+    id: challenge.id,
+    type: 'challenge'
+  };
+  players[playerInd].socket.emit('message',msg);
 }

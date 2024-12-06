@@ -1,7 +1,8 @@
 import { createDeck } from "./cards/CardBuilder";
-import { Context } from "./interfaces/context.model";
-import { EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
-import { checkColor, deal, discardCard, nextTurn } from "./Utils";
+import { Challenge, Context } from "./interfaces/context.model";
+import { ChallengeMessage, EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
+import { checkColor, deal, discardCard, nextTurn, sendChallenge, updChallengeUI } from "./Utils";
+import { v4 as uuidv4 } from 'uuid';
 
 export class Game {
   private context: Context = {
@@ -10,7 +11,7 @@ export class Game {
       sum: 0,
       members: []
     },
-    deck: createDeck(0.5,['green', 'red', 'purple', 'yellow']),
+    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow']),
     discardDeck: [],
     direction: 1,
     turn: 0,
@@ -20,6 +21,8 @@ export class Game {
       speed: 1
     }
   };
+
+  private challengeList: Challenge[] = [];
   
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
@@ -35,11 +38,48 @@ export class Game {
       case 'playCard':
         this.playCard(message as PlayCardMessage);
         break;
+      case 'challenge':
+        this.challenge(message as ChallengeMessage);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
     }
   }
+  
+  challenge(msg: ChallengeMessage):void {
+    if(msg.payload.id){
+      const challengeInd = this.challengeList
+        .findIndex(chal => chal.id === msg.payload.id!);
+      let {oponent, challenger} = this.challengeList[challengeInd];
+      const oponentTry = Math.floor(Math.random() * 6);
+      const challengerTry = Math.floor(Math.random() * 6);
+      this.context = deal(
+        this.context, 
+        challengerTry > oponentTry ? oponent : challenger, 
+        1
+      );
+      updChallengeUI(this.context, this.challengeList[challengeInd]);
+      this.challengeList.splice(challengeInd,1);
+    }else{
+      let {challengerId, oponentInd} = msg.payload;
+      const oponentId = this.context.players[oponentInd!].id;
+      const newChallenge: Challenge = {
+        challenger: challengerId!,
+        oponent: oponentId,
+        id: uuidv4()
+      };
+      this.challengeList.push(newChallenge);
+      if(this.context.players[oponentInd!].hand.length === 1 
+      && Math.random() > 0.65){
+        msg.payload.id = newChallenge.id;
+        this.challenge(msg);
+      } else {
+        sendChallenge(this.context.players, newChallenge);
+      }
+    }
+  }
+
   playCard(msg: PlayCardMessage):void {
     const playerInd = this.context.players
     .findIndex(player => player.id === msg.id);

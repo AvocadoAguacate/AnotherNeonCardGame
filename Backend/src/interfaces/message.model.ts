@@ -32,3 +32,11 @@ export interface PlayCardMessage extends Message{
     wildColor    ?: Color
   }
 }
+
+export interface ChallengeMessage extends Message{
+  payload :{
+    oponentInd     ?: number,
+    challengerId   ?: string,
+    id             ?: string,
+  }
+}
