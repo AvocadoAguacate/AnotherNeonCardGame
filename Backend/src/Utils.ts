@@ -73,3 +73,9 @@ export function discardCards(context:Context, playerId: string, cards: string[])
   })
   return {...context};
 }
+
+export function nextTurn(context: Context):Context{
+  let {turn, direction, players} = context;
+  turn = (turn + direction + players.length) % players.length;
+  return {...context, turn};
+}

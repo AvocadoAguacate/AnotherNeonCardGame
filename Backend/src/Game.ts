@@ -1,7 +1,7 @@
 import { createDeck } from "./cards/CardBuilder";
 import { Context } from "./interfaces/context.model";
 import { EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
-import { checkColor, deal, discardCard } from "./Utils";
+import { checkColor, deal, discardCard, nextTurn } from "./Utils";
 
 export class Game {
   private context: Context = {
@@ -20,6 +20,7 @@ export class Game {
       speed: 1
     }
   };
+  
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
   
@@ -61,6 +62,7 @@ export class Game {
       this.context = deal(this.context, msg.id, 1);
     }
     // TODO update UI
+    this.context = nextTurn(this.context);
   }
 
   editPlayer(msg: EditPlayerMessage):void {
