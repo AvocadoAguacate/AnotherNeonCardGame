@@ -49,3 +49,27 @@ function resetCards(deck: Card[]): Card[] {
   });
   return deck;
 }
+
+export function checkColor(card1: Card, card2:Card): boolean {
+  return card1.colors!.some(color => card2.colors!.includes(color));
+}
+
+export function discardCard(
+context:Context, playerId: string,
+cardId: string = '', isUnshift = true): Context{
+  let {discardDeck, players} = context;
+  const playerInd = players.findIndex(player => player.id === playerId);
+  const cardInd = cardId.length > 0 ? 
+    players[playerInd].hand.findIndex(card => card.id === cardId) : 
+    Math.floor(Math.random() * players[playerInd].hand.length);
+  let [card] = players[playerInd].hand.splice(cardInd, 1);
+  isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
+  return {...context, discardDeck, players};
+}
+
+export function discardCards(context:Context, playerId: string, cards: string[]): Context {
+  cards.forEach(cardId => {
+    context = discardCard(context, playerId, cardId, false);
+  })
+  return {...context};
+}
