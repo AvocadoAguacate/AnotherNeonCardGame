@@ -1,6 +1,6 @@
 import { createDeck } from "./cards/CardBuilder";
 import { Challenge, Context } from "./interfaces/context.model";
-import { ChallengeMessage, EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
+import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -41,9 +41,41 @@ export class Game {
       case 'challenge':
         this.challenge(message as ChallengeMessage);
         break;
+      case 'luckTry':
+        this.luckTry(message as LuckTryMessage);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
+    }
+  }
+  
+  luckTry(msg: LuckTryMessage):void {
+    let {players, turn, chain} = this.context;
+    if(chain.sum > 0){
+      const diceThrow = Math.floor(Math.random() * 6) + 1;
+      if(diceThrow === msg.payload.number){
+        this.resetChain(false);
+      } else {
+        const isOdd = diceThrow % 2 !== 0;
+        if(isOdd === msg.payload.isOdd){
+          this.resetChain(true);
+        }
+      }
+      this.context = deal(this.context, players[turn].id, chain.sum);
+    }
+  }
+
+  private resetChain(onlyParity: boolean):void{
+    let newSum: number;
+    if(onlyParity){
+      newSum = Math.floor(this.context.chain.sum / 2);
+    } else {
+      newSum = 0;
+    }
+    this.context.chain = {
+      sum: newSum,
+      members: []
     }
   }
   
