@@ -1,6 +1,7 @@
 import { Context } from './../interfaces/context.model';
 import { Card, Color } from "../interfaces/card.model";
 import { v4 as uuidv4 } from 'uuid';
+import { suffleCards } from '../Utils';
 
 export function createDeck(isFlexProb: number, colors: Color[]): Card[] {
   const deck: Card[] = [];
@@ -11,7 +12,7 @@ export function createDeck(isFlexProb: number, colors: Color[]): Card[] {
       deck.push(createCard(index % 10, isFlexProb, newColors));
     }
   }
-  return deck;
+  return suffleCards(deck);
 }
 
 function createCard(number: number, isFlexProb: number, colors: Color[]): Card {

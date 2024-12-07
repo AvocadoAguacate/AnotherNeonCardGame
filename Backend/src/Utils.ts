@@ -80,6 +80,26 @@ export function nextTurn(context: Context):Context{
   turn = (turn + direction + players.length) % players.length;
   return {...context, turn};
 }
+
+export function updAllOneHandUI(context: Context, one: string):void {
+  context.players
+    .forEach((player, index) => {
+      if(player.id !== one){
+        updatePlayerUI(context, index, false , true, true);
+      } else {
+        updatePlayerUI(context, index, true , true, true);
+      }
+    }
+  );
+}
+export function updAllUI(context: Context):void {
+  context.players
+    .forEach((_player, index) => {
+      updatePlayerUI(context, index,true, true, true)
+    }
+  );
+}
+
 export function updChallengeUI(context: Context, challlege: Challenge):void {
   let {players} = context;
   players.forEach((player, index) => {

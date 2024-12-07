@@ -1,7 +1,7 @@
 import { createDeck } from "./cards/CardBuilder";
 import { Challenge, Context } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
-import { checkColor, deal, discardCard, nextTurn, sendChallenge, updChallengeUI } from "./Utils";
+import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
 import { v4 as uuidv4 } from 'uuid';
 
 export class Game {
@@ -101,9 +101,9 @@ export class Game {
       }
       this.context = deal(this.context, msg.id, 1);
     }
-    // TODO update UI
     this.context = nextTurn(this.context);
     this.updateDeadlyCounter();
+    updAllOneHandUI(this.context, msg.id);
   }
 
   editPlayer(msg: EditPlayerMessage):void {
@@ -132,7 +132,8 @@ export class Game {
   private readyPlayer(msg: ReadyMessage): void {
     const index = this.context.players.findIndex(player => player.id === msg.id);
     this.readyList[index] = msg.payload.status;
-    if(msg.payload.status){
+    console.log(this.readyList);
+    if(msg.payload.status && !this.isGameOn){
       this.isGameOn = this.readyList.reduce((total, current) => total && current) &&
         this.context.players.length >= 2;
       if(this.isGameOn){
@@ -142,11 +143,13 @@ export class Game {
   }
 
   private startGame(): void {
+    console.log("Starting a game...");
     this.context.players.forEach(player => {
       this.context = deal(this.context, player.id, 7);
       this.firstTurn();
-      // TODO send start game to every player
+      this.firstCard();
     });
+    updAllUI(this.context);
   }
 
   private updateDeadlyCounter(): void {
@@ -164,5 +167,12 @@ export class Game {
     this.context.turn = Math.floor(
       Math.random() * this.context.players.length
     );
+  }
+
+  private firstCard():void{
+    let index = this.context.deck
+      .findIndex(card => card.isAction === false);
+    let [card] = this.context.deck.splice(index, 1);
+    this.context.discardDeck.unshift(card);
   }
 }
