@@ -5,13 +5,28 @@ import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updCh
 import { v4 as uuidv4 } from 'uuid';
 
 export class Game {
+  // private deckConfig =[
+  //   0,0,0,0,0,0,0,0,0,0,
+  //   0,0,0,0,0,0,0,0,0,0,
+  //   0,0,6,8,6,8,4,6,4,0,4
+  // ];
+  private deckConfig =[
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0
+  ];
+  // private deckConfig =[
+  //   0,0,0,0,0,0,0,0,0,0,
+  //   0,0,0,0,0,0,0,0,0,0,
+  //   0,0,1,1,1,1,1,1,1,0,1
+  // ];
   private context: Context = {
     players: [],
     chain: {
       sum: 0,
       members: []
     },
-    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow']),
+    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow'], this.deckConfig),
     discardDeck: [],
     direction: 1,
     turn: 0,
@@ -49,7 +64,7 @@ export class Game {
         console.log(message);
     }
   }
-  
+
   luckTry(msg: LuckTryMessage):void {
     let {players, turn, chain} = this.context;
     if(chain.sum > 0){

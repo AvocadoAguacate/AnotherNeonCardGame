@@ -9,6 +9,12 @@ export interface Card{
   isAction   : boolean,
   type       : CardType,
   id         : string,
-  playCard  ?: (context: Context) => Context,
+  playCard  ?: (context: Context, payLoad ?: PlayPayload) => Context,
   colors    ?: Color[]
+}
+
+export interface PlayPayload {
+  discardCards ?: string[],
+  target       ?: string,
+  wildColor    ?: Color
 }
