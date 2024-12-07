@@ -22,7 +22,8 @@ export interface Player{
   name            : string,
   hand            : Card[],
   img             : number,
-  socket          : Socket
+  socket          : Socket,
+  luckytries      : number,
 }
 
 export interface Chain{

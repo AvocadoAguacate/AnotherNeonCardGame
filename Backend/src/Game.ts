@@ -13,13 +13,8 @@ export class Game {
   private deckConfig =[
     0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0
+    0,0,1,1,1,1,1,1,1,0,1
   ];
-  // private deckConfig =[
-  //   0,0,0,0,0,0,0,0,0,0,
-  //   0,0,0,0,0,0,0,0,0,0,
-  //   0,0,1,1,1,1,1,1,1,0,1
-  // ];
   private context: Context = {
     players: [],
     chain: {
@@ -38,7 +33,7 @@ export class Game {
   };
 
   private challengeList: Challenge[] = [];
-  
+  private luckyTry: number = 5;
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
   
@@ -67,29 +62,38 @@ export class Game {
 
   luckTry(msg: LuckTryMessage):void {
     let {players, turn, chain} = this.context;
-    if(chain.sum > 0){
-      const diceThrow = Math.floor(Math.random() * 6) + 1;
-      if(diceThrow === msg.payload.number){
-        this.resetChain(false);
-      } else {
-        const isOdd = diceThrow % 2 !== 0;
-        if(isOdd === msg.payload.isOdd){
-          this.resetChain(true);
+    if(chain.sum){
+      if(players[turn].luckytries > 0){
+        const diceThrow = Math.floor(
+          Math.random() * 6
+        ) + 1;
+        if(diceThrow === msg.payload.number){
+          this.resetChain();
+        } else {
+          const isOdd = diceThrow % 2 !== 0;
+          if(isOdd === msg.payload.isOdd){
+            this.resetChain();
+            this.context = deal(
+              this.context,
+              players[turn].id, 
+              Math.floor(chain.sum/2)
+            );
+          }
         }
+      } else {
+        this.context = deal(
+          this.context,
+          players[turn].id, 
+          chain.sum
+        );
+        this.resetChain();
       }
-      this.context = deal(this.context, players[turn].id, chain.sum);
     }
   }
 
-  private resetChain(onlyParity: boolean):void{
-    let newSum: number;
-    if(onlyParity){
-      newSum = Math.floor(this.context.chain.sum / 2);
-    } else {
-      newSum = 0;
-    }
+  private resetChain():void{
     this.context.chain = {
-      sum: newSum,
+      sum: 0,
       members: []
     }
   }
@@ -161,7 +165,8 @@ export class Game {
         hand: [],
         name: msg.payload.name!,
         id: msg.id,
-        img: msg.payload.img!
+        img: msg.payload.img!,
+        luckytries: this.luckyTry
       });
       if(this.isGameOn){
         this.readyList.push(true);
