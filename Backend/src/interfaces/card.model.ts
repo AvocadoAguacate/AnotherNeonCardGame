@@ -15,6 +15,6 @@ export interface Card{
 
 export interface PlayPayload {
   discardCards ?: string[],
-  target       ?: string,
+  target       ?: number,
   wildColor    ?: Color
 }

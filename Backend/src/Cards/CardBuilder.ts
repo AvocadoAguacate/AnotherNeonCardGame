@@ -3,6 +3,7 @@ import { Card, Color, PlayPayload } from "../interfaces/card.model";
 import { v4 as uuidv4 } from 'uuid';
 import { suffleCards } from '../Utils';
 import { createAdd10, createAdd2, createAdd3, createAdd4, createAdd5, createAdd6, createAdd7, createAdd8 } from './speficBuilders/AddBuilder';
+import * as fs from 'fs';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -19,8 +20,15 @@ export function createDeck(isFlexProb: number, colors: Color[], config: number[]
       deck.push(card);
     }
   });
-  console.log(deck);
   console.log(deck.length);
+  const toWrite = JSON.stringify(deck, null, 2);
+  fs.writeFile('deck.json', toWrite, 'utf-8', (err) => {
+    if (err) {
+      console.error('Error al escribir el archivo:', err);
+    } else {
+      console.log('Archivo guardado correctamente como deck.json');
+    }
+  });
   return suffleCards(deck);
 }
 

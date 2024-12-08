@@ -1,4 +1,4 @@
-export type Color = 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'brown'
+export type Color = 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'brown' | 'null'
 export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge' | 'luckTry' | 'deal'
 
 export interface Message {
@@ -24,7 +24,7 @@ export interface PlayCardMessage extends Message{
   payload :{
     cardId        : string,
     discardCards ?: string[],
-    target       ?: string,
+    target       ?: number,
     wildColor    ?: Color
   }
 }

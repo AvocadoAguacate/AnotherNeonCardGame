@@ -1,4 +1,5 @@
 import { createDeck } from "./cards/CardBuilder";
+import { PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
@@ -14,7 +15,7 @@ export class Game {
   private deckConfig =[
     0,0,0,0,0,0,0,0,0,0, //0-9
     0,0,0,0,0,0,0,0,0,0, //10-19
-    0,0,1,1,1,1,1,1,1,0, //20-29
+    0,0,1,1,105,1,1,1,1,0, //20-29
     1,0,0,0,0,0,0,0,0,0,
   ];
   private context: Context = {
@@ -141,27 +142,29 @@ export class Game {
   }
 
   playCard(msg: PlayCardMessage):void {
-    const playerInd = this.context.players
+    let {chain, players, discardDeck} = this.context;
+    const playerInd = players
     .findIndex(player => player.id === msg.id);
-    const cardInd = this.context.players[playerInd].hand
+    const cardInd = players[playerInd].hand
     .findIndex(card => card.id === msg.payload.cardId);
-    if(this.context.chain.sum > 0 
-    && this.context.players[playerInd].hand[cardInd].type !== 'chain'){
-      this.context = deal(this.context, msg.id, this.context.chain.sum);
+    console.log(players[playerInd].hand[cardInd]);
+    if(chain.sum > 0 && players[playerInd].hand[cardInd].type !== 'chain'){
+      this.context = deal(this.context, msg.id, chain.sum+1);
       this.resetChain();
-    }
-    if(this.context.players[playerInd].hand[cardInd]?.number === this.context.discardDeck[0]?.number 
-    || checkColor(this.context.players[playerInd].hand[cardInd], this.context.discardDeck[0])){
-      this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
-      if(this.context.players[playerInd].hand[cardInd].isAction){
-        this.context = this.context.discardDeck[0]!.playCard!(this.context);
-      }
     } else {
-      if(this.context.players[playerInd].hand[cardInd].isWild){
-        this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
-        this.context = this.context.discardDeck[0]!.playCard!(this.context);
-      }
-      this.context = deal(this.context, msg.id, 1);
+      if(players[playerInd].hand[cardInd]?.number === discardDeck[0]?.number 
+        || checkColor(players[playerInd].hand[cardInd], discardDeck[0])){
+          this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
+          if(this.context.discardDeck[0].isAction){
+            this.context = this.context.discardDeck[0]!.playCard!(this.context, msg.payload as PlayPayload);
+          }
+        } else {
+          if(players[playerInd].hand[cardInd].isWild){
+            this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
+            this.context = this.context.discardDeck[0]!.playCard!(this.context, msg.payload as PlayPayload);
+          }
+          this.context = deal(this.context, msg.id, 1);
+        }
     }
     this.context = nextTurn(this.context);
     this.updateDeadlyCounter();

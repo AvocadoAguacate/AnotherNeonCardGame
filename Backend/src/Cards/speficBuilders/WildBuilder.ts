@@ -4,6 +4,7 @@ import { addFunction } from "../CardBuilder";
 
 function playWild(context: Context, payload?:PlayPayload):Context {
   let {discardDeck} = context;
+  console.log(payload);
   discardDeck[0].colors = [payload!.wildColor!];
   return {...context, discardDeck};
 }

@@ -28,7 +28,7 @@ export interface PlayCardMessage extends Message{
   payload :{
     cardId        : string,
     discardCards ?: string[],
-    target       ?: string,
+    target       ?: number,
     wildColor    ?: Color
   }
 }
