@@ -2,13 +2,14 @@ import { ChallengeUI, messageUI, PlayerUI, UpdateUI } from './../interfaces/upda
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { EditPlayerMessage, Message, ReadyMessage } from '../interfaces/message.model';
+import { Color, EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from '../interfaces/message.model';
 import { CardUI } from '../interfaces/update.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService  {
+
 
   private handSubject = new BehaviorSubject<CardUI[]>([]);
   public hand$ = this.handSubject.asObservable();
@@ -25,7 +26,7 @@ export class SocketService  {
   private turnSubject = new BehaviorSubject<number>(0);
   public turn$ = this.turnSubject.asObservable();
 
-  private challengeSubject = new BehaviorSubject<ChallengeUI>(0);
+  private challengeSubject = new BehaviorSubject<ChallengeUI>({oponent:-1, id:'', type:'challenge'});
   public challenge$ = this.challengeSubject.asObservable();
 
   constructor(private socket: Socket) {
@@ -101,5 +102,26 @@ export class SocketService  {
       console.log(res);
     });
     this.socket.emit('chat message', {name, id: this.socket.ioSocket.id});
+  }
+
+  sendCard(cardId: string, discardCards: string[] = [], target: number = -1, wildColor: Color = 'null') {
+    const msg: PlayCardMessage ={
+      type: "playCard",
+      id: this.socket.ioSocket.id,
+      payload: {
+        cardId
+      }
+    };
+    if(discardCards.length > 0){
+      msg.payload.discardCards = discardCards;
+    }
+    if(target >= 0){
+      msg.payload.target = target;
+    }
+    if(wildColor !== 'null'){
+      msg.payload.wildColor = wildColor;
+    }
+    console.log(msg);
+    this.send('message',msg);
   }
 }
