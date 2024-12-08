@@ -8,12 +8,14 @@ export class Game {
   // private deckConfig =[
   //   0,0,0,0,0,0,0,0,0,0,
   //   0,0,0,0,0,0,0,0,0,0,
-  //   0,0,6,8,6,8,4,6,4,0,4
+  //   0,0,6,8,6,8,4,6,4,0,
+  //   4,0,0,0,0,0,0,0,0,0,
   // ];
   private deckConfig =[
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,1,1,1,1,1,1,1,0,1
+    0,0,0,0,0,0,0,0,0,0, //0-9
+    0,0,0,0,0,0,0,0,0,0, //10-19
+    0,0,1,1,1,1,1,1,1,0, //20-29
+    1,0,0,0,0,0,0,0,0,0,
   ];
   private context: Context = {
     players: [],
@@ -54,10 +56,16 @@ export class Game {
       case 'luckTry':
         this.luckTry(message as LuckTryMessage);
         break;
+      case 'deal':
+        this.deal(message);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
     }
+  }
+  deal(msg: Message) {
+    deal(this.context, msg.id, 1);
   }
 
   luckTry(msg: LuckTryMessage):void {
@@ -88,6 +96,7 @@ export class Game {
         );
         this.resetChain();
       }
+      this.context = nextTurn(this.context);
     }
   }
 
@@ -136,8 +145,10 @@ export class Game {
     .findIndex(player => player.id === msg.id);
     const cardInd = this.context.players[playerInd].hand
     .findIndex(card => card.id === msg.payload.cardId);
-    if(this.context.chain.sum > 0 && this.context.players[playerInd].hand[cardInd].type !== 'chain'){
-      // TODO close chain
+    if(this.context.chain.sum > 0 
+    && this.context.players[playerInd].hand[cardInd].type !== 'chain'){
+      this.context = deal(this.context, msg.id, this.context.chain.sum);
+      this.resetChain();
     }
     if(this.context.players[playerInd].hand[cardInd]?.number === this.context.discardDeck[0]?.number 
     || checkColor(this.context.players[playerInd].hand[cardInd], this.context.discardDeck[0])){
@@ -198,9 +209,9 @@ export class Game {
     console.log("Starting a game...");
     this.context.players.forEach(player => {
       this.context = deal(this.context, player.id, 7);
-      this.firstTurn();
-      this.firstCard();
     });
+    this.firstTurn();
+    this.firstCard();
     updAllUI(this.context);
   }
 

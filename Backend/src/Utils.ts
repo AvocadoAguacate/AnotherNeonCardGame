@@ -9,6 +9,7 @@ export function deal(context:Context, playerId:string, amount: number): Context 
   let {deck, players} = context;
   const dealCards = deck.splice(0, amount);
   players.find(player => player.id === playerId)!.hand.push(...dealCards);
+  updAllOneHandUI(context, playerId);
   return {...context, players, deck};
 }
 
@@ -57,7 +58,8 @@ export function checkColor(card1: Card, card2:Card): boolean {
 
 export function discardCard(
 context:Context, playerId: string,
-cardId: string = '', isUnshift = true): Context{
+cardId: string = '', isUnshift = true, 
+notify: boolean = false): Context{
   let {discardDeck, players} = context;
   const playerInd = players.findIndex(player => player.id === playerId);
   const cardInd = cardId.length > 0 ? 
@@ -65,13 +67,17 @@ cardId: string = '', isUnshift = true): Context{
     Math.floor(Math.random() * players[playerInd].hand.length);
   let [card] = players[playerInd].hand.splice(cardInd, 1);
   isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
+  notify ?? updatePlayerUI(context, playerInd, true, false, false);
   return {...context, discardDeck, players};
 }
 
 export function discardCards(context:Context, playerId: string, cards: string[]): Context {
   cards.forEach(cardId => {
     context = discardCard(context, playerId, cardId, false);
-  })
+  });
+  const playerInd = context.players
+    .findIndex(player => player.id === playerId);
+  updatePlayerUI(context,playerInd, true, false, false);
   return {...context};
 }
 

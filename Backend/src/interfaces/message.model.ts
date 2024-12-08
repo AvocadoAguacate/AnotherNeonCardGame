@@ -1,7 +1,7 @@
 import { Socket } from "socket.io"
 import { Color } from "./card.model"
 
-export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge' | 'luckTry'
+export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge' | 'luckTry' | 'deal'
 
 export interface Message {
   id       : string,
