@@ -5,7 +5,8 @@ import { Context } from "../../interfaces/context.model";
 import { deal } from "../../Utils";
 
 function createAddCard(isFlexProb: number, colors: Color[]): Card {
-  let card: Card ={
+  let card: Card = {
+    number: 22,
     colors: [colors[0]],
     type: 'chain',
     isAction: true,
