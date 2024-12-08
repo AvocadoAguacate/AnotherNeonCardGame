@@ -4,7 +4,7 @@ export type CardType = 'wild' | 'regular' | 'chain'
 export type Color = 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'brown'
 
 export interface Card{
-  number    ?: number,
+  number     : number,
   isWild     : boolean,
   isAction   : boolean,
   type       : CardType,

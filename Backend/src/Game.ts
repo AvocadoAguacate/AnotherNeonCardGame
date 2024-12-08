@@ -207,11 +207,11 @@ export class Game {
 
   private startGame(): void {
     console.log("Starting a game...");
+    this.firstTurn();
+    this.firstCard();
     this.context.players.forEach(player => {
       this.context = deal(this.context, player.id, 7);
     });
-    this.firstTurn();
-    this.firstCard();
     updAllUI(this.context);
   }
 

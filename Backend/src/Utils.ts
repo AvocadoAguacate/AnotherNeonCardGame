@@ -149,7 +149,7 @@ function mapCardUI(card: Card): CardUI {
     colors: card.colors ?? [],
     id: card.id,
   };
-  if(card.number) newCardUI.number = card.number!;
+  newCardUI.number = card.number!;
   return newCardUI
 }
 function mapPlayerUI(player: Player):PlayerUI {
