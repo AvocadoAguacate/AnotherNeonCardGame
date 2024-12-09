@@ -36,7 +36,7 @@ export class Game {
   };
 
   private challengeList: Challenge[] = [];
-  private luckyTry: number = 5;
+  private luckyTryDefault: number = 5;
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
   
@@ -180,7 +180,7 @@ export class Game {
         name: msg.payload.name!,
         id: msg.id,
         img: msg.payload.img!,
-        luckytries: this.luckyTry
+        luckytries: this.luckyTryDefault
       });
       if(this.isGameOn){
         this.readyList.push(true);
@@ -212,10 +212,15 @@ export class Game {
     console.log("Starting a game...");
     this.firstTurn();
     this.firstCard();
-    this.context.players.forEach(player => {
+    this.context.players.forEach((player, index) => {
       this.context = deal(this.context, player.id, 7);
+      this.setLuckyTries(index);
     });
     updAllUI(this.context);
+  }
+
+  private setLuckyTries(ind: number){
+    this.context.players[ind].luckytries = this.luckyTryDefault;
   }
 
   private updateDeadlyCounter(): void {
