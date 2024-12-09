@@ -1,0 +1,41 @@
+.form-control.bg-dark::placeholder {
+  color: white; /* Color blanco para el placeholder */
+  opacity: 0.7; /* Opcional: opacidad para que no sea tan fuerte */
+}
+.form-control:focus {
+  border-color: #0dcaf0 !important;  // Celeste de Bootstrap 'info'
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25) !important;  // Sombra de enfoque del color 'info'
+}
+
+.form-check {
+  margin-left: -50px;  // Ajusta el valor según sea necesario
+}
+
+// Estilos para los radio buttons personalizados
+.custom-radio {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0; // Ocultar el radio button predeterminado
+    left: -9999px;
+
+    &:checked + .form-check-label {
+      border: 2px solid #0dcaf0; // Celeste tipo "info" de Bootstrap
+      border-radius: 8px; // Bordes redondeados
+      background-color: rgba(13, 202, 240, 0.1); // Fondo sutil con transparencia
+    }
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px; // Espaciado alrededor del SVG
+    border: 2px solid transparent; // Borde inicial transparente
+    border-radius: 8px; // Bordes redondeados
+    transition: all 0.3s ease; // Transición suave
+  }
+}

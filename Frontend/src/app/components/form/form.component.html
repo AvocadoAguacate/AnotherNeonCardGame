@@ -1,33 +1,26 @@
 <div class="">
-  <input
-  type="text"
-  placeholder="Nombre"
-  class="form-control"
-  #name
-  >
-  <div class="form-check bg-dark">
-    @for(option of optionsPic; track $index){
-      <div class="form-check form-check-inline">
-        <input 
-          class="form-check-input" 
-          type="radio" 
-          name="inlineRadioOptions" 
-          [id]="option" 
-          [value]="option"
-          [(ngModel)]="selectedOption"
-          >
-        <label class="form-check-label" [for]="option">
-          <svg-icon [src]="avatarPaths[option]"  [svgStyle]="{ 'width.px': 100,'height.px': 100, 'fill': 'red'}" ></svg-icon>
-          <!-- <img [src]="avatarPaths[option]"  alt="Avatar" style="width: 100px"> -->
-        </label>
-      </div>
-    }
-  </div>
-  
   <button
   class="btn btn-primary"
-  (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
+  (click) = "sendReady()"
   >
-    Jugar
+    Listo
   </button>
+  <div *ngIf="this.turn >= 0">
+    <p>Last discard:{{this.lastDiscard.number}}-{{this.lastDiscard.colors}}</p>
+    <p>Turno: {{this.players[turn].name}} - {{this.players[turn].hand}}</p>
+    <div *ngIf="this.hand.length > 0; else emptyHand">
+      <p>Tu Mano</p>
+      <ul>
+        <li *ngFor="let card of this.hand; let i = index">
+          <button (click)="sendCard(i)">
+            {{ i + 1 }}. {{ card.number !== undefined && card.number !== null ? card.number : '' }} - {{ card.colors.join(', ') }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Mostrar mensaje cuando la mano está vacía -->
+  <ng-template #emptyHand>
+    <p>No hay cartas en tu mano.</p>
+  </ng-template>
 </div>

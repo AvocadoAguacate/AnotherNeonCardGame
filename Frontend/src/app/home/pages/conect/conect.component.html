@@ -1,0 +1,34 @@
+<div class="bg-dark vh-100 d-flex flex-column justify-content-start align-items-center p-4">
+  <input
+  type="text"
+  placeholder="Nombre"
+  class="form-control bg-dark text-info mb-3"
+  style="width: 70%; max-width: 500px;"
+  #name
+  >
+  <div class="form-check bg-dark d-flex justify-content-center flex-wrap mb-4">
+    @for(option of optionsPic; track $index){
+      <div class="form-check form-check-inline text-center mx-2 custom-radio">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="inlineRadioOptions" 
+          [id]="option" 
+          [value]="option"
+          [(ngModel)]="selectedOption"
+          >
+        <label class="form-check-label" [for]="option">
+          <svg-icon [src]="avatarPaths[option]"  [svgStyle]="{ 'width.px': 100,'height.px': 100, 'fill': 'red'}" ></svg-icon>
+        </label>
+      </div>
+    }
+  </div>
+  <button
+  class="btn btn-outline-info"
+  style="width: 70%; max-width: 500px;"
+  (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
+  [disabled]="!name.value || !selectedOption" 
+  >
+    Jugar
+  </button>
+</div>
