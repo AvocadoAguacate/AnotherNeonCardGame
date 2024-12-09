@@ -4,12 +4,17 @@ import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Color, EditPlayerMessage, Message, PlayCardMessage, ReadyMessage } from '../interfaces/message.model';
 import { CardUI } from '../interfaces/update.model';
+import { PlayerData } from '../interfaces/player.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService  {
-
+  private playerData:PlayerData = {
+    id: '',
+    name: '',
+    img: -1
+  }
 
   private handSubject = new BehaviorSubject<CardUI[]>([]);
   public hand$ = this.handSubject.asObservable();
@@ -83,6 +88,11 @@ export class SocketService  {
       }
     }
     this.send('message', msg);
+    this.saveData({
+      id: this.socket.ioSocket.id,
+      img: picIndex,
+      name
+    });
   }
 
   send(chanel:string, msg:Message) {
@@ -123,5 +133,20 @@ export class SocketService  {
     }
     console.log(msg);
     this.send('message',msg);
+  }
+
+  private saveData(data: PlayerData): void {
+    localStorage.setItem('playerDataMUGG', JSON.stringify(this.playerData));
+  }
+
+  public loadData(): boolean {
+    const data = localStorage.getItem('playerDataMUGG');
+    if (data) {
+      this.playerData = JSON.parse(data);
+      // TODO send change sockect to server
+      return true;
+    } else {
+      return false;
+    }
   }
 }
