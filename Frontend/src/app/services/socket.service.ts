@@ -136,7 +136,7 @@ export class SocketService  {
   }
 
   private saveData(data: PlayerData): void {
-    localStorage.setItem('playerDataMUGG', JSON.stringify(this.playerData));
+    localStorage.setItem('playerDataMUGG', JSON.stringify(data));
   }
 
   public loadData(): boolean {
