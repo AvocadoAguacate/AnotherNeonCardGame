@@ -77,7 +77,7 @@ export function discardCards(context:Context, playerId: string, cards: string[])
   });
   const playerInd = context.players
     .findIndex(player => player.id === playerId);
-  updatePlayerUI(context,playerInd, true, false, false);
+  updatePlayerUI(context,playerInd, true, false, false); //TODO allonehand
   return {...context};
 }
 

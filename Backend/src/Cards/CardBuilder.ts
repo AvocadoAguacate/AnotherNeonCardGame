@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { suffleCards } from '../Utils';
 import { createAdd10, createAdd2, createAdd3, createAdd4, createAdd5, createAdd6, createAdd7, createAdd8 } from './speficBuilders/AddBuilder';
 import * as fs from 'fs';
+import { createSlice } from './speficBuilders/SliceBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -32,7 +33,7 @@ export function createDeck(isFlexProb: number, colors: Color[], config: number[]
   return suffleCards(deck);
 }
 
-function createCard(number: number, isFlexProb: number, colors: Color[]): Card {
+export function createCard(number: number, isFlexProb: number, colors: Color[]): Card {
   let card: Card ={
     number,
     colors: [colors[0]],
@@ -64,6 +65,13 @@ export function addFunction(
 function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
   let card:Card;
   switch (type) {
+    case 10:
+      card = createSlice(isFlex, colors, 2);
+      break;
+    case 11:
+      card = createSlice(isFlex, colors, 4);
+      break;
+    //todo granate, kick, reverse (14-17), skip(18-21)
     case 22:
       card = createAdd2(isFlex, colors);
       break;
