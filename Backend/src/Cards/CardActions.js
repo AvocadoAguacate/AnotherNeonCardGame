@@ -21,7 +21,6 @@ function telAdd(context, searchColor) {
       })
     })
   });
-
   const maxValue = Math.max(counters);
   const targets = counters
     .map((value, index) => value === maxValue ? index : -1)
@@ -48,37 +47,6 @@ function tax(context, number) {
   return {...context};
 }
 
-function slice(context, number) {
-  let {payLoad, turnIndex, players} = context;
-  let maxDiscard = Math.floor(players[turnIndex].hand.length / number);
-  if(payLoad.toDiscard.length > maxDiscard){
-    payLoad.toDiscard = payLoad.toDiscard.splice(0, maxDiscard);
-  }
-  payLoad.toDiscard.forEach(toDiscard => {
-    context = discardCard(context, turnIndex, toDiscard);
-  })
-  return {...context};
-}
-
-function defense(context, number) {
-  let {chain, turnIndex} = context;
-  let total = Math.floor(chain.sum * number); 
-  deal(context, turnIndex, total);
-  return {...context};
-}
-
-function reverse(context) {
-  let {direction} = context;
-  direction *= -1;
-  return {...context, direction};
-}
-
-function skip(context) {
-  let {turns, turnIndex, direction, players} = context;
-  turns[turnIndex] = false;
-  turnIndex = (turnIndex + direction + players.length) % players.length;
-  return {...context, turns, turnIndex};
-}
 
 function dice(context, number) {
   let dice = Math.floor(Math.random() * number + 1);
@@ -90,24 +58,6 @@ export function wildColorChange(context) {
   let {payLoad, discardDeck} = context;
   discardDeck[0].color = [payLoad.wildColorChange];
   return {...context, payLoad, discardDeck};
-}
-
-export function addCards(context, number) {
-  let {chain, turnIndex, players, discardDeck, deck, turns} = context
-  if(!chain.sum){ //new chain
-    chain = {
-      sum: number,
-      members: JSON.parse(JSON.stringify(turns)), 
-    }
-  } else {
-    let remainder = discardDeck[1].number - discardDeck[0].number;
-    if(remainder > 0){//is unpaid
-      context = deal(context, turnIndex, remainder);
-    }
-    chain.members[turnIndex] = true;
-    chain.sum += number;
-  }
-  return {...context, chain};
 }
 
 function ruleteShot(context, count) {
@@ -356,107 +306,6 @@ export function genocide(context) {
   return {...context};
 }
 
-export function slice2(context) {
-  return slice(context, 2);
-}
-
-export function slice4(context) {
-  context = wildColorChange(context);
-  return slice(context, 4);
-}
-
-export function grenate(context) {
-  let {turnIndex, direction, players} = context;
-  context = wildColorChange(context);
-  let right = (turnIndex + direction + players.length) % players.length;
-  let left = (turnIndex - direction + players.length) % players.length;
-  let explotion = Math.ceil(Math.random() * 12 + 1);
-  let explotionR = Math.floor(Math.random() * 12 + 1);
-  let explotionL = Math.floor(Math.random() * 12 + 1);
-  context = deal(context, turnIndex, explotion);
-  context = deal(context, left, explotionL);
-  context = deal(context, right, explotionR);
-  return {...context};
-}
-
-export function kick(context) {
-  let {players} = context;
-  let oneCard = players.map(player => player.hand.length === 1 ? true : false);
-  if(oneCard > 0){
-    oneCard.forEach((isOne, index) => {
-      if(isOne){
-        context = deal(context, index, 4);
-      }
-    })
-  } else {
-    let twoCards = players.map(player => player.hand.length === 2 ? true : false);
-    if(twoCards > 0){
-      twoCards.forEach((isTwo, index) => {
-        if(isTwo){
-          context = deal(context, index, 2);
-        }
-      });
-    } else {
-      players.forEach((player, index) => {
-        context = deal(context, index, 1);
-      });
-    }
-    return {...context};
-  }
-}
-
-export function reverse10(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.9);
-  }
-  return reverse(context);
-}
-
-export function reverse25(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.75);
-  }
-  return reverse(context);
-}
-export function reverse50(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.5);
-  }
-  return reverse(context);
-}
-export function reverse100(context) {
-  if(context.chain.sum){
-    context = defense(context, 0);
-  }
-  return reverse(context);
-}
-
-export function skip10(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.9);
-  }
-  return skip(context);
-}
-
-export function skip25(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.75);
-  }
-  return skip(context);
-}
-export function skip50(context) {
-  if(context.chain.sum){
-    context = defense(context, 0.5);
-  }
-  return skip(context);
-}
-export function skip100(context) {
-  if(context.chain.sum){
-    context = defense(context, 0);
-  }
-  return skip(context);
-}
-
 export function d8(context) {
   return dice(context, 8);
 }
@@ -513,41 +362,4 @@ export function changeOne(context) {
   sendHand(players[turnIndex]);
   sendHand(players[payLoad.target]);
   return {...context, players}
-}
-
-export function add2(context) {
-  context = wildColorChange(context);
-  return addCards(context, 2);
-}
-
-export function add3(context) {
-  return addCards(context, 3);
-}
-
-export function add4(context) {
-  context = wildColorChange(context);
-  return addCards(context, 4);
-}
-
-export function add5(context) {
-  return addCards(context, 5);
-}
-
-export function add6(context) {
-  context = wildColorChange(context);
-  return addCards(context, 6);
-}
-
-export function add7(context) {
-  return addCards(context, 7);
-}
-
-export function add8(context) {
-  context = wildColorChange(context);
-  return addCards(context, 8);
-}
-
-export function add10(context) {
-  context = wildColorChange(context);
-  return addCards(context, 10);
 }

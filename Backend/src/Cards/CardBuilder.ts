@@ -9,6 +9,7 @@ import { createGranate } from './speficBuilders/GranateBuilder';
 import { createKick } from './speficBuilders/KickBuilder';
 import { createReverse } from './speficBuilders/ReverseBuilder';
 import { createSkip } from './speficBuilders/SkipBuilder';
+import { createDice } from './speficBuilders/DiceBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -128,6 +129,18 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
       break;
     case 30:
       card = createAdd10(isFlex, colors);
+      break;
+    case 31:
+      card = createDice(isFlex, colors, 31);
+      break;
+    case 32:
+      card = createDice(isFlex, colors, 32);
+      break;
+    case 33:
+      card = createDice(isFlex, colors, 33);
+      break;
+    case 34:
+      card = createDice(isFlex, colors, 34);
       break;
     default:
       card = createAdd2(isFlex, colors);

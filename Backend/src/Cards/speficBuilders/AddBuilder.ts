@@ -23,7 +23,7 @@ function createAddCard(isFlexProb: number, colors: Color[]): Card {
   return card
 }
 
-export function addCards(context: Context, number: number) {
+export function addCards(context: Context, number: number): Context{
   let {chain, turn, players, discardDeck} = context
   if(chain.sum === 0){ //new chain
     context.chain = {
@@ -33,7 +33,7 @@ export function addCards(context: Context, number: number) {
       }) 
     }
   } else {
-    let remainder = discardDeck[1].number! - discardDeck[0].number!;
+    let remainder = discardDeck[1].number! - number;
     if(remainder > 0){//is unpaid
       context = deal(context, players[turn].id, remainder);
     }
