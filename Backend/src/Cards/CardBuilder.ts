@@ -8,6 +8,7 @@ import { createSlice } from './speficBuilders/SliceBuilder';
 import { createGranate } from './speficBuilders/GranateBuilder';
 import { createKick } from './speficBuilders/KickBuilder';
 import { createReverse } from './speficBuilders/ReverseBuilder';
+import { createSkip } from './speficBuilders/SkipBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -92,7 +93,18 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
     case 17:
       card = createReverse(isFlex, colors, 17);
       break;
-    //todo reverse (14-17), skip(18-21)
+    case 18:
+      card = createSkip(isFlex, colors, 18);
+      break;
+    case 19:
+      card = createSkip(isFlex, colors, 19);
+      break;
+    case 20:
+      card = createSkip(isFlex, colors, 20);
+      break;
+    case 21:
+      card = createSkip(isFlex, colors, 21);
+      break;
     case 22:
       card = createAdd2(isFlex, colors);
       break;
