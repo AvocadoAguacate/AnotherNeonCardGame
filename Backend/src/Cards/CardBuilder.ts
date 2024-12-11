@@ -10,6 +10,7 @@ import { createKick } from './speficBuilders/KickBuilder';
 import { createReverse } from './speficBuilders/ReverseBuilder';
 import { createSkip } from './speficBuilders/SkipBuilder';
 import { createDice } from './speficBuilders/DiceBuilder';
+import { createKami } from './speficBuilders/KamiBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -141,6 +142,9 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
       break;
     case 34:
       card = createDice(isFlex, colors, 34);
+      break;
+    case 35:
+      card = createKami(isFlex, colors);
       break;
     default:
       card = createAdd2(isFlex, colors);
