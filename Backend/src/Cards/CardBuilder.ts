@@ -5,6 +5,9 @@ import { suffleCards } from '../Utils';
 import { createAdd10, createAdd2, createAdd3, createAdd4, createAdd5, createAdd6, createAdd7, createAdd8 } from './speficBuilders/AddBuilder';
 import * as fs from 'fs';
 import { createSlice } from './speficBuilders/SliceBuilder';
+import { createGranate } from './speficBuilders/GranateBuilder';
+import { createKick } from './speficBuilders/KickBuilder';
+import { createReverse } from './speficBuilders/ReverseBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -71,7 +74,25 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
     case 11:
       card = createSlice(isFlex, colors, 4);
       break;
-    //todo granate, kick, reverse (14-17), skip(18-21)
+    case 12:
+      card = createGranate();
+      break;
+    case 13:
+      card = createKick(isFlex, colors);
+      break;
+    case 14:
+      card = createReverse(isFlex, colors, 14);
+      break;
+    case 15:
+      card = createReverse(isFlex, colors, 15);
+      break;
+    case 16:
+      card = createReverse(isFlex, colors, 16);
+      break;
+    case 17:
+      card = createReverse(isFlex, colors, 17);
+      break;
+    //todo reverse (14-17), skip(18-21)
     case 22:
       card = createAdd2(isFlex, colors);
       break;

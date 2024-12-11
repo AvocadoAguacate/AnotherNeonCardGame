@@ -2,7 +2,7 @@ number,tag, description
 10, slice2, El jugador descarta la mitad de sus cartas y escoge color ( redondeo hacia arriba ) 
 11, slice4, El jugador descarta una cuarta parte de sus cartas ( redondeo hacia abajo )
 12, grenade, El jugador tira un dado de 20 caras y come la cantidad de cartas resultante. El juegador de la izquierda y derecha tienen que lanzar un dado de 12 caras y comer la cantidad de cartas resultantes.
-13, kick, Si un jugador tiene una carta le toca comer 4 cartas y sino el jugador con menos cartas le toca comer 1 carta
+13, kick, hand === 1 deal(4)/ hand >= 5 deal(2)/ player deal(5)
 14, reverse10,
 15, reverse25,
 16, reverse50,

@@ -173,3 +173,11 @@ export function sendChallenge(players: Player[], challenge: Challenge):void{
   };
   players[playerInd].socket.emit('message',msg);
 }
+
+export function resetChain(context:Context): Context{
+  context.chain.sum = 0;
+  context.chain.members = context.chain.members.map(_m => {
+    return false;
+  });
+  return context;
+}
