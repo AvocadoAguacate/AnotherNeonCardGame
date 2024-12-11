@@ -6,7 +6,7 @@ import { addWild } from './WildBuilder';
 
 
 export function createGranate():Card {
-  let card = createCard(10,-1,['None']);
+  let card = createCard(12,-1,['None']);
   card.playCard = (c: Context, _p?: PlayPayload) => grenate(c);
   card = addWild(card);
   card.isAction = true;

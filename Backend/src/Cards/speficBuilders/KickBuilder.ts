@@ -4,7 +4,7 @@ import { createCard } from '../CardBuilder';
 import { deal } from '../../Utils';
 
 export function createKick(isFlex: number, colors: Color[]):Card {
-  let card = createCard(11, isFlex, colors);
+  let card = createCard(13, isFlex, colors);
   card.playCard = (c:Context, _p?: PlayPayload) => kick(c);
   return card;
 }

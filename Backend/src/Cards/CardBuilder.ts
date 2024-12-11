@@ -69,10 +69,10 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
   let card:Card;
   switch (type) {
     case 10:
-      card = createSlice(isFlex, colors, 2);
+      card = createSlice(isFlex, colors, 10);
       break;
     case 11:
-      card = createSlice(isFlex, colors, 4);
+      card = createSlice(isFlex, colors, 11);
       break;
     case 12:
       card = createGranate();

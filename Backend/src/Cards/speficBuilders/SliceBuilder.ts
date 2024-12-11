@@ -14,9 +14,11 @@ function slice(context:Context, payLoad: PlayPayload, number: number) {
 }
 
 export function createSlice(isFlex: number, colors:Color[], number: number):Card{
-  let card = createCard(10, isFlex, colors);
-  card.playCard = (c: Context, p?: PlayPayload) => slice(c, p!, number);
-  if(number === 2) card = addWild(card);
+  let card = createCard(number, isFlex, colors);
+  card.playCard = (c: Context, p?: PlayPayload) => {
+    return slice(c, p!, number === 10 ? 2 : 4);
+  }
+  if(number === 10) card = addWild(card);
   card.isAction = true;
   return card;
 }
