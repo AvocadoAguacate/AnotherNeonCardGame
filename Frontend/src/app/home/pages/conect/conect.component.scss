@@ -39,3 +39,6 @@
     transition: all 0.3s ease; // Transición suave
   }
 }
+.filter-info{
+  filter: brightness(0) saturate(100%) invert(80%) sepia(57%) saturate(3839%) hue-rotate(148deg) brightness(93%) contrast(103%);
+}

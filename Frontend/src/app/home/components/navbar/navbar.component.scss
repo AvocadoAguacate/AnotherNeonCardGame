@@ -1,0 +1,19 @@
+.neon {
+  color: #0dcaf0; /* Celeste tipo Bootstrap "info" */
+  text-shadow: 
+    0 0 5px #0dcaf0, 
+    0 0 10px #0dcaf0, 
+    0 0 20px #0dcaf0, 
+    0 0 30px #0dcaf0, 
+    0 0 40px #0dcaf0;
+  animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow {
+  0% {
+    filter: brightness(0.8) drop-shadow(0 0 10px #0dcaf060);
+  }
+  100% {
+    filter: brightness(1) drop-shadow(0 0 20px #0dcaf0);
+  }
+}

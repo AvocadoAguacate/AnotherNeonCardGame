@@ -47,13 +47,6 @@ function tax(context, number) {
   return {...context};
 }
 
-
-function dice(context, number) {
-  let dice = Math.floor(Math.random() * number + 1);
-  context = addCards(context, dice);
-  return {...context};
-}
-
 export function wildColorChange(context) {
   let {payLoad, discardDeck} = context;
   discardDeck[0].color = [payLoad.wildColorChange];
@@ -293,45 +286,6 @@ export function dare(context) {
   discardDeck[0].color = [];
   return {...context, discardDeck};
 }
-
-export function genocide(context) {
-  let {players, payLoad} = context
-  players.forEach((player, playerIndex) => {
-    player.hand.forEach((card, cardIndex) => {
-      if(checkColor(card, {color: payLoad.genocideColor})){
-        context = discardCard(context,playerIndex, cardIndex);
-      }
-    });
-  });
-  return {...context};
-}
-
-export function d8(context) {
-  return dice(context, 8);
-}
-export function d6(context) {
-  return dice(context, 6);
-}
-export function d12(context) {
-  context = wildColorChange(context);
-  return dice(context, 12);
-}
-export function d20(context) {
-  context = wildColorChange(context);
-  return dice(context, 20);
-}
-
-export function kami(context) {
-  let {chain} = context;
-  context = wildColorChange(context);
-  chain.members.forEach((isMember, index) => {
-    if(isMember){
-      context = deal(context, index, chain.sum);
-    }
-  })
-  return {...context, chain:{}};
-}
-
 
 export function changeAll(context) {
   let {players, direction} = context;

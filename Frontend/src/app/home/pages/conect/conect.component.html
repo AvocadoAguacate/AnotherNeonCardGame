@@ -18,11 +18,15 @@
           [(ngModel)]="selectedOption"
           >
         <label class="form-check-label" [for]="option">
-          <svg-icon [src]="avatarPaths[option]"  [svgStyle]="{ 'width.px': 100,'height.px': 100, 'fill': 'red'}" ></svg-icon>
+          <svg-icon 
+            [src]="avatarPaths[option]"  
+            [svgStyle]="{ 'width.px': 100,'height.px': 100}" 
+            [ngClass]="{'filter-info': parseNumber(selectedOption) === option}"></svg-icon>
         </label>
       </div>
     }
   </div>
+  <!-- <img [src]="avatarPaths[0]" class="filter-green"/>  -->
   <button
   class="btn btn-outline-info"
   style="width: 70%; max-width: 500px;"
