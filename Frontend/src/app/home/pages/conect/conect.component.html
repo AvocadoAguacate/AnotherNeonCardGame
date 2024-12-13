@@ -31,7 +31,7 @@
   class="btn btn-outline-info"
   style="width: 70%; max-width: 500px;"
   (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
-  [disabled]="!name.value || !selectedOption" 
+  [disabled]="!name.value || selectedOption === ''" 
   >
     Jugar
   </button>

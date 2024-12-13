@@ -40,5 +40,26 @@
   }
 }
 .filter-info{
-  filter: brightness(0) saturate(100%) invert(80%) sepia(57%) saturate(3839%) hue-rotate(148deg) brightness(93%) contrast(103%);
+  animation-name: neon-glow;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes neon-glow {
+  0% {
+    filter: drop-shadow(0px 0px 1px #fff)
+            drop-shadow(0px 0px 3px #fff)
+            drop-shadow(0px 0px 10px #0dcaf0)
+            drop-shadow(0px 0px 30px #0aa2c0)
+            drop-shadow(0px 0px 50px #0a95b3);
+  }
+
+  100% {
+    filter: drop-shadow(0px 0px 3px #fff)
+            drop-shadow(0px 0px 6px #fff)
+            drop-shadow(0px 0px 15px #0dcaf0)
+            drop-shadow(0px 0px 40px #0aa2c0)
+            drop-shadow(0px 0px 60px #0a95b3);
+  }
 }
