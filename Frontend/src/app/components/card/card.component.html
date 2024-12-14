@@ -1,1 +1,12 @@
-<p>card works!</p>
+
+      <div class="card position-relative card-custom">
+        <!-- Icono principal al centro -->
+        <img [src]="getSrc()" class="card-img-top main-icon filter-info" alt="Main Icon">  
+        <!-- Icono adicional pequeño en la esquina superior derecha -->
+        <img 
+          *ngIf="isChain" 
+          src="assets/Cards/chain.svg" 
+          class="position-absolute chain-icon filter-info" 
+          alt="Chain Icon">
+      </div>
+

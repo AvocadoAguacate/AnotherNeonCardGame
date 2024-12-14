@@ -1,0 +1,55 @@
+/* Icono principal al centro, pero más hacia el fondo */
+.main-icon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  position: absolute;
+  bottom: -5px; /* Ajusta la distancia al borde inferior */
+  left: 50%;
+  transform: translateX(-50%); /* Centra horizontalmente */
+  border: 1px solid #1cff07;
+}
+
+/* Icono adicional en la esquina superior derecha */
+.chain-icon {
+  width: 30px; /* Ajusta el tamaño del icono */
+  height: 30px;
+  top: 4px; /* Posición desde la parte superior */
+  right: 4px; /* Posición desde la derecha */
+  object-fit: contain;
+}
+
+/* Contenedor de la card */
+.card-custom {
+  width: 80px;
+  height: 120px;
+  border: 1px solid #ff0707;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: black;
+  position: relative; /* Necesario para posicionar los elementos hijos */
+}
+
+.filter-info{
+  animation-name: neon-glow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes neon-glow {
+  0% {
+    filter: drop-shadow(0px 0px 1px #fff)
+            
+            drop-shadow(0px 0px 10px #0dcaf0)
+            drop-shadow(0px 0px 30px #0aa2c0)
+            drop-shadow(0px 0px 50px #0a95b3);
+  }
+  100% {
+    filter: drop-shadow(0px 0px 3px #fff)
+            drop-shadow(0px 0px 6px #ffffffbc)
+            drop-shadow(0px 0px 15px #0dcaf0)
+            drop-shadow(0px 0px 40px #0aa2c0)
+            drop-shadow(0px 0px 60px #0a95b3);
+  }
+}
