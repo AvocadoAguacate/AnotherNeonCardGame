@@ -16,7 +16,7 @@ export interface UpdateUI extends messageUI{
 }
 
 export interface CardUI{
-  number ?: number,
+  number  : number,
   colors  : Color[],
   id      : string
 }

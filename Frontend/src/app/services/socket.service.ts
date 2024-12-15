@@ -19,7 +19,7 @@ export class SocketService  {
   private handSubject = new BehaviorSubject<CardUI[]>([]);
   public hand$ = this.handSubject.asObservable();
 
-  private lastDiscardSubject = new BehaviorSubject<CardUI>({colors:[],id:""});
+  private lastDiscardSubject = new BehaviorSubject<CardUI>({colors:[],id:"", number: -1});
   public lastDiscard$ = this.lastDiscardSubject.asObservable();
 
   private playersSubject = new BehaviorSubject<PlayerUI[]>([]);
