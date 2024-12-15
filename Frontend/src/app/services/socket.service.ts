@@ -28,7 +28,7 @@ export class SocketService  {
   private deadNumberSubject = new BehaviorSubject<number>(25);
   public deadNumber$ = this.deadNumberSubject.asObservable();
 
-  private turnSubject = new BehaviorSubject<number>(0);
+  private turnSubject = new BehaviorSubject<number>(-1);
   public turn$ = this.turnSubject.asObservable();
 
   private challengeSubject = new BehaviorSubject<ChallengeUI>({oponent:-1, id:'', type:'challenge'});

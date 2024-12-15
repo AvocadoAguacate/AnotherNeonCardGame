@@ -39,7 +39,7 @@ export class ConectComponent {
   sendPlayer(name:string, pic:number){
     if(name.length > 0 && pic >= 0){
       this._socketService.setPlayer(name, pic);
-      this.router.navigate(['/test']);
+      this.router.navigate(['/waiting-room']);
     } else {
       window.location.reload();
     }
