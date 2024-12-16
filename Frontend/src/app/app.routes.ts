@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-import { GameComponent } from './pages/game/game.component';
+import { GameComponent } from './game/pages/game/game.component';
 import { HomeLayoutComponent } from './home/pages/home-layout/home-layout.component';
 import { HomeComponent } from './home/pages/home/home.component';
 import { ConectComponent } from './home/pages/conect/conect.component';
 import { ReconectComponent } from './home/pages/reconect/reconect.component';
 import { AboutComponent } from './home/pages/about/about.component';
+import { WaitingComponent } from './waiting-room/pages/waiting/waiting.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,7 @@ export const routes: Routes = [
       {path: '**', redirectTo: 'menu'}
     ]
   },
+  {path: 'waiting-room', component: WaitingComponent},
   {path: 'game', component: GameComponent},
   {path: 'test', component: LoginComponent},
   {path: '**', redirectTo: 'home'},

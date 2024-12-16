@@ -1,1 +1,63 @@
-<p>game works!</p>
+
+<div class="d-flex flex-column vh-100 bg-dark">
+  <!-- Fila superior -->
+  <div class="flex-shrink-0" style="height: 15%;">
+    <div class="dead-player-container">
+      <p class="deadNumber">{{deadNumber}}</p>
+      <div class="players-container">
+        <div class="hand" *ngFor="let player of players; let i=index">
+          <app-player
+            [deathNumber]="deadNumber"
+            [player]="player"
+            [isTurn]="i === turn"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fila central -->
+  <div class="flex-grow-1" style="height: 55%; color: red">
+    <p class="text-center my-2">Proximante la mesa</p>
+  </div>
+
+  <!-- Fila inferior -->
+  <div class="d-flex" style="height: 30%;">
+    <!-- Columna izquierda -->
+    <div class="d-flex justify-content-center align-items-center" style="flex: 0 0 20%; flex-direction: column;">
+      <button class="btn btn-outline-info w-100">
+        P
+      </button>
+      <button class="btn btn-outline-info w-100">
+        C
+      </button>
+      <button class="btn btn-outline-info w-100">
+        O
+      </button>
+    </div>
+
+    <!-- Columna central -->
+    <div class="d-flex hand-container" style="flex: 0 0 60%;">
+      <div class="col hand" *ngFor="let card of hand">
+        <app-card 
+          [card]="card" 
+          [isChain]="isChain(card.number)" 
+          [isGeneral]="isGenral(card.number)"
+        ></app-card>
+      </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="d-flex justify-content-center align-items-center" style="flex: 0 0 20%; flex-direction: column;">
+      <button class="btn btn-outline-info w-100">
+        R
+      </button>
+      <button class="btn btn-outline-info w-100">
+        P
+      </button>
+      <button class="btn btn-outline-info w-100">
+        ?
+      </button>
+    </div>
+  </div>
+</div>

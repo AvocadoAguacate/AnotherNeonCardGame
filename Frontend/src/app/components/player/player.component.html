@@ -1,0 +1,14 @@
+<div class="player-container ">
+  <img 
+    [src]="getPlayerImg()" 
+    class="player-img" 
+    [ngClass]="{
+      'player-turn': isTurn,
+      'player-dead': player.hand >= deathNumber
+      }"
+    [alt]="player.name"/>
+  <div 
+    [ngClass]="{'overlay': !isTurn && player.hand < deathNumber}"
+    [ngStyle]="{'height': getOverlayHeight()}"
+    ></div>
+</div>
