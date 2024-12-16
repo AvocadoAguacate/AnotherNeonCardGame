@@ -21,6 +21,12 @@ export class PlayerComponent {
   @Input()
   public isTurn!: boolean
 
+  public img: string = 'assets/Players/god.svg'
+
+  ngOnInit(): void {
+    this.img = this.getPlayerImg();
+  }
+
   getPlayerImg():string{
     console.log(avatarPaths[this.player.img])
     return avatarPaths[this.player.img];
