@@ -1,0 +1,14 @@
+.modal-content{
+  font-family: "Orbitron", sans-serif;
+}
+.numbers-container {
+  display: flex; 
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center; 
+  button {
+    flex-grow: 1;
+    min-width: 70px;            
+    text-align: center; 
+  }
+}

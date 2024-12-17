@@ -1,0 +1,26 @@
+<div class="modal fade" id="numberModal" tabindex="-1" aria-labelledby="numberModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body numbers-container">
+        <div *ngFor="let btnNumber of btnNumbers; let i=index">
+          <button 
+            [disabled]="!btnNumber.status"
+            class="btn btn-outline-info"
+            (click)="setNumber(btnNumber.number)"
+          >
+            {{btnNumber.number}}
+          </button>
+        </div>
+      </div>
+      <button 
+      type="button" 
+      class="btn btn-outline-info" 
+      (click)="sendNumber()"
+      data-bs-dismiss="modal"
+    >
+      {{currNumber}}
+    </button>
+    </div>
+  </div>
+</div>
+
