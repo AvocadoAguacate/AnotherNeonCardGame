@@ -8,6 +8,7 @@ export class GameService {
 
   private color: Color = 'null';
   private currNumber: number = 0;
+  private selectedPlayer = -1;
 
   selectColor(color: Color) {
     this.color = color;
@@ -19,5 +20,13 @@ export class GameService {
       this.currNumber = this.currNumber % 100;
     }
     console.log(this.currNumber);
+  }
+
+  selectPlayer(playerInd: number) {
+    this.selectedPlayer = playerInd;
+  }
+
+  getSelectedPlayer(): number {
+    return this.selectedPlayer;
   }
 }

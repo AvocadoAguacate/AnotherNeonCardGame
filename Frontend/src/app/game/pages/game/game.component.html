@@ -7,6 +7,9 @@
       <div class="players-container">
         <div class="hand" *ngFor="let player of players; let i=index">
           <app-player
+            (click)="selectPlayer(i)"
+            data-bs-toggle="modal" 
+            data-bs-target="#playerModal"
             [deathNumber]="deadNumber"
             [player]="player"
             [isTurn]="i === turn"
@@ -61,3 +64,4 @@
     </div>
   </div>
 </div>
+<modal-player [player]="selectedPlayer" [playerInd]="selectedInd"></modal-player>

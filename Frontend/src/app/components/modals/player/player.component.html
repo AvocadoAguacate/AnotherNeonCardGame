@@ -1,0 +1,34 @@
+<div class="modal fade" id="playerModal" tabindex="-1" aria-labelledby="playerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body player-modal-container">
+        <div class="left">
+          <img 
+            [src]="avatarPaths[player.img]" 
+            [alt]="player.name"
+            class="player-modal-img filter-neon"
+          >
+          </div>
+          <div class="right">
+            <p>{{player.name}} - {{player.hand}} cartas</p>
+            <button 
+            type="button" 
+            class="btn btn-outline-info" 
+            (click)="sendChallenge()"
+            data-bs-dismiss="modal"
+            >
+            Retar
+            </button>
+            <button 
+            type="button" 
+            class="btn btn-outline-info" 
+            (click)="selectPlayer()"
+            data-bs-dismiss="modal"
+            >
+            Selecionar
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

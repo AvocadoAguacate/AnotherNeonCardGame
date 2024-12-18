@@ -5,21 +5,25 @@ import { SocketService } from '../../../services/socket.service';
 import { CardUI, PlayerUI } from '../../../interfaces/update.model';
 import { CardComponent } from "../../../components/card/card.component";
 import { PlayerComponent } from '../../../components/player/player.component';
+import { PlayerModalComponent } from "../../../components/modals/player/player.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, CardComponent, PlayerComponent],
+  imports: [CommonModule, CardComponent, PlayerComponent, PlayerModalComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
 export class GameComponent {
+
 
     public hand: CardUI[] = [];
     public lastDiscard: CardUI = {colors:[],id:"", number: -1};
     public players: PlayerUI[] = [];
     public deadNumber: number = 25;
     public turn: number = -1;
+    public selectedPlayer: PlayerUI = {name: "", img: 1, hand:-1};
+    public selectedInd: number = -1;
 
     constructor(
       private router:Router,
@@ -48,5 +52,10 @@ export class GameComponent {
     isChain(num: number): boolean {
       if(num >= 14 && num <= 35) return true;
       return false;
+    }
+
+    selectPlayer(ind: number) {
+      this.selectedInd = ind;
+      this.selectedPlayer = this.players[ind];
     }
 }

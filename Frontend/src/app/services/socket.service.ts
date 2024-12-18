@@ -1,3 +1,5 @@
+import { GameService } from './game.service';
+import { ChallengeMessage } from './../interfaces/message.model';
 import { ChallengeUI, messageUI, PlayerUI, UpdateUI } from './../interfaces/update.model';
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
@@ -10,6 +12,7 @@ import { PlayerData } from '../interfaces/player.model';
   providedIn: 'root'
 })
 export class SocketService  {
+
   private playerData:PlayerData = {
     id: '',
     name: '',
@@ -34,7 +37,10 @@ export class SocketService  {
   private challengeSubject = new BehaviorSubject<ChallengeUI>({oponent:-1, id:'', type:'challenge'});
   public challenge$ = this.challengeSubject.asObservable();
 
-  constructor(private socket: Socket) {
+  constructor(
+    private socket: Socket,
+    private gameService: GameService
+  ) {
     this.listenToServer();
   }
   
@@ -88,11 +94,12 @@ export class SocketService  {
       }
     }
     this.send('message', msg);
-    this.saveData({
+    this.playerData = {
       id: this.socket.ioSocket.id,
       img: picIndex,
       name
-    });
+    };
+    this.saveData(this.playerData);
   }
 
   send(chanel:string, msg:Message) {
@@ -148,5 +155,19 @@ export class SocketService  {
     } else {
       return false;
     }
+  }
+
+  sendChallenge() {
+    const oponentInd = this.gameService.getSelectedPlayer();
+    const msg: ChallengeMessage = {
+      id: this.playerData.id,
+      type: 'challenge',
+      payload: {
+        oponentInd,
+        challengerId: this.playerData.id
+      }
+    }
+    console.log(msg);
+    this.send('message', msg);
   }
 }
