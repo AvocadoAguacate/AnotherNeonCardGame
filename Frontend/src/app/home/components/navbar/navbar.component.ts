@@ -12,11 +12,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class NavbarComponent {
 
   public randomName: string = '';
+  public currentLanguage: string = '';
   constructor(
     private router:Router,
     private translate: TranslateService
   ){
-    this.getRandomName()
+    this.getRandomName();
+    this.currentLanguage = this.translate.currentLang;
   }
   goMenu() {
     this.getRandomName()
@@ -32,5 +34,6 @@ export class NavbarComponent {
     const selectedLang = (ev.target as HTMLSelectElement).value;
     this.translate.use(selectedLang);
     this.getRandomName();
+    this.currentLanguage = selectedLang; 
   }
 }

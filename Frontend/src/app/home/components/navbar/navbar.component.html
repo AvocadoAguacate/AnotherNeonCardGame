@@ -1,7 +1,7 @@
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand neon" (click)="goMenu()">{{randomName}}</a>
-      <select class="form-select form-select-sm w-auto" aria-label="langSelect"  (change)="selectLan($event)">
+      <select class="form-select form-select-sm w-auto" aria-label="langSelect"  (change)="selectLan($event)" [value]="currentLanguage">
         <option value="es">🇪🇸</option>
         <option value="en">🇺🇸</option>
         <option value="fr">🇫🇷</option>
