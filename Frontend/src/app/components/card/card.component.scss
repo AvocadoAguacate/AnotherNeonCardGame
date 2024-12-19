@@ -14,15 +14,15 @@
   height: 80%;
   object-fit: contain;
   position: absolute;
-  bottom: 10px; /* Ajusta la distancia al borde inferior, puedes modificar el valor */
-  left: 50%;
-  transform: translateX(-50%); /* Centra horizontalmente */
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
 }
 
 /* Icono adicional en la esquina superior derecha */
 .chain-icon {
-  width: 30px; /* Ajusta el tamaño del icono */
-  height: 30px;
+  width: 30%; /* Ajusta el tamaño del icono */
+  height: 30%;
   top: 4px; /* Posición desde la parte superior */
   right: 4px; /* Posición desde la derecha */
   object-fit: contain;
@@ -30,21 +30,16 @@
 
 /* Contenedor de la card */
 .card-custom {
-  width: 80px;
-  height: 105px;
+  min-width: 80px;
+  aspect-ratio: 80 / 105;
+  max-width: 100%;
+  max-height: 100%;
   border: solid #636363;
   border-width: 3px 1.5px; 
   border-radius: 8px;
   overflow: hidden;
   background-color: black;
-  position: relative; /* Necesario para posicionar los elementos hijos */
-}
-
-.cardNumber{
-  font-family: "Orbitron", sans-serif;
-  color:#fff;
-  font-size: 72px;
-  text-align: center;
+  position: relative; 
 }
 
 @keyframes neon-glow {
@@ -208,7 +203,7 @@
   animation: neon-glow 2s infinite alternate;
 }
 
-.neon-green-green {
+.neon-green-yellow {
   --neon-color: #39ff14; 
   --neon-color2: #f7ff07; 
   animation: neon-glow 2s infinite alternate;

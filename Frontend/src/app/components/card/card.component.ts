@@ -10,8 +10,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  constructor(){
-  }
 
   @Input()
   public card!: CardUI
@@ -19,20 +17,32 @@ export class CardComponent {
   public isChain!: boolean
   @Input()
   public isGeneral!: boolean
+
+  public classImg: string = 'main-icon-buttom neon-off';
+  public classIcon: string = 'position-absolute chain-icon neon-off';
   
   ngOnInit(): void {
     if(!this.card) throw new Error('The card is required');
     if(this.card.colors.length > 2){
       this.card.colors = [];
     }
-  }
-  private isChainNumber(): boolean{
-    if(this.card.number! >= 14 && this.card.number! <= 35) return true;
-    return false;
+    this.getImgClass();
   }
 
   getSrc():string {
     return `assets/Cards/c${this.card.number!}.svg`;
+  }
+
+  getImgClass(): void{
+    console.log(this.card);
+    console.log()
+    const place = !this.isChain && !this.isGeneral ? 'main-icon-center' : 'main-icon-buttom';
+    const secondColor = this.card.colors.length === 2 ? `-${this.card.colors[1]}`: '';
+    const color =  this.card.colors.length >= 1 ? this.card.colors[0] : 'off';
+    this.classImg = `${place} neon-${color}${secondColor}`
+    if(this.isChain || this.isGeneral){
+      this.classIcon = `position-absolute chain-icon neon-${color}${secondColor}`;
+    }
   }
 
 }

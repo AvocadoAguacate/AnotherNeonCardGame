@@ -1,137 +1,20 @@
 
       <div class="card position-relative card-custom">
-        <p
-        *ngIf="card.number < 10"
-        class="cardNumber main-icon-center"
-        [ngClass]="{
-            'neon-off': card.colors.length === 0,
-            'neon-purple-red': card.colors[0] === 'purple' && card.colors[1] === 'red',
-            'neon-purple-blue': card.colors[0] === 'purple' && card.colors[1] === 'blue',
-            'neon-purple-yellow': card.colors[0] === 'purple' && card.colors[1] === 'yellow',
-            'neon-purple-green': card.colors[0] === 'purple' && card.colors[1] === 'green',
-            'neon-blue-red': card.colors[0] === 'blue' && card.colors[1] === 'red',
-            'neon-blue-purple': card.colors[0] === 'blue' && card.colors[1] === 'purple',
-            'neon-blue-yellow': card.colors[0] === 'blue' && card.colors[1] === 'yellow',
-            'neon-blue-green': card.colors[0] === 'blue' && card.colors[1] === 'green',
-            'neon-yellow-red': card.colors[0] === 'yellow' && card.colors[1] === 'red',
-            'neon-yellow-blue': card.colors[0] === 'yellow' && card.colors[1] === 'blue',
-            'neon-yellow-purple': card.colors[0] === 'yellow' && card.colors[1] === 'purple',
-            'neon-yellow-green': card.colors[0] === 'yellow' && card.colors[1] === 'green',
-            'neon-green-red': card.colors[0] === 'green' && card.colors[1] === 'red',
-            'neon-green-purple': card.colors[0] === 'green' && card.colors[1] === 'purple',
-            'neon-green-yellow': card.colors[0] === 'green' && card.colors[1] === 'yellow',
-            'neon-green-blue': card.colors[0] === 'green' && card.colors[1] === 'blue',
-            'neon-red-green': card.colors[0] === 'red' && card.colors[1] === 'green',
-            'neon-red-purple': card.colors[0] === 'red' && card.colors[1] === 'purple',
-            'neon-red-yellow': card.colors[0] === 'red' && card.colors[1] === 'yellow',
-            'neon-red-blue': card.colors[0] === 'red' && card.colors[1] === 'blue',
-            'neon-green': card.colors[0] === 'green',
-            'neon-purple': card.colors[0] === 'purple',
-            'neon-yellow': card.colors[0] === 'yellow',
-            'neon-blue': card.colors[0] === 'blue',
-            'neon-red': card.colors[0] === 'red'
-        }"
-        >
-          {{card.number}}
-        </p>
         <!-- Icono principal al centro -->
         <img 
-          *ngIf="card.number > 9" 
           [src]="getSrc()" 
-          class="card-img-top" 
-          [ngClass]="{
-            'main-icon-center': !isChain && !isGeneral,
-            'main-icon-buttom': isChain || isGeneral,
-            'neon-purple-red': card.colors[0] === 'purple' && card.colors[1] === 'red',
-            'neon-purple-blue': card.colors[0] === 'purple' && card.colors[1] === 'blue',
-            'neon-purple-yellow': card.colors[0] === 'purple' && card.colors[1] === 'yellow',
-            'neon-purple-green': card.colors[0] === 'purple' && card.colors[1] === 'green',
-            'neon-blue-red': card.colors[0] === 'blue' && card.colors[1] === 'red',
-            'neon-blue-purple': card.colors[0] === 'blue' && card.colors[1] === 'purple',
-            'neon-blue-yellow': card.colors[0] === 'blue' && card.colors[1] === 'yellow',
-            'neon-blue-green': card.colors[0] === 'blue' && card.colors[1] === 'green',
-            'neon-yellow-red': card.colors[0] === 'yellow' && card.colors[1] === 'red',
-            'neon-yellow-blue': card.colors[0] === 'yellow' && card.colors[1] === 'blue',
-            'neon-yellow-purple': card.colors[0] === 'yellow' && card.colors[1] === 'purple',
-            'neon-yellow-green': card.colors[0] === 'yellow' && card.colors[1] === 'green',
-            'neon-green-red': card.colors[0] === 'green' && card.colors[1] === 'red',
-            'neon-green-purple': card.colors[0] === 'green' && card.colors[1] === 'purple',
-            'neon-green-yellow': card.colors[0] === 'green' && card.colors[1] === 'yellow',
-            'neon-green-blue': card.colors[0] === 'green' && card.colors[1] === 'blue',
-            'neon-red-green': card.colors[0] === 'red' && card.colors[1] === 'green',
-            'neon-red-purple': card.colors[0] === 'red' && card.colors[1] === 'purple',
-            'neon-red-yellow': card.colors[0] === 'red' && card.colors[1] === 'yellow',
-            'neon-red-blue': card.colors[0] === 'red' && card.colors[1] === 'blue',
-            'neon-green': card.colors[0] === 'green',
-            'neon-purple': card.colors[0] === 'purple',
-            'neon-yellow': card.colors[0] === 'yellow',
-            'neon-blue': card.colors[0] === 'blue'
-          }"
+          [class]="classImg"
           alt="Main Icon">  
         <!-- Icono adicional pequeño en la esquina superior derecha -->
         <img 
           *ngIf="isChain" 
           src="assets/Cards/chain.svg" 
-          class="position-absolute chain-icon"
-          [ngClass]="{
-            'neon-purple-red': card.colors[0] === 'purple' && card.colors[1] === 'red',
-            'neon-purple-blue': card.colors[0] === 'purple' && card.colors[1] === 'blue',
-            'neon-purple-yellow': card.colors[0] === 'purple' && card.colors[1] === 'yellow',
-            'neon-purple-green': card.colors[0] === 'purple' && card.colors[1] === 'green',
-            'neon-blue-red': card.colors[0] === 'blue' && card.colors[1] === 'red',
-            'neon-blue-purple': card.colors[0] === 'blue' && card.colors[1] === 'purple',
-            'neon-blue-yellow': card.colors[0] === 'blue' && card.colors[1] === 'yellow',
-            'neon-blue-green': card.colors[0] === 'blue' && card.colors[1] === 'green',
-            'neon-yellow-red': card.colors[0] === 'yellow' && card.colors[1] === 'red',
-            'neon-yellow-blue': card.colors[0] === 'yellow' && card.colors[1] === 'blue',
-            'neon-yellow-purple': card.colors[0] === 'yellow' && card.colors[1] === 'purple',
-            'neon-yellow-green': card.colors[0] === 'yellow' && card.colors[1] === 'green',
-            'neon-green-red': card.colors[0] === 'green' && card.colors[1] === 'red',
-            'neon-green-purple': card.colors[0] === 'green' && card.colors[1] === 'purple',
-            'neon-green-yellow': card.colors[0] === 'green' && card.colors[1] === 'yellow',
-            'neon-green-blue': card.colors[0] === 'green' && card.colors[1] === 'blue',
-            'neon-red-green': card.colors[0] === 'red' && card.colors[1] === 'green',
-            'neon-red-purple': card.colors[0] === 'red' && card.colors[1] === 'purple',
-            'neon-red-yellow': card.colors[0] === 'red' && card.colors[1] === 'yellow',
-            'neon-red-blue': card.colors[0] === 'red' && card.colors[1] === 'blue',
-            'neon-green': card.colors[0] === 'green',
-            'neon-purple': card.colors[0] === 'purple',
-            'neon-yellow': card.colors[0] === 'yellow',
-            'neon-blue': card.colors[0] === 'blue',
-            'neon-red': card.colors[0] === 'red'
-        }" 
+          [class]="classIcon"
           alt="Chain Icon">
         <img 
           *ngIf="isGeneral" 
           src="assets/Cards/general.svg" 
-          class="position-absolute chain-icon"
-          [ngClass]="{
-            'neon-purple-red': card.colors[0] === 'purple' && card.colors[1] === 'red',
-            'neon-purple-blue': card.colors[0] === 'purple' && card.colors[1] === 'blue',
-            'neon-purple-yellow': card.colors[0] === 'purple' && card.colors[1] === 'yellow',
-            'neon-purple-green': card.colors[0] === 'purple' && card.colors[1] === 'green',
-            'neon-blue-red': card.colors[0] === 'blue' && card.colors[1] === 'red',
-            'neon-blue-purple': card.colors[0] === 'blue' && card.colors[1] === 'purple',
-            'neon-blue-yellow': card.colors[0] === 'blue' && card.colors[1] === 'yellow',
-            'neon-blue-green': card.colors[0] === 'blue' && card.colors[1] === 'green',
-            'neon-yellow-red': card.colors[0] === 'yellow' && card.colors[1] === 'red',
-            'neon-yellow-blue': card.colors[0] === 'yellow' && card.colors[1] === 'blue',
-            'neon-yellow-purple': card.colors[0] === 'yellow' && card.colors[1] === 'purple',
-            'neon-yellow-green': card.colors[0] === 'yellow' && card.colors[1] === 'green',
-            'neon-green-red': card.colors[0] === 'green' && card.colors[1] === 'red',
-            'neon-green-purple': card.colors[0] === 'green' && card.colors[1] === 'purple',
-            'neon-green-yellow': card.colors[0] === 'green' && card.colors[1] === 'yellow',
-            'neon-green-blue': card.colors[0] === 'green' && card.colors[1] === 'blue',
-            'neon-red-green': card.colors[0] === 'red' && card.colors[1] === 'green',
-            'neon-red-purple': card.colors[0] === 'red' && card.colors[1] === 'purple',
-            'neon-red-yellow': card.colors[0] === 'red' && card.colors[1] === 'yellow',
-            'neon-red-blue': card.colors[0] === 'red' && card.colors[1] === 'blue',
-            'neon-green': card.colors[0] === 'green',
-            'neon-purple': card.colors[0] === 'purple',
-            'neon-yellow': card.colors[0] === 'yellow',
-            'neon-blue': card.colors[0] === 'blue',
-            'neon-red': card.colors[0] === 'red'
-        }" 
-          alt="Chain Icon">
+          [class]="classIcon"
+          alt="General Icon">
       </div>
 

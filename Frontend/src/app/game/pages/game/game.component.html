@@ -41,7 +41,7 @@
 
     <!-- Columna central -->
     <div class="d-flex hand-container" style="flex: 0 0 60%;">
-      <div class="col hand" *ngFor="let card of hand">
+      <div class="col card" *ngFor="let card of hand">
         <app-card 
           [card]="card" 
           [isChain]="isChain(card.number)" 
