@@ -1,0 +1,23 @@
+{
+  "APP": {
+    "MENU": {
+      "CONNECT": "Se connecter",
+      "RECONECT": "Se reconnecter",
+      "ABOUT": "Comment jouer?"
+    },
+    "NAVBAR": {
+      "TITLES": [
+        "Un autre jeu de cartes",
+        "Jeu de cartes simple pour débutants",
+        "Quelque chose avec des cartes",
+        "Un jeu de cartes",
+        "Jeu de cartes avec des effets néon!"
+      ]
+    },
+    "CONNECT": {
+      "NAME": "Nom",
+      "JOIN": "Rejoindre"
+    }
+  }
+}
+

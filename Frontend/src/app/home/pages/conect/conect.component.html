@@ -1,7 +1,7 @@
 <div class="bg-dark vh-100 d-flex flex-column justify-content-start align-items-center p-4">
   <input
   type="text"
-  placeholder="Nombre"
+  [placeholder]="'APP.CONNECT.NAME' | translate"
   class="form-control bg-dark text-info mb-3"
   style="width: 70%; max-width: 500px;"
   #name
@@ -33,6 +33,6 @@
   (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
   [disabled]="!name.value || selectedOption === ''" 
   >
-    Jugar
+    {{'APP.CONNECT.JOIN' | translate}}
   </button>
 </div>

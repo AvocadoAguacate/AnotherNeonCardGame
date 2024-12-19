@@ -1,0 +1,22 @@
+{
+  "APP": {
+    "MENU": {
+      "CONNECT": "Connect",
+      "RECONECT": "Reconnect",
+      "ABOUT": "How to play?"
+    },
+    "NAVBAR": {
+      "TITLES": [
+        "Another card game",
+        "Simple card game for beginners",
+        "Something with cards",
+        "A card game",
+        "Card game with neon effects!"
+      ]
+    },
+    "CONNECT": {
+      "NAME": "Name",
+      "JOIN": "Join"
+    }
+  }
+}

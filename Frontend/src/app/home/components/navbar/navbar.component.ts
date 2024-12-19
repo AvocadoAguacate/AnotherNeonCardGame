@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -9,23 +10,27 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  private names = [
-    'Another card game',
-    'Simple card game for dummies',
-    'Algo ahí con cartas',
-    'Un juego de cartas',
-    'Card game with neon effects!'
-  ]
+
   public randomName: string = '';
-  constructor(private router:Router){
+  constructor(
+    private router:Router,
+    private translate: TranslateService
+  ){
     this.getRandomName()
   }
   goMenu() {
     this.getRandomName()
     this.router.navigate(['/home/menu']);
   }
-  getRandomName(){
-    const pickUp = Math.floor(Math.random() * this.names.length);
-    this.randomName = this.names[pickUp]; 
+  getRandomName() {
+    this.translate.get('APP.NAVBAR.TITLES').subscribe((titles: string[]) => {
+      const pickUp = Math.floor(Math.random() * titles.length);
+      this.randomName = titles[pickUp];
+    });
+  }
+  selectLan(ev: Event) {
+    const selectedLang = (ev.target as HTMLSelectElement).value;
+    this.translate.use(selectedLang);
+    this.getRandomName();
   }
 }

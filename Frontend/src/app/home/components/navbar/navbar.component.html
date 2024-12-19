@@ -1,9 +1,10 @@
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand neon">{{randomName}}</a>
-      <button class="btn btn-outline-info"
-      (click)="goMenu()">
-      Menu
-    </button>
+    <a class="navbar-brand neon" (click)="goMenu()">{{randomName}}</a>
+      <select class="form-select form-select-sm w-auto" aria-label="langSelect"  (change)="selectLan($event)">
+        <option value="es">🇪🇸</option>
+        <option value="en">🇺🇸</option>
+        <option value="fr">🇫🇷</option>
+      </select>
   </div>
 </nav>

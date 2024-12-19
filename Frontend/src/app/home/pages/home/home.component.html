@@ -1,14 +1,15 @@
 <div class="bg-dark d-flex flex-column align-items-center justify-content-center vh-100 ">
   <button class="btn btn-outline-info mb-2 w-75"
   (click)="goConnect()">
-    Conectarse
+    {{'APP.MENU.CONNECT' | translate}}
   </button>
   <button class="btn btn-outline-info mb-2 w-75"
   (click)="goReConnect()">
-    Reconectarse
+  {{'APP.MENU.RECONECT' | translate}}
   </button>
   <button class="btn btn-outline-info mb-2 w-75"
   (click)="goAbout()">
-    Como jugar ?
+  {{'APP.MENU.ABOUT' | translate}}
   </button>
+  <button (click)="enterFullScreen()" class="btn btn-outline-info mb-2 w-75">[]</button>
 </div>

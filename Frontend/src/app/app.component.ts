@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SocketService } from './services/socket.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -11,5 +12,11 @@ import { SocketService } from './services/socket.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(private _socketService: SocketService){}
+  constructor(
+    private _socketService: SocketService,
+    private translate: TranslateService
+  ){
+    this.translate.addLangs(['es', 'en', 'fr']);
+    this.translate.setDefaultLang('es');
+  }
 }

@@ -6,11 +6,12 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
 import { avatarPaths } from '../../../avatarPaths';
 import { SocketService } from '../../../services/socket.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-conect',
   standalone: true,
-  imports: [RouterModule, FormsModule, AngularSvgIconModule, CommonModule],
+  imports: [RouterModule, FormsModule, AngularSvgIconModule, CommonModule, TranslateModule],
   templateUrl: './conect.component.html',
   styleUrl: './conect.component.scss'
 })
