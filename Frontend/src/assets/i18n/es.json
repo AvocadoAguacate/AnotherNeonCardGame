@@ -25,5 +25,358 @@
       "STATUS": "Estado",
       "TITLE": "Sala de espera"
     }
+  },
+  "CARDS": {
+    "FAIL": "Lo siento, no me he acordado.",
+    "C10": {
+      "NAME": "A la mitad",
+      "DESCRIPTION": "El jugador descarta la mitad de sus cartas y escoge color",
+      "FAKEDESCRIPTION": "Todos descartan la mitad de sus cartas"
+    },
+    "C11": {
+      "NAME": "1/4",
+      "DESCRIPTION": "El jugador descarta una cuarta parte de sus cartas",
+      "FAKEDESCRIPTION": "El jugador descarta todas las cartas del mismo color de esta carta"
+    },
+    "C12": {
+      "NAME": "Granada",
+      "DESCRIPTION": "El que juegue esta carta como los que estén a la par, toman una cantidad de cartas aleatoria ( max 12 )",
+      "FAKEDESCRIPTION": "Todos los jugadores, excepto el que juega esta carta, toman una cantidad de cartas aleatoria ( max 10 )"
+    },
+    "C13": {
+      "NAME": "Pichazo",
+      "DESCRIPTION": "Todos los jugadores con 1 carta tomarán 4 cuartas, en caso de que no existan todos los jugadores con menos de 6 cartas tomarán 2 cartas, en caso de que no existan el jugador que juegue esta carta deberá tomar 5 cartas",
+      "FAKEDESCRIPTION": "Todos los jugadores que tengas menos cartas que el jugador que utilizó esta carta deben tomar 4 cartas"
+    },
+    "C14": {
+      "NAME": "Cambio de dirección lv1",
+      "DESCRIPTION": "El juego cambia de dirección y te proteges del 10% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 30% de la cadena en caso de existir"
+    },
+    "C15": {
+      "NAME": "Cambio de dirección lv2",
+      "DESCRIPTION": "El juego cambia de dirección y te proteges del 25% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 50% de la cadena en caso de existir"
+    },
+    "C16": {
+      "NAME": "Cambio de dirección lv3",
+      "DESCRIPTION": "El juego cambia de dirección y te proteges del 50% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 80% de la cadena en caso de existir"
+    },
+    "C17": {
+      "NAME": "Cambio de dirección lv4",
+      "DESCRIPTION": "El juego cambia de dirección y te proteges del 100% de la cadena en caso de existir, termina la cadena",
+      "FAKEDESCRIPTION": "El juego cambia de dirección y devuelves la cadena al siguiente jugador"
+    },
+    "C18": {
+      "NAME": "Esquivar lv1",
+      "DESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 10% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 30% de la cadena en caso de existir"
+    },
+    "C19": {
+      "NAME": "Esquivar lv2",
+      "DESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 25% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 50% de la cadena en caso de existir"
+    },
+    "C20": {
+      "NAME": "Esquivar lv3",
+      "DESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 50% de la cadena en caso de existir, no termina la cadena",
+      "FAKEDESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 80% de la cadena en caso de existir"
+    },
+    "C21": {
+      "NAME": "Esquivar lv4",
+      "DESCRIPTION": "El siguiente jugador pierde su turno y te proteges del 100% de la cadena en caso de existir, termina la cadena",
+      "FAKEDESCRIPTION": "El siguiente jugador pierde su turno y devuelves la cadena al siguiente jugador"
+    },
+    "C22": {
+      "NAME": "Come 2 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 3 cartas"
+    },
+    "C23": {
+      "NAME": "Come 3 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 4 cartas"
+    },
+    "C24": {
+      "NAME": "Come 4 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 5 cartas"
+    },
+    "C25": {
+      "NAME": "Come 5 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 5 cartas"
+    },
+    "C26": {
+      "NAME": "Come 6 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 8 cartas"
+    },
+    "C27": {
+      "NAME": "Come 7 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 9 cartas"
+    },
+    "C28": {
+      "NAME": "Come 8 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 9 cartas"
+    },
+    "C30": {
+      "NAME": "Come 10 cartas",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Come 12 cartas"
+    },
+    "C31": {
+      "NAME": "Come un dado d6",
+      "DESCRIPTION": "Lanza un dado y el resultado será agregado a la cadena",
+      "FAKEDESCRIPTION": "Lanza un dado y el resultado será la cantidad de cartas que todos deberán tomar"
+    },
+    "C32": {
+      "NAME": "Come un dado octaedro",
+      "DESCRIPTION": "Lanza un dado octaedro y el resultado será agregado a la cadena",
+      "FAKEDESCRIPTION": "Lanza un dado octaedro y el resultado será la cantidad de cartas que todos deberán tomar"
+    },
+    "C33": {
+      "NAME": "Come un dado dodecaedro",
+      "DESCRIPTION": "Lanza un dado dodecaedro y el resultado será agregado a la cadena",
+      "FAKEDESCRIPTION": "Lanza un dado dodecaedro y el resultado será la cantidad de cartas que todos deberán tomar"
+    },
+    "C34": {
+      "NAME": "Come un dado icosaedro",
+      "DESCRIPTION": "Lanza un dado icosaedro y el resultado será agregado a la cadena",
+      "FAKEDESCRIPTION": "Lanza un dado icosaedro y el resultado será la cantidad de cartas que todos deberán tomar"
+    },
+    "C35": {
+      "NAME": "Kamikaze",
+      "DESCRIPTION": "Todos los participantes de una cadena, incluyendo el jugador de esta carta, reciben el total de cartas de la cadena",
+      "FAKEDESCRIPTION": "Te salvas de la cadena pero empiezas a hablar en japonés"
+    },
+    "C36": {
+      "NAME": "Genocidio",
+      "DESCRIPTION": "El jugador escoge un color y TODAS las cartas de ese color se descartaran, no importa que jugador las tenga en mano",
+      "FAKEDESCRIPTION": "El jugador escoge un color y todos los jugadores descartan las cartas de ese color, pero deben robar el doble de cartas que hayan descartado"
+    },
+    "C37": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C38": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C39": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C40": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C41": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C42": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C43": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C44": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C45": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C46": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C47": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C48": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C49": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C50": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C51": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C52": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C53": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C54": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C55": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C56": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C57": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C58": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C59": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C60": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C61": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C62": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C63": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C64": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C65": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C66": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C67": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C68": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C69": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C70": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C71": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C72": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C73": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C74": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C75": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C76": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C77": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C78": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C79": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    },
+    "C80": {
+      "NAME": "",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": ""
+    }
   }
 }

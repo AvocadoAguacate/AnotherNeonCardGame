@@ -25,6 +25,134 @@
       "STATUS": "Statut",
       "TITLE": "Salle d'attente"
     }
+  },
+  "CARDS": {
+    "FAIL": "Désolé, je ne m'en suis pas souvenu.",
+    "C10": {
+      "NAME": "À moitié",
+      "DESCRIPTION": "Le joueur défausse la moitié de ses cartes et choisit une couleur",
+      "FAKEDESCRIPTION": "Tous les joueurs défaussent la moitié de leurs cartes"
+    },
+    "C11": {
+      "NAME": "1/4",
+      "DESCRIPTION": "Le joueur défausse un quart de ses cartes",
+      "FAKEDESCRIPTION": "Le joueur défausse toutes les cartes de la même couleur que cette carte"
+    },
+    "C12": {
+      "NAME": "Grenade",
+      "DESCRIPTION": "Le joueur et les joueurs adjacents prennent un nombre aléatoire de cartes (max 12)",
+      "FAKEDESCRIPTION": "Tous les joueurs, sauf celui qui joue cette carte, prennent un nombre aléatoire de cartes (max 10)"
+    },
+    "C13": {
+      "NAME": "Coup dur",
+      "DESCRIPTION": "Tous les joueurs avec 1 carte prennent 4 cartes. S'il n'y en a pas, tous les joueurs avec moins de 6 cartes prennent 2 cartes. Sinon, le joueur qui joue cette carte prend 5 cartes.",
+      "FAKEDESCRIPTION": "Tous les joueurs ayant moins de cartes que le joueur qui a joué cette carte prennent 4 cartes"
+    },
+    "C14": {
+      "NAME": "Changement de direction lv1",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 10% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 30% de la chaîne existante"
+    },
+    "C15": {
+      "NAME": "Changement de direction lv2",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 25% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 50% de la chaîne existante"
+    },
+    "C16": {
+      "NAME": "Changement de direction lv3",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 50% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 80% de la chaîne existante"
+    },
+    "C17": {
+      "NAME": "Changement de direction lv4",
+      "DESCRIPTION": "Le jeu change de direction, vous vous protégez de 100% de la chaîne existante et la chaîne se termine",
+      "FAKEDESCRIPTION": "Le jeu change de direction et renvoie la chaîne au joueur suivant"
+    },
+    "C18": {
+      "NAME": "Esquive lv1",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 10% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 30% de la chaîne existante"
+    },
+    "C19": {
+      "NAME": "Esquive lv2",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 25% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 50% de la chaîne existante"
+    },
+    "C20": {
+      "NAME": "Esquive lv3",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 50% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 80% de la chaîne existante"
+    },
+    "C21": {
+      "NAME": "Esquive lv4",
+      "DESCRIPTION": "Le joueur suivant perd son tour, vous vous protégez de 100% de la chaîne existante et la chaîne se termine",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et renvoie la chaîne au joueur suivant"
+    },
+    "C22": {
+      "NAME": "Prends 2 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 3 cartes"
+    },
+    "C23": {
+      "NAME": "Prends 3 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 4 cartes"
+    },
+    "C24": {
+      "NAME": "Prends 4 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 5 cartes"
+    },
+    "C25": {
+      "NAME": "Prends 5 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 5 cartes"
+    },
+    "C26": {
+      "NAME": "Prends 6 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 8 cartes"
+    },
+    "C27": {
+      "NAME": "Prends 7 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 9 cartes"
+    },
+    "C28": {
+      "NAME": "Prends 8 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 9 cartes"
+    },
+    "C30": {
+      "NAME": "Prends 10 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 12 cartes"
+    },
+    "C31": {
+      "NAME": "Prends un dé d6",
+      "DESCRIPTION": "Lancez un dé et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C32": {
+      "NAME": "Prends un dé octaédrique",
+      "DESCRIPTION": "Lancez un dé octaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé octaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C33": {
+      "NAME": "Prends un dé dodécaédrique",
+      "DESCRIPTION": "Lancez un dé dodécaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé dodécaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C34": {
+      "NAME": "Prends un dé icosaédrique",
+      "DESCRIPTION": "Lancez un dé icosaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé icosaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C35": {
+      "NAME": "Kamikaze",
+      "DESCRIPTION": "Tous les participants de la chaîne, y compris le joueur de cette carte, reçoivent le total de cartes de la chaîne",
+      "FAKEDESCRIPTION": "Vous échappez à la chaîne mais commencez à parler japonais"
+    }
   }
 }
 

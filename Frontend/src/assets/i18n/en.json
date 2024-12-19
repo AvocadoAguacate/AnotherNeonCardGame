@@ -25,5 +25,138 @@
       "STATUS": "Status",
       "TITLE": "Waiting Room"
     }
+  },
+  "CARDS": {
+    "FAIL": "Sorry, I forgot.",
+    "C10": {
+      "NAME": "Halfway",
+      "DESCRIPTION": "The player discards half of their cards and chooses a color",
+      "FAKEDESCRIPTION": "Everyone discards half of their cards"
+    },
+    "C11": {
+      "NAME": "1/4",
+      "DESCRIPTION": "The player discards a quarter of their cards",
+      "FAKEDESCRIPTION": "The player discards all cards of the same color as this card"
+    },
+    "C12": {
+      "NAME": "Grenade",
+      "DESCRIPTION": "The player who plays this card, along with those next to them, will take a random number of cards (max 12)",
+      "FAKEDESCRIPTION": "All players except the one who plays this card will take a random number of cards (max 10)"
+    },
+    "C13": {
+      "NAME": "Smash",
+      "DESCRIPTION": "All players with 1 card will take 4 cards, if no players have 1 card, those with less than 6 cards will take 2 cards, if no one meets these conditions, the player who played this card must take 5 cards",
+      "FAKEDESCRIPTION": "All players who have fewer cards than the player who used this card must take 4 cards"
+    },
+    "C14": {
+      "NAME": "Direction Change lv1",
+      "DESCRIPTION": "The game changes direction and you are protected from 10% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 30% of the chain if it exists"
+    },
+    "C15": {
+      "NAME": "Direction Change lv2",
+      "DESCRIPTION": "The game changes direction and you are protected from 25% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 50% of the chain if it exists"
+    },
+    "C16": {
+      "NAME": "Direction Change lv3",
+      "DESCRIPTION": "The game changes direction and you are protected from 50% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 80% of the chain if it exists"
+    },
+    "C17": {
+      "NAME": "Direction Change lv4",
+      "DESCRIPTION": "The game changes direction and you are protected from 100% of the chain if it exists, the chain ends",
+      "FAKEDESCRIPTION": "The game changes direction and you return the chain to the next player"
+    },
+    "C18": {
+      "NAME": "Dodge lv1",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 10% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 30% of the chain if it exists"
+    },
+    "C19": {
+      "NAME": "Dodge lv2",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 25% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 50% of the chain if it exists"
+    },
+    "C20": {
+      "NAME": "Dodge lv3",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 50% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 80% of the chain if it exists"
+    },
+    "C21": {
+      "NAME": "Dodge lv4",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 100% of the chain if it exists, the chain ends",
+      "FAKEDESCRIPTION": "The next player loses their turn and you return the chain to the next player"
+    },
+    "C22": {
+      "NAME": "Take 2 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 3 Cards"
+    },
+    "C23": {
+      "NAME": "Take 3 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 4 Cards"
+    },
+    "C24": {
+      "NAME": "Take 4 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 5 Cards"
+    },
+    "C25": {
+      "NAME": "Take 5 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 5 Cards"
+    },
+    "C26": {
+      "NAME": "Take 6 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 8 Cards"
+    },
+    "C27": {
+      "NAME": "Take 7 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 9 Cards"
+    },
+    "C28": {
+      "NAME": "Take 8 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 9 Cards"
+    },
+    "C30": {
+      "NAME": "Take 10 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 12 Cards"
+    },
+    "C31": {
+      "NAME": "Take a d6 Die",
+      "DESCRIPTION": "Roll a die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll a die and the result will be the number of cards everyone must take"
+    },
+    "C32": {
+      "NAME": "Take an Octahedron Die",
+      "DESCRIPTION": "Roll an octahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll an octahedron die and the result will be the number of cards everyone must take"
+    },
+    "C33": {
+      "NAME": "Take a Dodecahedron Die",
+      "DESCRIPTION": "Roll a dodecahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll a dodecahedron die and the result will be the number of cards everyone must take"
+    },
+    "C34": {
+      "NAME": "Take an Icosahedron Die",
+      "DESCRIPTION": "Roll an icosahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll an icosahedron die and the result will be the number of cards everyone must take"
+    },
+    "C35": {
+      "NAME": "Kamikaze",
+      "DESCRIPTION": "All participants in a chain, including the player of this card, receive the total number of cards in the chain",
+      "FAKEDESCRIPTION": "You avoid the chain but start speaking in Japanese"
+    },
+    "C36": {
+      "NAME": "Genocide",
+      "DESCRIPTION": "The player chooses a color and ALL cards of that color are discarded, regardless of which player holds them",
+      "FAKEDESCRIPTION": "The player chooses a color and all players discard cards of that color, but they must draw double the number of cards they discarded"
+    }
   }
 }
