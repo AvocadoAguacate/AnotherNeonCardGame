@@ -1,8 +1,30 @@
-<div class="waiting-container">
-  <button 
+<div class="waiting-container vh-100">
+  <!-- Primera fila -->
+  <div class="row first-row">
+    <div class="column large m-2 p-4">
+      <h2>{{'APP.WAITING.TITLE'| translate}}</h2>
+    </div>
+    <div class="column small">
+      <!-- Contenido de la columna derecha (20%) -->
+      <p>Aquí iría el chat, si estuviera</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga voluptates doloremque? Minima dignissimos ullam nesciunt iste totam minus veniam modi, provident pariatur nulla vel recusandae velit odit autem tempore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, nobis velit. Sint voluptatum minima non, at nemo quaerat, neque dolores, similique laborum deleniti possimus numquam nobis facilis. Molestias, voluptatum dolore!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga voluptates doloremque? Minima dignissimos ullam nesciunt iste totam minus veniam modi, provident pariatur nulla vel recusandae velit odit autem tempore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, nobis velit. Sint voluptatum minima non, at nemo quaerat, neque dolores, similique laborum deleniti possimus numquam nobis facilis. Molestias, voluptatum dolore!</p>
+    </div>
+  </div>
+  <!-- Segunda fila -->
+  <div class="row second-row">
+    <button class="btn btn-outline-danger">
+      {{'APP.WAITING.LOGOUT' | translate}}
+    </button>
+    <button 
     class="btn btn-outline-info"
     (click)="sendReady()"
-  >
-    Estado: {{status ? 'Listo' : 'No listo'}}
-  </button>
+    >
+      {{'APP.WAITING.STATUS' | translate}}: {{status ? ('APP.WAITING.READY' | translate) : ('APP.WAITING.NOTREADY' | translate) }}
+    </button>
+  </div>
 </div>
+
+

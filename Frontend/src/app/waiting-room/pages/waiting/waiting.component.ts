@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { SocketService } from '../../../services/socket.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-waiting',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.scss'
 })

@@ -17,6 +17,13 @@
     "CONNECT":{
       "NAME": "Nombre",
       "JOIN": "Unirse"
+    },
+    "WAITING":{
+      "READY": "Listo",
+      "NOTREADY": "No listo",
+      "LOGOUT": "Huir",
+      "STATUS": "Estado",
+      "TITLE": "Sala de espera"
     }
   }
 }

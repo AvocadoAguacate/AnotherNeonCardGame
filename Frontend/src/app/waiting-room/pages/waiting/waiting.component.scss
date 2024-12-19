@@ -1,0 +1,28 @@
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: flex;
+    &.first-row {
+      height: 87%; /* Mitad superior */
+      margin-left: 50px;
+      text-align: center;
+      .column { 
+        &.large {
+          flex: 4; /* Ocupa el 80% */
+        }
+        &.small {
+          flex: 1; /* Ocupa el 20% */
+          overflow-y: auto;
+          max-height: 100%;
+        }
+      }
+    }
+    &.second-row {
+      button {
+        height: 100%;
+        width: 50%;
+      }
+    }
+  }
+}
