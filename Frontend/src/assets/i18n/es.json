@@ -18,6 +18,16 @@
       "NAME": "Nombre",
       "JOIN": "Unirse"
     },
+    "ABOUT":{
+      "TITLE": "Explicación del juego",
+      "WINMETHODS": "Imagina un mazo de cartas, no como las que conoces, sino uno donde la victoria no llega fácilmente. La forma más aburrida de ganar, si quieres llamarlo así, es jugar tu última carta. Eso podría parecer el final de un juego, pero no te engañes, hay algo mucho más interesante. La verdadera forma de ganar: ser el último jugador que quede en pie.",
+      "DEADLYNUMBER":"El juego avanza a un ritmo peligroso, siempre al borde de la eliminación. Existen dos formas de caer en el abismo. La forma más directa de perder: si alguien te quita todas tus cartas, te has ido. Y hay algo aún más insidioso: el número mortal, siempre en rojo en la esquina superior izquierda. Ese número, al principio tan fácil de ignorar, comienza a bajar conforme avanza el juego. ¿Qué significa? Que la cantidad de cartas que puedes tener se va reduciendo y el número mortal cae aún más rápido, hasta convertirse en una amenaza constante. Es una lucha constante contra el tiempo y la cantidad de cartas en tu mano.",
+      "CHAINS":"El juego está lleno de estrategias agresivas. Las cartas “encadenables” son cartas tienen un ícono de cadena en la esquina superior derecha ( en el juego ), indicándote que puedes jugarlas en secuencia. Cuando respondes con una carta encadenable y la anterior es mayor, tendrás que pagar la diferencia.",
+      "GENERALS":"Y luego están las cartas con efectos duraderos. No son simples trucos; son maldiciones que se quedan contra todos los jugadores por varios turnos. Estas cartas tienen un ícono de radar, siempre vigilando, esperando tu caída. No podrás escapar de ellas hasta que acaben los turnos necesarios.",
+      "WILDS":"En tu mano, las cartas sin color te dan el poder de decidir el color. ¿Tienes una carta del mismo color? ¿O tal vez del mismo número o figura? Puedes jugarla. Pero no olvides: si hay una cadena, tendrás que usar una carta encadenable o, si no tienes una, enfrentarte a tu suerte.",
+      "LUCKYTRIES":"Jugar con tu suerte es un camino desesperado. Lanzarás un dado, si aciertas el número exacto, escaparás de tener que comerte todas las cartas de la cadena. Pero si solo adivinas si el número es par o impar, te salvarás de la mitad de las cartas de la cadena. La suerte nunca es bondadosa, solo tienes 5 intentos a lo largo del juego. Tendrás que mantener la cuenta mentalmente, el juego nunca te dirá cuantos intentos tienes. Tanto tú como otros jugadores, podrán jugar cartas que puedan modificar ese número de intentos sin indicar el resultado.",
+      "FINAL": "A continuación, la explicación de cada carta…"
+    },
     "WAITING":{
       "READY": "Listo",
       "NOTREADY": "No listo",

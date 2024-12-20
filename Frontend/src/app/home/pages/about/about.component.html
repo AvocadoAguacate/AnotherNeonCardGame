@@ -1,1 +1,17 @@
-<p>about works!</p>
+<div class="about-container">
+  <h1>{{'APP.ABOUT.TITLE' | translate}}</h1>
+  <p>{{'APP.ABOUT.WINMETHODS' | translate}}</p>
+  <p>{{'APP.ABOUT.DEADLYNUMBER' | translate}}</p>
+  <p>{{'APP.ABOUT.CHAINS' | translate}}</p>
+  <p>{{'APP.ABOUT.GENERALS' | translate}}</p>
+  <p>{{'APP.ABOUT.WILDS' | translate}}</p>
+  <p>{{'APP.ABOUT.LUCKYTRIES' | translate}}</p>
+  <p>{{'APP.ABOUT.FINAL' | translate}}</p>
+  <div *ngFor="let elem of [].constructor(64); let i = index">
+    <app-card-detail
+      *ngIf="i !== 19" 
+      [cardNumber]="i+10"
+      [isRandom]="false"
+    />
+  </div>
+</div>

@@ -18,6 +18,16 @@
       "NAME": "Nom",
       "JOIN": "Rejoindre"
     },
+    "ABOUT": {
+      "TITLE": "Explication du jeu",
+      "WINMETHODS": "Imaginez un jeu de cartes, pas comme ceux que vous connaissez, mais un où la victoire n’est pas facilement atteinte. La façon la plus ennuyeuse de gagner, si vous voulez l’appeler ainsi, est de jouer votre dernière carte. Cela pourrait sembler être la fin d’une partie, mais ne vous y trompez pas, il y a quelque chose de bien plus intéressant. La vraie manière de gagner : être le dernier joueur encore en jeu.",
+      "DEADLYNUMBER": "Le jeu avance à un rythme dangereux, toujours au bord de l’élimination. Il existe deux façons de sombrer dans l’abîme. La façon la plus directe de perdre : si quelqu’un prend toutes vos cartes, vous êtes éliminé. Et il y a quelque chose de plus insidieux encore : le nombre mortel, toujours en rouge dans le coin supérieur gauche. Ce nombre, si facile à ignorer au début, commence à diminuer au fur et à mesure que le jeu progresse. Que signifie-t-il ? Que le nombre de cartes que vous pouvez avoir se réduit, et le nombre mortel diminue encore plus rapidement, devenant une menace constante. C’est une lutte incessante contre le temps et les cartes dans votre main.",
+      "CHAINS": "Le jeu est rempli de stratégies agressives. Les cartes « enchaînables » ont une icône de chaîne dans le coin supérieur droit (dans le jeu), vous indiquant que vous pouvez les jouer en séquence. Lorsque vous répondez avec une carte enchaînable et que la précédente est plus élevée, vous devrez payer la différence.",
+      "GENERALS": "Et puis, il y a les cartes à effets durables. Ce ne sont pas de simples astuces ; ce sont des malédictions qui restent contre tous les joueurs pendant plusieurs tours. Ces cartes ont une icône radar, toujours en train de surveiller, attendant votre chute. Vous ne pourrez pas y échapper avant la fin des tours nécessaires.",
+      "WILDS": "Dans votre main, les cartes sans couleur vous donnent le pouvoir de décider de la couleur. Avez-vous une carte de la même couleur ? Ou peut-être du même nombre ou de la même figure ? Vous pouvez la jouer. Mais n’oubliez pas : s’il y a une chaîne, vous devrez utiliser une carte enchaînable ou, si vous n’en avez pas, faire face à votre chance.",
+      "LUCKYTRIES": "Jouer avec votre chance est un chemin désespéré. Vous lancerez un dé ; si vous devinez le nombre exact, vous échapperez à devoir prendre toutes les cartes de la chaîne. Mais si vous ne devinez que si le nombre est pair ou impair, vous serez sauvé de la moitié des cartes de la chaîne. La chance n’est jamais clémente, vous n’avez que 5 tentatives pendant toute la partie. Vous devrez en garder le compte mentalement, car le jeu ne vous dira jamais combien de tentatives il vous reste. Vous, ainsi que les autres joueurs, pourrez jouer des cartes pour modifier ce nombre de tentatives sans en indiquer le résultat.",
+      "FINAL": "Voici maintenant l’explication de chaque carte…"
+    },
     "WAITING": {
       "READY": "Prêt",
       "NOTREADY": "Pas prêt",
