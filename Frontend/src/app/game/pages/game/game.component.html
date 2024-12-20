@@ -28,7 +28,11 @@
   <div class="d-flex" style="height: 30%;">
     <!-- Columna izquierda -->
     <div class="d-flex justify-content-center align-items-center" style="flex: 0 0 20%; flex-direction: column;">
-      <button class="btn btn-outline-info w-100">
+      <button 
+        class="btn btn-outline-info w-100"
+        data-bs-toggle="modal" 
+        data-bs-target="#discardModal"
+      >
         P
       </button>
       <button class="btn btn-outline-info w-100">
@@ -65,3 +69,4 @@
   </div>
 </div>
 <modal-player [player]="selectedPlayer" [playerInd]="selectedInd"></modal-player>
+<modal-discard [hand]="hand"></modal-discard>

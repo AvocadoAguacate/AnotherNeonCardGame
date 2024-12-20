@@ -24,6 +24,10 @@
       "LOGOUT": "Run away",
       "STATUS": "Status",
       "TITLE": "Waiting Room"
+    },
+    "DISCARDMODAL": {
+      "TITLE": "Select the cards to discard",
+      "SEND": "Confirm selected cards"
     }
   },
   "CARDS": {

@@ -24,6 +24,10 @@
       "LOGOUT": "Huir",
       "STATUS": "Estado",
       "TITLE": "Sala de espera"
+    },
+    "DISCARDMODAL":{
+      "TITLE": "Seleciona las cartas para descartar",
+      "SEND": "Confirmar cartas selecionadas"
     }
   },
   "CARDS": {

@@ -1,0 +1,19 @@
+.modal-container{
+  display: flex;
+  flex-direction: column;
+}
+.cards{
+  flex:1;
+  overflow-x:auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button{
+    width: 100%;
+  }
+}

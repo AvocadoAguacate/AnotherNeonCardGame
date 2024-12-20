@@ -24,6 +24,10 @@
       "LOGOUT": "Fuyez",
       "STATUS": "Statut",
       "TITLE": "Salle d'attente"
+    },
+    "DISCARDMODAL": {
+      "TITLE": "Sélectionnez les cartes à défausser",
+      "SEND": "Confirmer les cartes sélectionnées"
     }
   },
   "CARDS": {

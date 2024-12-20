@@ -6,11 +6,12 @@ import { CardUI, PlayerUI } from '../../../interfaces/update.model';
 import { CardComponent } from "../../../components/card/card.component";
 import { PlayerComponent } from '../../../components/player/player.component';
 import { PlayerModalComponent } from "../../../components/modals/player/player.component";
+import { DiscardComponent } from "../../../components/modals/discard/discard.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, CardComponent, PlayerComponent, PlayerModalComponent],
+  imports: [CommonModule, CardComponent, PlayerComponent, PlayerModalComponent, DiscardComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

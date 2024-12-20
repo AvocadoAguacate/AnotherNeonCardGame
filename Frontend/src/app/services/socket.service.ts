@@ -121,23 +121,8 @@ export class SocketService  {
     this.socket.emit('chat message', {name, id: this.socket.ioSocket.id});
   }
 
-  sendCard(cardId: string, discardCards: string[] = [], target: number = -1, wildColor: Color = 'null') {
-    const msg: PlayCardMessage ={
-      type: "playCard",
-      id: this.socket.ioSocket.id,
-      payload: {
-        cardId
-      }
-    };
-    if(discardCards.length > 0){
-      msg.payload.discardCards = discardCards;
-    }
-    if(target >= 0){
-      msg.payload.target = target;
-    }
-    if(wildColor !== 'null'){
-      msg.payload.wildColor = wildColor;
-    }
+  sendCard(msg: PlayCardMessage) {
+    msg.id = this.playerData.id;
     console.log(msg);
     this.send('message',msg);
   }
@@ -169,5 +154,9 @@ export class SocketService  {
     }
     console.log(msg);
     this.send('message', msg);
+  }
+
+  getId(): string{
+    return this.playerData.id;
   }
 }

@@ -1,0 +1,45 @@
+<div class="modal fade" id="discardModal" tabindex="-1" aria-labelledby="discardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 
+          class="modal-title fs-5" 
+          id="exampleModalLabel"
+        >
+          {{'APP.DISCARDMODAL.TITLE' | translate}}
+        </h1>
+      </div>
+        <div class="modal-body modal-container">
+          <form class="cards">
+            @for(card of hand; track $index){
+              <div class="form-check">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  [value]="card.id" 
+                  [id]="card.id"
+                  (change)="onCheckboxChange($event, card.id)"
+                >
+                <label class="form-check-label" [for]="card.id">
+                  <app-card 
+                    [card]="card" 
+                    [isChain]="false" 
+                    [isGeneral]="false"
+                  />
+                </label>
+              </div>
+            }
+          </form>
+          <div class="button-container">
+            <button
+              class="btn btn-outline-info" 
+              (click)="getSelectedCards()"
+              data-bs-dismiss="modal"
+            >
+              {{'APP.DISCARDMODAL.SEND' | translate}}
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
