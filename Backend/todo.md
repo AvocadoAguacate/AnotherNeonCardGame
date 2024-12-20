@@ -6,4 +6,4 @@
 }
 ````
 - No permitir jugadores repetidos
-- 
+- PlayCardMessage.target === -1 => deal(players[turn])
