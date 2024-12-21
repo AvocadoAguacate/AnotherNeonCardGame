@@ -2,7 +2,7 @@
   <input
   type="text"
   [placeholder]="'APP.CONNECT.NAME' | translate"
-  class="form-control bg-dark text-info mb-3"
+  class="form-control bg-dark text-info mb-3 orbitronFont"
   style="width: 70%; max-width: 500px;"
   #name
   >
@@ -28,7 +28,7 @@
   </div>
   <!-- <img [src]="avatarPaths[0]" class="filter-green"/>  -->
   <button
-  class="btn btn-outline-info"
+  class="btn btn-outline-info orbitronFont"
   style="width: 70%; max-width: 500px;"
   (click) = "sendPlayer(name.value, parseNumber(selectedOption))"
   [disabled]="!name.value || selectedOption === ''" 
