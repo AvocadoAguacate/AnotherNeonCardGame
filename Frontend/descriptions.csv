@@ -61,4 +61,11 @@ number,tag, description
 70, smallDiscard,
 71, aquiles, cambia de color al color que no tenga el siguiente jugador y en caso de tener todos los colores o un wild que coma una carta
 72, spy, obten datos sobre la mano de un oponente
-73, spyAll, todos obtienen los datos de todos 
+73, spyAll, todos obtienen los datos de todos ,
+74, corruptCop, cambia todas tus cartas normales con cartas de acción de los demás jugadores ( aleatoriamente ),
+75, schoolShotting, aleatoriamente todos los jugadores reciben de 0 a 5 cartas y el jugador una carta,
+76, slotMachine, puedes descartar de 1 a 6 cartas y lanza un dado. Si aciertas el núemro todos los jugadores exepto el que jugó está carta comerán 10 cartas y en caso contrario come el doble de cartas que descartaste,
+77, clover, agrega 4 luckytries al jugador que juegue esta carta
+78, brokenMirror, todos los jugadores pierden un luckytry y en caso de no tener tendrán luckytries negativos,
+79, robber, el jugador que juegue esta carta robará 2 luckytries a los demás jugadores,
+80, coin, el jugador que juegue esta carta obtiene 1 luckytry
