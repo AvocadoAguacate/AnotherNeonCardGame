@@ -7,10 +7,10 @@
   <p>{{'APP.ABOUT.WILDS' | translate}}</p>
   <p>{{'APP.ABOUT.LUCKYTRIES' | translate}}</p>
   <p>{{'APP.ABOUT.FINAL' | translate}}</p>
-  <div *ngFor="let elem of [].constructor(64); let i = index">
+  <div *ngFor="let card of orderArray">
     <app-card-detail
-      *ngIf="i !== 19" 
-      [cardNumber]="i+10"
+      *ngIf="card !== 19" 
+      [cardNumber]=" card+10"
       [isRandom]="false"
     />
   </div>

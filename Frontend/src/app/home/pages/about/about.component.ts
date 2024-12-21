@@ -11,5 +11,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
-
+  public orderArray:number[];
+  constructor(){
+    this.orderArray = Array.from({ length: 70 }, (_, i) => i);;
+    this.orderArray.forEach((_, i) => {
+      const j = Math.floor(Math.random() * 10);
+      [this.orderArray[i], this.orderArray[j]] = [this.orderArray[j], this.orderArray[i]];
+    });
+  }
 }
