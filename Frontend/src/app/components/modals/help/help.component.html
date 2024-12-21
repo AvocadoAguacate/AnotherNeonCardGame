@@ -1,0 +1,21 @@
+
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body help-container">
+        <div *ngFor="let card of hand">
+          <app-card-detail 
+            [cardNumber]="card.number"
+            [isRandom]="true"
+          />
+        </div>
+        <button 
+          class="btn btn-outline-info"  
+          data-bs-dismiss="modal"
+        >
+          Ok
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
