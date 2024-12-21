@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
 import { GameComponent } from './game/pages/game/game.component';
 import { HomeLayoutComponent } from './home/pages/home-layout/home-layout.component';
 import { HomeComponent } from './home/pages/home/home.component';
@@ -22,7 +21,6 @@ export const routes: Routes = [
   },
   {path: 'waiting-room', component: WaitingComponent},
   {path: 'game', component: GameComponent},
-  {path: 'test', component: LoginComponent},
   {path: '**', redirectTo: 'home'},
   {path: '**/**', redirectTo: 'home'},
 
