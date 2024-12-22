@@ -67,7 +67,11 @@ export class Game {
     }
   }
   deal(msg: Message) {
+    let {players, deadlyCounter} = this.context;
+    let player = players.find(p => p.id === msg.id);
+    if(player!.hand.length < deadlyCounter.deadNumber){
     deal(this.context, msg.id, 1);
+    }
   }
 
   luckTry(msg: LuckTryMessage):void {

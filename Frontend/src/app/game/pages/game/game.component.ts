@@ -77,4 +77,8 @@ export class GameComponent {
     sendCard(card: CardUI) {
       this.socketService.sendCard(this.game.getPlayCardMessage(card));
     }
+
+    deal() {
+      this.socketService.deal();
+    }
 }

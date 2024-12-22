@@ -159,4 +159,13 @@ export class SocketService  {
   getId(): string{
     return this.playerData.id;
   }
+
+  deal(){
+    let msg: Message = {
+      id: this.playerData.id,
+      type: 'deal',
+      payload: {}
+    }
+    this.send('message',msg);
+  }
 }
