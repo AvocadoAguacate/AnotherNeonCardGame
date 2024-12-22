@@ -2,12 +2,20 @@
   <div class="card-container">
     <app-card 
       [card]="card"
-      [isChain]="false"
+      [isChain]="isChain(card.number)"
       [isGeneral]="false"
     />
   </div>
   <div class="card-text">
-    <h2>{{cardTitle}}</h2>
-    <p>{{cardDetail}}</p>
+    <h2>{{'CARDS.C'+card.number+'.NAME' | translate}}</h2>
+    <p *ngIf="isDescription">
+      {{'CARDS.C'+card.number+'.DESCRIPTION' | translate}}
+    </p>
+    <p *ngIf="isFakeDescription">
+      {{'CARDS.C'+card.number+'.FAKEDESCRIPTION' | translate}}
+    </p>
+    <p *ngIf="isFail">
+      {{'CARDS.FAIL' | translate}}
+    </p>
   </div>
 </div>

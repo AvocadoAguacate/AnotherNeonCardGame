@@ -1,25 +1,28 @@
 import { Component, Input } from '@angular/core';
 import { CardComponent } from "../card/card.component";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CardUI } from '../../interfaces/update.model';
 import { Color } from '../../interfaces/message.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-detail',
   standalone: true,
-  imports: [CardComponent],
+  imports: [CardComponent, TranslateModule, CommonModule],
   templateUrl: './card-detail.component.html',
   styleUrl: './card-detail.component.scss'
 })
 export class CardDetailComponent {
 
-  public cardTitle = '';
   public cardDetail = '';
   public card:CardUI = {
     number: 0,
     id: '',
     colors: []
   };
+  public isDescription = false;
+  public isFakeDescription = false;
+  public isFail = false;
 
   @Input()
   public isRandom!:boolean;
@@ -32,24 +35,21 @@ export class CardDetailComponent {
 
   }
   ngOnInit(): void {
-    let key = `CARDS.C${this.cardNumber}`;
-    this.translate.get(key)
-      .subscribe((data) => {
-        this.cardTitle = data!.NAME;
-        const val = this.isRandom ? Math.random() : 0;
-        if(val <= 0.4){
-          this.cardDetail = data!.DESCRIPTION;
-        } else {
-          if(val <= 0.7){
-            this.cardDetail = data!.FAKEDESCRIPTION
-          } else{
-            this.translate.get('CARDS.FAIL')
-              .subscribe((fail: string) => {
-                this.cardDetail = fail;
-              });
-          }
-        }
-      });
+    const val = this.isRandom ? Math.random() : 0;
+    if(val <= 0.4){
+      this.isDescription = true;
+      this.isFakeDescription = false;
+      this.isFail = false;
+    } else {
+      this.isDescription = false;
+      if(val <= 0.7){
+        this.isFakeDescription = true;
+        this.isFail = false;
+      } else{
+        this.isFakeDescription = false;
+        this.isFail = true;
+      }
+    }
     const colors = [
       ['blue'], ['red'], ['purple'], ['yellow'], ['green'],
       ['blue', 'red'], ['blue', 'purple'], ['blue', 'green'],
@@ -63,6 +63,10 @@ export class CardDetailComponent {
       colors: colors[rInd] as Color[],
       id: 'UniqueId'
     }
-    console.log(this.card)
+  }
+
+  isChain(num: number): boolean {
+    if(num >= 14 && num <= 35) return true;
+    return false;
   }
 }
