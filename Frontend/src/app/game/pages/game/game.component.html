@@ -21,7 +21,13 @@
 
   <!-- Fila central -->
   <div class="flex-grow-1" style="height: 55%; color: red">
-    <p class="text-center my-2">Proximante la mesa</p>
+    <div style="height: 200px;">
+      <app-card 
+      [card]="lastDiscard"
+      [isChain]="isChain(lastDiscard.number)" 
+      [isGeneral]="isGenral(lastDiscard.number)"
+    />
+    </div>
   </div>
 
   <!-- Fila inferior -->

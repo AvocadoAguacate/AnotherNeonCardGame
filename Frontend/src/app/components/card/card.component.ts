@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CardUI } from './../../interfaces/update.model';
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -23,6 +23,13 @@ export class CardComponent {
   
   ngOnInit(): void {
     if(!this.card) throw new Error('The card is required');
+    if(this.card.colors.length > 2){
+      this.card.colors = [];
+    }
+    this.getImgClass();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     if(this.card.colors.length > 2){
       this.card.colors = [];
     }
