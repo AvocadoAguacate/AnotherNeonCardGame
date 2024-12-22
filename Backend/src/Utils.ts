@@ -7,18 +7,23 @@ export function deal(context:Context, playerId:string, amount: number): Context 
     context = refill(context);
   }
   let {deck, players, deadlyCounter, alifePlayers} = context;
-  let newAmount = amount;
   let player = players.find(player => player.id === playerId);
-  let finalAmount = player!.hand.length + amount;
-  if(finalAmount >= deadlyCounter.deadNumber){ //death
-    let res = finalAmount - deadlyCounter.deadNumber;
-    newAmount -= res;
-    alifePlayers -=1;
+  let handNum = player!.hand.length;
+  if( handNum > 0　|| handNum < deadlyCounter.deadNumber){
+    let newAmount = amount;
+    let finalAmount = handNum + amount;
+    if(finalAmount >= deadlyCounter.deadNumber){ //death
+      let res = finalAmount - deadlyCounter.deadNumber;
+      newAmount -= res;
+      alifePlayers -=1;
+    }
+    const dealCards = deck.splice(0, newAmount);
+    player!.hand.push(...dealCards);
+    updAllOneHandUI(context, playerId);
+    return {...context, players, deck, alifePlayers};
+  } else {
+    return context;
   }
-  const dealCards = deck.splice(0, newAmount);
-  player!.hand.push(...dealCards);
-  updAllOneHandUI(context, playerId);
-  return {...context, players, deck, alifePlayers};
 }
 
 function refill(context: Context): Context {
@@ -94,7 +99,9 @@ export function nextTurn(context: Context):Context{
   if(alifePlayers > 1){
     do {
       turn = (turn + direction + players.length) % players.length;
-    } while (players[turn].hand.length >= deadlyCounter.deadNumber);
+    } while (players[turn].hand.length >= deadlyCounter.deadNumber
+      && players[turn].hand.length < 1
+    );
   }
   return {...context, turn};
 }
