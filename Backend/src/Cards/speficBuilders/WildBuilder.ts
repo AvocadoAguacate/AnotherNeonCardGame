@@ -1,4 +1,4 @@
-import { Card, Color, PlayPayload } from "../../interfaces/card.model";
+import { Card, PlayPayload } from "../../interfaces/card.model";
 import { Context } from "../../interfaces/context.model";
 import { fillPayload } from "../../Utils";
 import { addFunction } from "../CardBuilder";
