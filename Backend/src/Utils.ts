@@ -74,14 +74,20 @@ context:Context, playerId: string,
 cardId: string = '', isUnshift = true, 
 notify: boolean = false): Context{
   let {discardDeck, players} = context;
+  let player = players.find(p => p.id === playerId);
   const playerInd = players.findIndex(player => player.id === playerId);
   const cardInd = cardId.length > 0 ? 
-    players[playerInd].hand.findIndex(card => card.id === cardId) : 
-    Math.floor(Math.random() * players[playerInd].hand.length);
-  let [card] = players[playerInd].hand.splice(cardInd, 1);
-  isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
-  notify ?? updatePlayerUI(context, playerInd, true, false, false);
-  return {...context, discardDeck, players};
+    player!.hand.findIndex(card => card.id === cardId) : 
+    Math.floor(Math.random() * player!.hand.length);
+  if(cardInd !== -1){ 
+    let [card] = player!.hand.splice(cardInd, 1);
+    isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
+    notify ?? updatePlayerUI(context, playerInd, true, false, false);
+    return {...context, discardDeck, players};
+  } else {
+    return context;
+  }
+  
 }
 
 export function discardCards(context:Context, playerId: string, cards: string[]): Context {
