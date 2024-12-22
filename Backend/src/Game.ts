@@ -1,5 +1,5 @@
 import { createDeck } from "./cards/CardBuilder";
-import { PlayPayload } from "./interfaces/card.model";
+import { Card, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
@@ -22,7 +22,8 @@ export class Game {
     players: [],
     chain: {
       sum: 0,
-      members: []
+      members: [],
+      lastAdd: 0
     },
     deck: createDeck(0.7,['green', 'red', 'purple', 'yellow'], this.deckConfig),
     discardDeck: [],
@@ -104,7 +105,8 @@ export class Game {
   private resetChain():void{
     this.context.chain = {
       sum: 0,
-      members: []
+      members: [],
+      lastAdd: 0
     }
   }
   
@@ -142,6 +144,7 @@ export class Game {
   }
 
   playCard(msg: PlayCardMessage):void {
+    console.log(msg);
     let {chain, players, discardDeck} = this.context;
     const playerInd = players
     .findIndex(player => player.id === msg.id);
@@ -153,7 +156,8 @@ export class Game {
       this.resetChain();
     } else {
       if(players[playerInd].hand[cardInd]?.number === discardDeck[0]?.number 
-        || checkColor(players[playerInd].hand[cardInd], discardDeck[0])){
+        || checkColor(players[playerInd].hand[cardInd], discardDeck[0])
+        || checkChain(players[playerInd].hand[cardInd], discardDeck[0])){
           this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
           if(this.context.discardDeck[0].isAction){
             this.context = this.context.discardDeck[0]!.playCard!(this.context, msg.payload as PlayPayload);
@@ -246,4 +250,11 @@ export class Game {
     let [card] = this.context.deck.splice(index, 1);
     this.context.discardDeck.unshift(card);
   }
+}
+
+function checkChain(c1: Card, c2: Card): boolean {
+  if(c1.type === 'chain' && c2.type === 'chain'){
+    return true;
+  }
+  return false;
 }

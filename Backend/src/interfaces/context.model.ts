@@ -29,6 +29,7 @@ export interface Player{
 export interface Chain{
   sum             : number,
   members         : boolean[],
+  lastAdd         : number,
 }
 
 export interface Challenge{

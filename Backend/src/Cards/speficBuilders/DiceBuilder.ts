@@ -17,5 +17,6 @@ export function createDice(isFlex: number, colors: Color[], n: number):Card{
 function dice(context:Context, max:number):Context {
   let dice = Math.floor(Math.random() * max + 1);
   // TODO send chat dice result
+  console.log(`Resultado de dado de ${max} caras: ${dice}`);
   return  addCards(context, dice);
 }

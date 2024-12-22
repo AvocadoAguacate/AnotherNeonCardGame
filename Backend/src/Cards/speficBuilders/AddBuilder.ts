@@ -24,21 +24,24 @@ function createAddCard(isFlexProb: number, colors: Color[]): Card {
 }
 
 export function addCards(context: Context, number: number): Context{
-  let {chain, turn, players, discardDeck} = context
+  let {chain, turn, players} = context
   if(chain.sum === 0){ //new chain
     context.chain = {
       sum: number,
       members: players.map((_p,i) => {
         return i === turn ? true : false;
-      }) 
+      }),
+      lastAdd: number 
     }
   } else {
-    let remainder = discardDeck[1].number! - number;
+    let remainder = chain.lastAdd - number;
     if(remainder > 0){//is unpaid
       context = deal(context, players[turn].id, remainder);
+      console.log(`${players[turn].name} tiene que pagar la diferencia con ${remainder}`);
     }
     context.chain.members[turn] = true;
     context.chain.sum += number;
+    context.chain.lastAdd = number;
   }
   return {...context};
 }
