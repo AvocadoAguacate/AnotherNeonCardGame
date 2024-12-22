@@ -8,7 +8,8 @@ export interface Context {
   turn            : number,
   direction       : number,
   chain           : Chain,
-  deadlyCounter   : DeadlyCounter
+  deadlyCounter   : DeadlyCounter,
+  alifePlayers    : number
 }
 
 export interface DeadlyCounter{

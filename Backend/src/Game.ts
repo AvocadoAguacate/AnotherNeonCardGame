@@ -33,7 +33,8 @@ export class Game {
       turns: 25,
       deadNumber: 25,
       speed: 1
-    }
+    },
+    alifePlayers: 0
   };
 
   private challengeList: Challenge[] = [];
@@ -102,6 +103,7 @@ export class Game {
         this.context = deal(this.context, msg.id, chain.sum);
         this.resetChain();
       }
+      this.checkFinishGame();
       this.context = nextTurn(this.context);
       this.startTurnTimer()
     }
@@ -113,6 +115,7 @@ export class Game {
     if(player!.hand.length < deadlyCounter.deadNumber){
       this.context = deal(this.context, msg.id, 1);
     }
+    this.checkFinishGame();
   }
 
   luckTry(msg: LuckTryMessage):void {
@@ -135,8 +138,10 @@ export class Game {
         } else {
           this.context = deal(this.context,player.id,chain.sum);
         }
+        this.checkFinishGame();
       }
       this.context.players[turn].luckytries -= 1;
+      this.checkFinishGame();
       this.context = nextTurn(this.context);
       updAllUI(this.context);
       this.startTurnTimer();
@@ -168,6 +173,7 @@ export class Game {
       );
       updChallengeUI(this.context, this.challengeList[challengeInd]);
       this.challengeList.splice(challengeInd,1);
+      this.checkFinishGame();
     }else{
       let {challengerId, oponentInd} = msg.payload;
       const oponentId = this.context.players[oponentInd!].id;
@@ -211,6 +217,7 @@ export class Game {
           this.context = deal(this.context, msg.id, 1);
         }
       }
+      this.checkFinishGame();
       this.context = nextTurn(this.context);
       this.updateDeadlyCounter();
       updAllOneHandUI(this.context, msg.id);
@@ -238,6 +245,7 @@ export class Game {
       } else {
         this.readyList.push(false);
       }
+      this.context.alifePlayers += 1;
       //TODO notify new player via Chat
     } else {
       this.context.players[index] = {...this.context.players[index], ...msg.payload};
@@ -282,6 +290,12 @@ export class Game {
         this.context.deadlyCounter.deadNumber 
         / this.context.deadlyCounter.speed);
       this.context.deadlyCounter.turns = newCountDown > 0 ? newCountDown : 1;
+      this.context.players.forEach(p =>{
+        if(p.hand.length === this.context.deadlyCounter.deadNumber){
+          this.context.alifePlayers -= 1
+        }
+      });
+      this.checkFinishGame();
     }
   }
 
@@ -289,6 +303,12 @@ export class Game {
     this.context.turn = Math.floor(
       Math.random() * this.context.players.length
     );
+  }
+
+  private checkFinishGame(){
+    if(this.context.alifePlayers < 2){
+      console.log('Pendiente');
+    }
   }
 
   private firstCard():void{
