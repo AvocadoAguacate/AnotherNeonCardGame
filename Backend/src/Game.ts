@@ -61,11 +61,22 @@ export class Game {
       case 'deal':
         this.deal(message);
         break;
+      case 'pass':
+        this.pass(message);
+        break
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
     }
   }
+
+  pass(msg: Message) {
+    this.context = deal(this.context, msg.id, 1);
+    if(this.context.players[this.context.turn].id === msg.id){
+      this.context = nextTurn(this.context);
+    }
+  }
+  
   deal(msg: Message) {
     let {players, deadlyCounter} = this.context;
     let player = players.find(p => p.id === msg.id);

@@ -81,4 +81,8 @@ export class GameComponent {
     deal() {
       this.socketService.deal();
     }
+
+    pass(){
+      this.socketService.pass();
+    }
 }

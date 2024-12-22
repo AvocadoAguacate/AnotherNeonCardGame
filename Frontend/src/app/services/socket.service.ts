@@ -168,4 +168,13 @@ export class SocketService  {
     }
     this.send('message',msg);
   }
+
+  pass(){
+    let msg: Message = {
+      id: this.playerData.id,
+      type: 'pass',
+      payload: {}
+    }
+    this.send('message',msg);
+  }
 }

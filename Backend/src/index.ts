@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
     console.log(`${msg.id} quiere ejecutar ${msg.type}`);
     const socket = sockets.find(s => s.id === msg.id);
     if (socket){
+      console.log(msg);
       game.execute({...msg, socket});
     }
   })
