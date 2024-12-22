@@ -1,4 +1,3 @@
-import { SocketService } from './socket.service';
 import { Injectable } from '@angular/core';
 import { Color, PlayCardMessage } from '../interfaces/message.model';
 import { CardUI } from '../interfaces/update.model';
@@ -41,7 +40,7 @@ export class GameService {
   }
 
   getPlayCardMessage(card: CardUI): PlayCardMessage {
-    if(card.number > 10){
+    if(card.number >= 10){
       let msg: PlayCardMessage = {
         type: 'playCard',
         id: this.id,
@@ -77,12 +76,14 @@ export class GameService {
 
   needDiscard(cardNum: number): boolean{
     const exep = [10, 11];
+    let resp = false;
     for (let index = 0; index < exep.length; index++) {
       if(exep[index] === cardNum){
-        return true;
+        resp = true;
       }
     }
-    return false;
+    console.log(`NeedDiscard:${resp}`);
+    return resp;
   }
 
   needTarget(cardNum: number): boolean{

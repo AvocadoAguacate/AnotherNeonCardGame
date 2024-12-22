@@ -21,7 +21,6 @@ export class WaitingComponent {
   ngOnInit(): void {
     this.socketService.turn$.subscribe((turn) => {
       this.turn = turn
-      console.log(this.turn);
       if(this.turn !== -1){
         this.router.navigate(['/game']);
       }

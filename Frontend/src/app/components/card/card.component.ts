@@ -34,8 +34,6 @@ export class CardComponent {
   }
 
   getImgClass(): void{
-    console.log(this.card);
-    console.log()
     const place = !this.isChain && !this.isGeneral ? 'main-icon-center' : 'main-icon-buttom';
     const secondColor = this.card.colors.length === 2 ? `-${this.card.colors[1]}`: '';
     const color =  this.card.colors.length >= 1 ? this.card.colors[0] : 'off';
