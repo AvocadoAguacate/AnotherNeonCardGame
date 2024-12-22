@@ -3,7 +3,7 @@ import { GameService } from '../../../services/game.service';
 import { Color } from '../../../interfaces/message.model';
 
 @Component({
-  selector: 'app-color',
+  selector: 'modal-color',
   standalone: true,
   imports: [],
   templateUrl: './color.component.html',

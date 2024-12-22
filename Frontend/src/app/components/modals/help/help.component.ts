@@ -4,7 +4,7 @@ import { CardUI } from '../../../interfaces/update.model';
 import { CardDetailComponent } from "../../card-detail/card-detail.component";
 
 @Component({
-  selector: 'app-help',
+  selector: 'modal-help',
   standalone: true,
   imports: [CommonModule, CardDetailComponent],
   templateUrl: './help.component.html',

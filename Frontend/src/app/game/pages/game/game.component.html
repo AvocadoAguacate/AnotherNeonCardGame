@@ -35,10 +35,18 @@
       >
         P
       </button>
-      <button class="btn btn-outline-info w-100">
+      <button 
+        class="btn btn-outline-info w-100"
+        data-bs-toggle="modal" 
+        data-bs-target="#colorModal"
+      >
         C
       </button>
-      <button class="btn btn-outline-info w-100">
+      <button 
+        class="btn btn-outline-info w-100"
+        data-bs-toggle="modal" 
+        data-bs-target="#numberModal"
+      >
         O
       </button>
     </div>
@@ -47,6 +55,7 @@
     <div class="d-flex hand-container" style="flex: 0 0 60%;">
       <div class="col card" *ngFor="let card of hand">
         <app-card 
+          (click)="sendCard(card)"
           [card]="card" 
           [isChain]="isChain(card.number)" 
           [isGeneral]="isGenral(card.number)"
@@ -62,7 +71,11 @@
       <button class="btn btn-outline-info w-100">
         P
       </button>
-      <button class="btn btn-outline-info w-100">
+      <button 
+        class="btn btn-outline-info w-100"
+        data-bs-toggle="modal" 
+        data-bs-target="#infoModal"
+      >
         ?
       </button>
     </div>
@@ -70,3 +83,6 @@
 </div>
 <modal-player [player]="selectedPlayer" [playerInd]="selectedInd"></modal-player>
 <modal-discard [hand]="hand"></modal-discard>
+<modal-number></modal-number>
+<modal-color></modal-color>
+<modal-help [hand]="hand"></modal-help>

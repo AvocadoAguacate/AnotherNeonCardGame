@@ -28,7 +28,6 @@ export class PlayerComponent {
   }
 
   getPlayerImg():string{
-    console.log(avatarPaths[this.player.img])
     return avatarPaths[this.player.img];
   }
 

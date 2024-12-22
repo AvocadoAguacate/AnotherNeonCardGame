@@ -7,11 +7,24 @@ import { CardComponent } from "../../../components/card/card.component";
 import { PlayerComponent } from '../../../components/player/player.component';
 import { PlayerModalComponent } from "../../../components/modals/player/player.component";
 import { DiscardComponent } from "../../../components/modals/discard/discard.component";
+import { GameService } from '../../../services/game.service';
+import { NumberComponent } from "../../../components/modals/number/number.component";
+import { ColorComponent } from "../../../components/modals/color/color.component";
+import { HelpComponent } from "../../../components/modals/help/help.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, CardComponent, PlayerComponent, PlayerModalComponent, DiscardComponent],
+  imports: [
+    CommonModule,
+    CardComponent,
+    PlayerComponent,
+    PlayerModalComponent,
+    DiscardComponent,
+    NumberComponent,
+    ColorComponent,
+    HelpComponent
+],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -28,7 +41,8 @@ export class GameComponent {
 
     constructor(
       private router:Router,
-      private socketService:SocketService
+      private socketService:SocketService,
+      private game:GameService
     ){}
     ngOnInit(): void {
       this.socketService.hand$.subscribe((hand) => this.hand = hand);
@@ -58,5 +72,9 @@ export class GameComponent {
     selectPlayer(ind: number) {
       this.selectedInd = ind;
       this.selectedPlayer = this.players[ind];
+    }
+
+    sendCard(card: CardUI) {
+      this.socketService.sendCard(this.game.getPlayCardMessage(card));
     }
 }

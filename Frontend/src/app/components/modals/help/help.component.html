@@ -5,6 +5,7 @@
       <div class="modal-body help-container">
         <div *ngFor="let card of hand">
           <app-card-detail 
+            *ngIf="card.number > 9"
             [cardNumber]="card.number"
             [isRandom]="true"
           />

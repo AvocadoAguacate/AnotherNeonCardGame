@@ -4,7 +4,7 @@ import { modalNumber } from './number.model';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-number',
+  selector: 'modal-number',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './number.component.html',
