@@ -1,6 +1,6 @@
 import { Card, PlayPayload } from "../../interfaces/card.model";
 import { Context } from "../../interfaces/context.model";
-import { checkColor, discardCard, updAllUI } from "../../Utils";
+import { checkColor, discardCard, fillPayload, updAllUI } from "../../Utils";
 import { createCard } from "../CardBuilder";
 import { addWild } from "./WildBuilder";
 
@@ -14,6 +14,9 @@ export function createGeno():Card{
 
 function geno(context: Context, payload:PlayPayload):Context {
   let {players} = context;
+  if(payload?.wildColor){
+    payload = fillPayload(payload, true, false, false, context);
+  }
   let {wildColor} = payload;
   const color = createCard(1, -1, [wildColor!]);
   players.forEach((player, pInd) => {

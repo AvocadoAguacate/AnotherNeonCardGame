@@ -1,4 +1,4 @@
-import { Card, Color } from "./interfaces/card.model";
+import { Card, Color, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context, Player } from "./interfaces/context.model";
 import { CardUI, ChallengeUI, PlayerUI, UpdateUI } from "./interfaces/update.model";
 
@@ -199,4 +199,23 @@ export function resetChain(context:Context): Context{
     return false;
   });
   return context;
+}
+
+export function fillPayload(
+  payload:PlayPayload, color:boolean, target: boolean,
+  discardCards: boolean, context:Context
+): PlayPayload{
+  let {turn} = context;
+  let newPay = {...payload};
+  if(color){
+    let col: Color[] = ['blue', 'red', 'purple', 'yellow', 'green'];
+    newPay.wildColor = col[Math.floor(Math.random() * 5)];
+  }
+  if(target){
+    newPay.target = turn;
+  }
+  if(discardCards){
+    newPay.discardCards = ['', ''];
+  }
+  return newPay;
 }
