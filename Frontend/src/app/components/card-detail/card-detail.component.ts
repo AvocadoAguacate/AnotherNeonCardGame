@@ -58,13 +58,9 @@ export class CardDetailComponent {
       ['red', 'blue'], ['red', 'purple'], ['red', 'green'],
     ];
     let rInd = Math.floor(Math.random() * colors.length);
-    if(this.cardNumber === 38 || this.cardNumber === 37) {
-      this.cardNumber = Math.floor(Math.random() * 10);
-      rInd = -1;
-    }
     this.card = {
       number: this.cardNumber,
-      colors: rInd >= 0 ? colors[rInd] as Color[]: [],
+      colors: colors[rInd] as Color[],
       id: 'UniqueId'
     }
     console.log(this.card)
