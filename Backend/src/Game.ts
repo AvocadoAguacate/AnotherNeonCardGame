@@ -81,7 +81,7 @@ export class Game {
     let {players, deadlyCounter} = this.context;
     let player = players.find(p => p.id === msg.id);
     if(player!.hand.length < deadlyCounter.deadNumber){
-    deal(this.context, msg.id, 1);
+      this.context = deal(this.context, msg.id, 1);
     }
   }
 
@@ -159,7 +159,6 @@ export class Game {
   }
 
   playCard(msg: PlayCardMessage):void {
-    console.log(msg);
     let {chain, players, discardDeck} = this.context;
     const playerInd = players
     .findIndex(player => player.id === msg.id);
