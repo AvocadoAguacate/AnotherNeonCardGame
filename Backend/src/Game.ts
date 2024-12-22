@@ -95,7 +95,13 @@ export class Game {
 
   pass(msg: Message) {
     this.context = deal(this.context, msg.id, 1);
-    if(this.context.players[this.context.turn].id === msg.id){
+    let {players, turn, chain} = this.context;
+    if(players[turn].id === msg.id){
+      this.cancelTurnTimer()
+      if(chain.sum > 0){
+        this.context = deal(this.context, msg.id, chain.sum);
+        this.resetChain();
+      }
       this.context = nextTurn(this.context);
       this.startTurnTimer()
     }
@@ -190,9 +196,9 @@ export class Game {
       this.cancelTurnTimer()
       let card = player.hand.find(c => c.id === msg.payload.cardId);
       if(chain.sum > 0 && card?.type !== 'chain'){
-      this.context = deal(this.context, msg.id, chain.sum+1);
-      this.resetChain();
-    } else {
+        this.context = deal(this.context, msg.id, chain.sum+1);
+        this.resetChain();
+      } else {
         if(card?.number === discardDeck[0]?.number 
           || checkColor(card!, discardDeck[0])
           || checkChain(card!, discardDeck[0])
@@ -206,10 +212,10 @@ export class Game {
         } else {
           this.context = deal(this.context, msg.id, 1);
         }
-    }
-    this.context = nextTurn(this.context);
-    this.updateDeadlyCounter();
-    updAllOneHandUI(this.context, msg.id);
+      }
+      this.context = nextTurn(this.context);
+      this.updateDeadlyCounter();
+      updAllOneHandUI(this.context, msg.id);
       this.startTurnTimer();
       console.log(this.context.discardDeck[0]);
     } else {
