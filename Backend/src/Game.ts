@@ -40,6 +40,8 @@ export class Game {
   private luckyTryDefault: number = 5;
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
+  private turnSec: number = 20;
+  private turnTimer: NodeJS.Timeout | null = null;
   
   execute(message: Message):void{
     switch (message.type){
@@ -70,10 +72,32 @@ export class Game {
     }
   }
 
+  startTurnTimer() {
+    if (this.turnTimer) {
+      clearTimeout(this.turnTimer);
+    }
+    this.turnTimer = setTimeout(() => {
+      let {players, turn} = this.context;
+      console.log(`Tiempo agotado. Haciendo deal a ${players[turn].name}`);
+      this.context = deal(this.context, players[turn].id, 1);
+      this.context = nextTurn(this.context);
+      updAllUI(this.context);
+      this.startTurnTimer();
+    }, this.turnSec * 1000);
+  }
+
+  cancelTurnTimer() {
+    if (this.turnTimer) {
+      clearTimeout(this.turnTimer);
+      this.turnTimer = null;
+    }
+  }
+
   pass(msg: Message) {
     this.context = deal(this.context, msg.id, 1);
     if(this.context.players[this.context.turn].id === msg.id){
       this.context = nextTurn(this.context);
+      this.startTurnTimer()
     }
   }
   
@@ -86,6 +110,7 @@ export class Game {
   }
 
   luckTry(msg: LuckTryMessage):void {
+    // TODO turn check and timer
     let {players, turn, chain} = this.context;
     if(chain.sum){
       if(players[turn].luckytries > 0){
@@ -159,34 +184,37 @@ export class Game {
   }
 
   playCard(msg: PlayCardMessage):void {
-    let {chain, players, discardDeck} = this.context;
-    const playerInd = players
-    .findIndex(player => player.id === msg.id);
-    const cardInd = players[playerInd].hand
-    .findIndex(card => card.id === msg.payload.cardId);
-    console.log(players[playerInd].hand[cardInd]);
-    if(chain.sum > 0 && players[playerInd].hand[cardInd].type !== 'chain'){
+    let {chain, players, discardDeck, turn} = this.context;
+    let player = players[turn];
+    if(player.id === msg.id){
+      this.cancelTurnTimer()
+      let card = player.hand.find(c => c.id === msg.payload.cardId);
+      if(chain.sum > 0 && card?.type !== 'chain'){
       this.context = deal(this.context, msg.id, chain.sum+1);
       this.resetChain();
     } else {
-      if(players[playerInd].hand[cardInd]?.number === discardDeck[0]?.number 
-        || checkColor(players[playerInd].hand[cardInd], discardDeck[0])
-        || checkChain(players[playerInd].hand[cardInd], discardDeck[0])){
-          this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
-          if(this.context.discardDeck[0].isAction){
-            this.context = this.context.discardDeck[0]!.playCard!(this.context, msg.payload as PlayPayload);
+        if(card?.number === discardDeck[0]?.number 
+          || checkColor(card!, discardDeck[0])
+          || checkChain(card!, discardDeck[0])
+          || card?.isWild
+        ){
+          this.context = discardCard(this.context, msg.id, card!.id, true);
+          if(discardDeck[0].isAction){
+            let payload: PlayPayload = msg.payload;
+            this.context = discardDeck[0].playCard!(this.context, payload);
           }
         } else {
-          if(players[playerInd].hand[cardInd].isWild){
-            this.context = discardCard(this.context, msg.id, msg.payload.cardId, true);
-            this.context = this.context.discardDeck[0]!.playCard!(this.context, msg.payload as PlayPayload);
-          }
           this.context = deal(this.context, msg.id, 1);
         }
     }
     this.context = nextTurn(this.context);
     this.updateDeadlyCounter();
     updAllOneHandUI(this.context, msg.id);
+      this.startTurnTimer();
+      console.log(this.context.discardDeck[0]);
+    } else {
+      //TODO notify not your turn!
+    }
   }
 
   editPlayer(msg: EditPlayerMessage):void {
@@ -235,6 +263,7 @@ export class Game {
       this.setLuckyTries(index);
     });
     updAllUI(this.context);
+    this.startTurnTimer();
   }
 
   private setLuckyTries(ind: number){
