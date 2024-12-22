@@ -6,9 +6,16 @@ export function deal(context:Context, playerId:string, amount: number): Context 
   if(context.deck.length <= amount){
     context = refill(context);
   }
-  let {deck, players} = context;
-  const dealCards = deck.splice(0, amount);
-  players.find(player => player.id === playerId)!.hand.push(...dealCards);
+  let {deck, players, deadlyCounter} = context;
+  let newAmount = amount;
+  let player = players.find(player => player.id === playerId);
+  let finalAmount = player!.hand.length + amount;
+  if(finalAmount > deadlyCounter.deadNumber){ //death
+    let res = finalAmount - deadlyCounter.deadNumber;
+    newAmount -= res;
+  }
+  const dealCards = deck.splice(0, newAmount);
+  player!.hand.push(...dealCards);
   updAllOneHandUI(context, playerId);
   return {...context, players, deck};
 }
@@ -82,8 +89,10 @@ export function discardCards(context:Context, playerId: string, cards: string[])
 }
 
 export function nextTurn(context: Context):Context{
-  let {turn, direction, players} = context;
-  turn = (turn + direction + players.length) % players.length;
+  let {turn, direction, players, deadlyCounter} = context;
+  do {
+    turn = (turn + direction + players.length) % players.length;
+  } while (players[turn].hand.length >= deadlyCounter.deadNumber);
   return {...context, turn};
 }
 
