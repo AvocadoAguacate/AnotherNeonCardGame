@@ -290,6 +290,7 @@ export class Game {
         this.context.deadlyCounter.deadNumber 
         / this.context.deadlyCounter.speed);
       this.context.deadlyCounter.turns = newCountDown > 0 ? newCountDown : 1;
+      if(this.turnSec > 10) this.turnSec -= 1;
       this.context.players.forEach(p =>{
         if(p.hand.length === this.context.deadlyCounter.deadNumber){
           this.context.alifePlayers -= 1
