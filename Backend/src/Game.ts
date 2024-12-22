@@ -40,7 +40,7 @@ export class Game {
   private luckyTryDefault: number = 5;
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
-  private turnSec: number = 20;
+  private turnSec: number = 1800;
   private turnTimer: NodeJS.Timeout | null = null;
   
   execute(message: Message):void{
@@ -116,35 +116,33 @@ export class Game {
   }
 
   luckTry(msg: LuckTryMessage):void {
-    // TODO turn check and timer
     let {players, turn, chain} = this.context;
-    if(chain.sum){
-      if(players[turn].luckytries > 0){
-        const diceThrow = Math.floor(
-          Math.random() * 6
-        ) + 1;
-        if(diceThrow === msg.payload.number){
+    let player = players[turn];
+    if(player.id === msg.id 
+      && player.luckytries > 0
+      && chain.sum > 0
+    ){
+      this.cancelTurnTimer();
+      const dice = Math.floor(Math.random() * 6);
+      if(dice === msg.payload.number){
+        this.resetChain();
+      } else {
+        const isOdd = dice % 2 !== 0;
+        if(isOdd === msg.payload.isOdd){
+          let newSum = Math.floor(chain.sum/2);
+          this.context = deal(this.context,player.id,newSum);
           this.resetChain();
         } else {
-          const isOdd = diceThrow % 2 !== 0;
-          if(isOdd === msg.payload.isOdd){
-            this.resetChain();
-            this.context = deal(
-              this.context,
-              players[turn].id, 
-              Math.floor(chain.sum/2)
-            );
-          }
+          this.context = deal(this.context,player.id,chain.sum);
         }
-      } else {
-        this.context = deal(
-          this.context,
-          players[turn].id, 
-          chain.sum
-        );
-        this.resetChain();
       }
+      this.context.players[turn].luckytries -= 1;
       this.context = nextTurn(this.context);
+      updAllUI(this.context);
+      this.startTurnTimer();
+    } else {
+      let ind = players.findIndex(p => p.id === msg.id);
+      this.context.players[ind].luckytries -= 1;
     }
   }
 
