@@ -4,7 +4,7 @@
     class="player-img" 
     [ngClass]="{
       'player-turn': isTurn,
-      'player-dead': player.hand >= deathNumber
+      'player-dead': player.hand >= deathNumber || player.hand < 1
       }"
     [alt]="player.name"/>
   <div 
