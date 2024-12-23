@@ -13,6 +13,7 @@ import { createDice } from './speficBuilders/DiceBuilder';
 import { createKami } from './speficBuilders/KamiBuilder';
 import { createGeno } from './speficBuilders/GenoBuilder';
 import { createDare } from './speficBuilders/DareBuilder';
+import { createChainsaw } from './speficBuilders/ChainsawBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -153,6 +154,9 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
       break;
     case 37:
       card = createDare(isFlex, colors);
+      break;
+    case 38:
+      card = createChainsaw(isFlex, colors);
       break;
     default:
       card = createAdd2(isFlex, colors);
