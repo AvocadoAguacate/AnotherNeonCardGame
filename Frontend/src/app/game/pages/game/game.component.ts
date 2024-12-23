@@ -49,7 +49,12 @@ export class GameComponent {
       this.socketService.lastDiscard$.subscribe((discard) => this.lastDiscard = discard);
       this.socketService.players$.subscribe((players) => this.players = players);
       this.socketService.deadNumber$.subscribe((deadNumber) => this.deadNumber = deadNumber);
-      this.socketService.turn$.subscribe((turn) => this.turn = turn);
+      this.socketService.turn$.subscribe((turn) => {
+        this.turn = turn
+        if(this.turn === -1){
+          this.router.navigate(['/waiting-room']);
+        }
+      });
     }
 
     isGenral(num: number): boolean {
