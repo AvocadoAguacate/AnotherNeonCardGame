@@ -1,6 +1,6 @@
 import { createDeck } from "./cards/CardBuilder";
-import { Card, PlayPayload } from "./interfaces/card.model";
-import { Challenge, Context } from "./interfaces/context.model";
+import { Card, Color, PlayPayload } from "./interfaces/card.model";
+import { Challenge, Context, Player } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { PlayerUI } from "./interfaces/update.model";
 import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
@@ -19,6 +19,11 @@ export class Game {
   //   1,1,1,1,1,1,1,1,1,0, //20-29
   //   1,1,1,1,1,1,1,0,0,0, //30-39
   // ];
+  private luckyTryDefault: number = 5;
+  private deadNumberDefault: number = 25;
+  private deadSpeedDefault: number = 1;
+  private flexProb: number = 0.7;
+
   private context: Context = {
     players: [],
     chain: {
@@ -26,20 +31,19 @@ export class Game {
       members: [],
       lastAdd: 0
     },
-    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow', 'blue'], this.deckConfig),
+    deck: [],
     discardDeck: [],
     direction: 1,
     turn: 0,
     deadlyCounter:{
-      turns: 25,
-      deadNumber: 25,
-      speed: 1
+      turns: this.deadNumberDefault,
+      deadNumber: this.deadNumberDefault,
+      speed: this.deadSpeedDefault
     },
     alifePlayers: 0
   };
 
   private challengeList: Challenge[] = [];
-  private luckyTryDefault: number = 5;
   private readyList: boolean[] = []
   private isGameOn: boolean = false;
   private turnSec: number = 1800;
@@ -280,6 +284,8 @@ export class Game {
   private startGame(): void {
     console.log("Starting a game...");
     this.firstTurn();
+    const colors: Color[] = ['green', 'red', 'purple', 'yellow', 'blue'];
+    this.context.deck = createDeck(this.flexProb, colors, this.deckConfig);
     this.firstCard();
     this.context.players.forEach((player, index) => {
       this.context = deal(this.context, player.id, 7);
@@ -338,10 +344,38 @@ export class Game {
           });
         }
       }
-
     }
     //TODO reset game
+    this.context = this.resetContext(this.context);
     this.context.turn = -1;
+  }
+
+  private resetContext(context:Context): Context{
+    let {players} = context;
+    let cleanPlayers: Player[] = players.map(p => {
+      p.hand = [];
+      p.luckytries = this.luckyTryDefault;
+      return p;
+    }) 
+    let newContext = {
+      ...context, 
+      players: cleanPlayers,
+      chain: {
+        sum: 0,
+        members: [],
+        lastAdd: 0
+      },
+      deck: [],
+      discardDeck: [],
+      direction: 1,
+      deadlyCounter:{
+        turns: this.deadNumberDefault,
+        deadNumber: this.deadNumberDefault,
+        speed: this.deadSpeedDefault
+      },
+      alifePlayers: players.length
+    };
+    return newContext;
   }
 
   private firstCard():void{
