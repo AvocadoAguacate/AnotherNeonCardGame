@@ -109,10 +109,10 @@ export class Game {
         this.context = deal(this.context, msg.id, chain.sum);
         this.resetChain();
       }
-      this.checkFinishGame();
       this.context = nextTurn(this.context);
       this.startTurnTimer()
     }
+    this.checkFinishGame();
   }
   
   deal(msg: Message) {
@@ -330,6 +330,7 @@ export class Game {
   }
   
   private finishGame(isWinnerSet:boolean){
+    console.log('El juego ha terminado!');
     let {alifePlayers} = this.context;
     if(!isWinnerSet && alifePlayers === 1){
       let {players, deadlyCounter} = this.context;
@@ -351,6 +352,7 @@ export class Game {
     this.readyList = this.context.players.map(_p => false);
     this.isGameOn = false;
     this.turnSec = 1800;
+    updAllUI(this.context); //TODO fix, only send turn
   }
 
   private resetContext(context:Context): Context{
