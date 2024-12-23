@@ -12,6 +12,7 @@ import { createSkip } from './speficBuilders/SkipBuilder';
 import { createDice } from './speficBuilders/DiceBuilder';
 import { createKami } from './speficBuilders/KamiBuilder';
 import { createGeno } from './speficBuilders/GenoBuilder';
+import { createDare } from './speficBuilders/DareBuilder';
 
 export function createDeck(isFlexProb: number, colors: Color[], config: number[]): Card[] {
   const deck: Card[] = [];
@@ -149,6 +150,9 @@ function createActionCard(type: number, isFlex: number, colors:Color[]): Card {
       break;
     case 36:
       card = createGeno();
+      break;
+    case 37:
+      card = createDare(isFlex, colors);
       break;
     default:
       card = createAdd2(isFlex, colors);

@@ -25,7 +25,8 @@ export interface PlayCardMessage extends Message{
     cardId        : string,
     discardCards ?: string[],
     target       ?: number,
-    wildColor    ?: Color
+    wildColor    ?: Color,
+    number       ?: number
   }
 }
 
