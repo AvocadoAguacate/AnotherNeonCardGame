@@ -25,7 +25,7 @@ export class Game {
       members: [],
       lastAdd: 0
     },
-    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow'], this.deckConfig),
+    deck: createDeck(0.7,['green', 'red', 'purple', 'yellow', 'blue'], this.deckConfig),
     discardDeck: [],
     direction: 1,
     turn: 0,
