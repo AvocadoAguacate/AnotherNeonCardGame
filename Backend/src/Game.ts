@@ -345,9 +345,12 @@ export class Game {
         }
       }
     }
-    //TODO reset game
+    //Reset game
     this.context = this.resetContext(this.context);
-    this.context.turn = -1;
+    this.challengeList = [];
+    this.readyList = this.context.players.map(_p => false);
+    this.isGameOn = false;
+    this.turnSec = 1800;
   }
 
   private resetContext(context:Context): Context{
@@ -360,6 +363,7 @@ export class Game {
     let newContext = {
       ...context, 
       players: cleanPlayers,
+      turn: -1,
       chain: {
         sum: 0,
         members: [],
