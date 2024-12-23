@@ -2,6 +2,7 @@ import { createDeck } from "./cards/CardBuilder";
 import { Card, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
+import { PlayerUI } from "./interfaces/update.model";
 import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -43,6 +44,7 @@ export class Game {
   private isGameOn: boolean = false;
   private turnSec: number = 1800;
   private turnTimer: NodeJS.Timeout | null = null;
+  private winners: PlayerUI[] = [];
   
   execute(message: Message):void{
     switch (message.type){
@@ -199,21 +201,30 @@ export class Game {
     if(player.id === msg.id){
       this.cancelTurnTimer()
       let card = player.hand.find(c => c.id === msg.payload.cardId);
-      if(chain.sum > 0 && card?.type !== 'chain'){
+      if(chain.sum > 0 && card && card.type !== 'chain'){
         this.context = deal(this.context, msg.id, chain.sum+1);
         this.resetChain();
       } else {
-        if(card?.number === discardDeck[0]?.number 
-          || checkColor(card!, discardDeck[0])
-          || checkChain(card!, discardDeck[0])
-          || card?.isWild
+        if(card && (card.number === discardDeck[0]?.number 
+          || checkColor(card, discardDeck[0])
+          || checkChain(card, discardDeck[0])
+          || card?.isWild)
         ){
-          this.context = discardCard(this.context, msg.id, card!.id, true);
-          if(discardDeck[0].isAction){
-            let payload: PlayPayload = msg.payload;
-            this.context = discardDeck[0].playCard!(this.context, payload);
+          if(player.hand.length > 1){ // afoul win
+            this.context = discardCard(this.context, msg.id, card!.id, true);
+            if(discardDeck[0].isAction){
+              let payload: PlayPayload = msg.payload;
+              this.context = discardDeck[0].playCard!(this.context, payload);
+            }
+          } else{
+            this.winners.push({
+              name: player.name, 
+              hand:0, 
+              img:player.img
+            });
+            this.finishGame(true);
           }
-        } else {
+        } else { //carta no existe o no jugable
           this.context = deal(this.context, msg.id, 1);
         }
       }
@@ -308,8 +319,29 @@ export class Game {
 
   private checkFinishGame(){
     if(this.context.alifePlayers < 2){
-      console.log('Pendiente');
+      this.finishGame(false);
     }
+  }
+  
+  private finishGame(isWinnerSet:boolean){
+    let {alifePlayers} = this.context;
+    if(!isWinnerSet && alifePlayers === 1){
+      let {players, deadlyCounter} = this.context;
+      for (let ind = 0; ind < players.length; ind++) {
+        let handL = players[ind].hand.length;
+        if(handL > 0 && handL < deadlyCounter.deadNumber){
+          let player = players[ind];
+          this.winners.push({
+            name: player.name, 
+            hand: handL , 
+            img:player.img
+          });
+        }
+      }
+
+    }
+    //TODO reset game
+    this.context.turn = -1;
   }
 
   private firstCard():void{
