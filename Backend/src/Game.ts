@@ -24,6 +24,7 @@ export class Game {
   private deadNumberDefault: number = 25;
   private deadSpeedDefault: number = 1;
   private flexProb: number = 0.7;
+  private initialCards: number = 7;
 
   private context: Context = {
     players: [],
@@ -142,6 +143,7 @@ export class Game {
       false, false, false,
       true, false, false
     );
+    console.log(`alife:${this.context.alifePlayers}`);
     this.checkFinishGame();
   }
 
@@ -233,7 +235,7 @@ export class Game {
       } else {
         if(card && (card.number === discardDeck[0]?.number 
           || checkColor(card, discardDeck[0])
-          || checkChain(card, discardDeck[0])
+          || this.checkChain(card, discardDeck[0])
           || card?.isWild)
         ){
           if(player.hand.length > 1){ // afoul win
@@ -278,10 +280,10 @@ export class Game {
       });
       if(this.isGameOn){
         this.readyList.push(true);
-        this.context = deal(this.context, msg.id, 10);
+        let player = getPlayer(this.context.players, msg.id);
+        this.initialDeal(player!, true);
         updPlayers1Hand(
-          this.context,
-          getPlayer(this.context.players, msg.id)!, 
+          this.context, player!, 
           true, true, true, true, true, true
         );
       } else {
@@ -314,10 +316,12 @@ export class Game {
     const colors: Color[] = ['green', 'red', 'purple', 'yellow', 'blue'];
     this.context.deck = createDeck(this.flexProb, colors, this.deckConfig);
     this.firstCard();
+    console.log(`Antes de repartir, estado del juego: ${this.isGameOn}`);
     this.context.players.forEach((player, index) => {
-      this.context = deal(this.context, player.id, 7);
+      this.initialDeal(player);
       this.setLuckyTries(index);
     });
+    this.isGameOn = true;
     updPlayersUI(
       this.context, true,
       true, true, true,
@@ -430,11 +434,17 @@ export class Game {
     let [card] = this.context.deck.splice(index, 1);
     this.context.discardDeck.unshift(card);
   }
-}
 
-function checkChain(c1: Card, c2: Card): boolean {
-  if(c1.type === 'chain' && c2.type === 'chain'){
-    return true;
+  private initialDeal(player: Player, isLate: boolean = false):void {
+    let amount = isLate ? this.initialCards + 3 : this.initialCards;
+    const dealCards = this.context.deck.splice(0, amount);
+    player.hand.push(...dealCards);
   }
-  return false;
+
+  private checkChain(c1: Card, c2: Card): boolean {
+    if(c1.type === 'chain' && c2.type === 'chain'){
+      return true;
+    }
+    return false;
+  }
 }

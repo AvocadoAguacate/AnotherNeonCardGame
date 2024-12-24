@@ -8,7 +8,7 @@ export function deal(context:Context, playerId:string, amount: number): Context 
   let {deck, players, deadlyCounter, alifePlayers} = context;
   let player = players.find(player => player.id === playerId);
   let handNum = player!.hand.length;
-  if( handNum > 0　|| handNum < deadlyCounter.deadNumber){
+  if( handNum > 0　&& handNum < deadlyCounter.deadNumber){
     let newAmount = amount;
     let finalAmount = handNum + amount;
     if(finalAmount >= deadlyCounter.deadNumber){ //death
