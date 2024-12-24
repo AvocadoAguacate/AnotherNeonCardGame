@@ -2,6 +2,7 @@ import { Context } from '../../interfaces/context.model';
 import { Card, Color, PlayPayload } from "../../interfaces/card.model";
 import { createCard } from "../CardBuilder";
 import { discardCards } from '../../Utils';
+import { updPlayersUI } from '../../UpdateUser';
 
 export function createChainsaw(isFlexProb: number, colors: Color[]): Card {
   let card = createCard(37, isFlexProb, colors);
@@ -21,6 +22,11 @@ function chainsaw(context: Context): Context{
       const dList = ['', '', '', '', ''];
       context = discardCards(context, player.id, dList);
     }
-  })
+  });
+  updPlayersUI(
+    context, false, false,
+    true, false, true,
+    false, false
+  );
   return {...context, alifePlayers};
 }

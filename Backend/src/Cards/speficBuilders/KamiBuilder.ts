@@ -1,5 +1,6 @@
 import { Card, Color, PlayPayload } from "../../interfaces/card.model";
 import { Context } from "../../interfaces/context.model";
+import { updatePlayerUI } from "../../UpdateUser";
 import { deal, resetChain } from "../../Utils";
 import { createCard } from "../CardBuilder";
 import { addWild } from "./WildBuilder";
@@ -17,6 +18,12 @@ export function kami(context:Context): Context {
   chain.members.forEach((isMember, ind) => {
     if(isMember){
       context = deal(context, players[ind].id, chain.sum);
+      updatePlayerUI(
+        context, players[ind],
+        false, false, true,
+        false, false, false,
+        false
+      );
     }
   });
   return resetChain(context);

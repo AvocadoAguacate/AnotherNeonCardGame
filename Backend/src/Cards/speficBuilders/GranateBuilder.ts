@@ -1,4 +1,5 @@
 import { Context } from '../../interfaces/context.model';
+import { updatePlayerUI } from '../../UpdateUser';
 import { deal } from '../../Utils';
 import { createCard } from '../CardBuilder';
 import { Card, PlayPayload } from './../../interfaces/card.model';
@@ -21,6 +22,18 @@ export function grenate(context: Context): Context{
   let explotionR = Math.floor(Math.random() * 12 + 1);
   let explotionL = Math.floor(Math.random() * 12 + 1);
   context = deal(context, players[turn].id, explotion);
-  context = deal(context, players[left].id, explotionL);
-  return deal(context, players[right].id, explotionR);
+  updatePlayerUI(
+    context, players[left],
+    false, false, true,
+    false, false, false,
+    false
+  );
+  context = deal(context, players[right].id, explotionR);
+  updatePlayerUI(
+    context, players[right],
+    false, false, true,
+    false, false, false,
+    false
+  );
+  return deal(context, players[left].id, explotionL);
 }

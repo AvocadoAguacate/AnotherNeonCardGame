@@ -3,7 +3,8 @@ import { Card, Color, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context, Player } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { PlayerUI } from "./interfaces/update.model";
-import { checkColor, deal, discardCard, nextTurn, sendChallenge, updAllUI, updChallengeUI, updAllOneHandUI } from "./Utils";
+import { sendChallenge, updAllOneHandUI, updChallengeUI, updPlayersUI } from "./UpdateUser";
+import { checkColor, deal, discardCard, getPlayer, nextTurn } from "./Utils";
 import { v4 as uuidv4 } from 'uuid';
 
 export class Game {
@@ -84,11 +85,13 @@ export class Game {
       clearTimeout(this.turnTimer);
     }
     this.turnTimer = setTimeout(() => {
-      let {players, turn} = this.context;
+      let {players, turn} = this.context;      
       console.log(`Tiempo agotado. Haciendo deal a ${players[turn].name}`);
       this.context = deal(this.context, players[turn].id, 1);
+      this.checkFinishGame();
       this.context = nextTurn(this.context);
-      updAllUI(this.context);
+      this.updateDeadlyCounter();
+      updAllOneHandUI(this.context, players[turn]);
       this.startTurnTimer();
     }, this.turnSec * 1000);
   }
@@ -113,15 +116,19 @@ export class Game {
       this.startTurnTimer()
     }
     this.checkFinishGame();
+    updAllOneHandUI(this.context, getPlayer(players, msg.id)!);
   }
   
   deal(msg: Message) {
     let {players, deadlyCounter} = this.context;
     let player = players.find(p => p.id === msg.id);
-    if(player!.hand.length < deadlyCounter.deadNumber){
+    if(player!.hand.length < deadlyCounter.deadNumber 
+      || player!.hand.length > 0
+    ){
       this.context = deal(this.context, msg.id, 1);
     }
     this.checkFinishGame();
+    updAllOneHandUI(this.context, player!);
   }
 
   luckTry(msg: LuckTryMessage):void {
@@ -149,7 +156,7 @@ export class Game {
       this.context.players[turn].luckytries -= 1;
       this.checkFinishGame();
       this.context = nextTurn(this.context);
-      updAllUI(this.context);
+      updAllOneHandUI(this.context, player);
       this.startTurnTimer();
     } else {
       let ind = players.findIndex(p => p.id === msg.id);
@@ -235,7 +242,7 @@ export class Game {
       this.checkFinishGame();
       this.context = nextTurn(this.context);
       this.updateDeadlyCounter();
-      updAllOneHandUI(this.context, msg.id);
+      updAllOneHandUI(this.context, player);
       this.startTurnTimer();
       console.log(this.context.discardDeck[0]);
     } else {
@@ -291,7 +298,11 @@ export class Game {
       this.context = deal(this.context, player.id, 7);
       this.setLuckyTries(index);
     });
-    updAllUI(this.context);
+    updPlayersUI(
+      this.context, true,
+      true, true, true,
+      true, false, false
+    );
     this.startTurnTimer();
   }
 
@@ -314,6 +325,11 @@ export class Game {
         }
       });
       this.checkFinishGame();
+      updPlayersUI(
+        this.context, false,
+        true, false, true,
+        false, false, false
+      );
     }
   }
 
@@ -352,7 +368,11 @@ export class Game {
     this.readyList = this.context.players.map(_p => false);
     this.isGameOn = false;
     this.turnSec = 1800;
-    updAllUI(this.context); //TODO fix, only send turn
+    updPlayersUI(
+      this.context, false, true,
+      false, false, false, false,
+      false
+    );
   }
 
   private resetContext(context:Context): Context{

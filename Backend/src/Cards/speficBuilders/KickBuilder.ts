@@ -2,6 +2,7 @@ import { Context } from './../../interfaces/context.model';
 import { Card, Color, PlayPayload } from './../../interfaces/card.model';
 import { createCard } from '../CardBuilder';
 import { deal } from '../../Utils';
+import { updatePlayerUI } from '../../UpdateUser';
 
 export function createKick(isFlex: number, colors: Color[]):Card {
   let card = createCard(13, isFlex, colors);
@@ -18,6 +19,12 @@ function kick(context: Context): Context{
     oneCard.forEach((isOne, index) => {
       if(isOne){
         context = deal(context, players[index].id, 4);
+        updatePlayerUI(
+          context, players[index],
+          false, false, true,      
+          false, false, false,
+          false
+        );
       }
     })
   } else {
@@ -28,6 +35,12 @@ function kick(context: Context): Context{
       twoCards.forEach((isTwo, index) => {
         if(isTwo){
           context = deal(context, players[index].id, 2);
+          updatePlayerUI(
+            context, players[index],
+            false, false, true,      
+            false, false, false,
+            false
+          );
         }
       });
     } else {

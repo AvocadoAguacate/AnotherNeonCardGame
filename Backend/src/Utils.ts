@@ -1,6 +1,5 @@
 import { Card, Color, PlayPayload } from "./interfaces/card.model";
-import { Challenge, Context, Player } from "./interfaces/context.model";
-import { CardUI, ChallengeUI, PlayerUI, UpdateUI } from "./interfaces/update.model";
+import { Context, Player } from "./interfaces/context.model";
 
 export function deal(context:Context, playerId:string, amount: number): Context {
   if(context.deck.length <= amount){
@@ -19,7 +18,6 @@ export function deal(context:Context, playerId:string, amount: number): Context 
     }
     const dealCards = deck.splice(0, newAmount);
     player!.hand.push(...dealCards);
-    updAllOneHandUI(context, playerId);
     return {...context, players, deck, alifePlayers};
   } else {
     return context;
@@ -71,19 +69,16 @@ export function checkColor(card1: Card, card2:Card): boolean {
 
 export function discardCard(
 context:Context, playerId: string,
-cardId: string = '', isUnshift = true, 
-notify: boolean = false): Context{
+cardId: string = '', isUnshift = true,): Context{
   let {discardDeck, players} = context;
   let player = players.find(p => p.id === playerId);
   if(player!.hand.length > 0){
-    const playerInd = players.findIndex(player => player.id === playerId);
     const cardInd = cardId.length > 0 ? 
       player!.hand.findIndex(card => card.id === cardId) : 
       Math.floor(Math.random() * player!.hand.length);
     if(cardInd !== -1){ 
       let [card] = player!.hand.splice(cardInd, 1);
       isUnshift ? discardDeck.unshift(card) : discardDeck.push(card);
-      notify ?? updatePlayerUI(context, playerInd, true, false, false);
       return {...context, discardDeck, players};
     } else {
       return context;
@@ -97,9 +92,6 @@ export function discardCards(context:Context, playerId: string, cards: string[])
   cards.forEach(cardId => {
     context = discardCard(context, playerId, cardId, false);
   });
-  const playerInd = context.players
-    .findIndex(player => player.id === playerId);
-  updatePlayerUI(context,playerInd, true, false, false); //TODO allonehand
   return {...context};
 }
 
@@ -113,93 +105,6 @@ export function nextTurn(context: Context):Context{
     );
   }
   return {...context, turn};
-}
-
-export function updAllOneHandUI(context: Context, one: string):void {
-  context.players
-    .forEach((player, index) => {
-      if(player.id !== one){
-        updatePlayerUI(context, index, false , true, true);
-      } else {
-        updatePlayerUI(context, index, true , true, true);
-      }
-    }
-  );
-}
-export function updAllUI(context: Context):void {
-  context.players
-    .forEach((_player, index) => {
-      updatePlayerUI(context, index,true, true, true)
-    }
-  );
-}
-
-export function updChallengeUI(context: Context, challlege: Challenge):void {
-  let {players} = context;
-  players.forEach((player, index) => {
-    if(player.id === challlege.challenger
-    || player.id === challlege.oponent
-    ){
-      updatePlayerUI(context, index, true, false, true);
-    } else {
-      updatePlayerUI(context, index, false, false, true);
-    }
-  })
-}
-
-export function updatePlayerUI(
-context: Context, playerInd: number,
-updateHand: boolean, updateDeadNum: boolean,
-updatePlayers: boolean ,
-):void{
-  let {players, discardDeck, turn} = context;
-  let updateMsg: UpdateUI ={
-    lastDiscard: mapCardUI(discardDeck[0]),
-    turn,
-    type: 'updateUI'
-  }
-  if(updateHand){
-    let handUI: CardUI[] = players[playerInd].hand
-      .map(card => mapCardUI(card));
-    updateMsg.hand = handUI
-  }
-  if(updateDeadNum){
-    updateMsg.deadNumber = context.deadlyCounter.deadNumber;
-  }
-  if(updatePlayers){
-    updateMsg.players = players.map(pl => mapPlayerUI(pl));
-  }
-  players[playerInd].socket.emit("message", updateMsg);
-}
-
-function mapCardUI(card: Card): CardUI {
-  let newCardUI: CardUI = {
-    colors: card.colors ?? [],
-    id: card.id,
-  };
-  newCardUI.number = card.number!;
-  return newCardUI
-}
-function mapPlayerUI(player: Player):PlayerUI {
-  let newPlayerUI: PlayerUI = {
-    name: player.name,
-    img: player.img,
-    hand: player.hand.length
-  }
-  return newPlayerUI;
-}
-
-export function sendChallenge(players: Player[], challenge: Challenge):void{
-  const playerInd = players
-    .findIndex(pl => pl.id === challenge.oponent);
-  const challengerInd = players
-    .findIndex(pl => pl.id === challenge.challenger);
-  const msg:ChallengeUI = {
-    oponent: challengerInd,
-    id: challenge.id,
-    type: 'challenge'
-  };
-  players[playerInd].socket.emit('message',msg);
 }
 
 export function resetChain(context:Context): Context{
@@ -227,4 +132,8 @@ export function fillPayload(
     newPay.discardCards = ['', ''];
   }
   return newPay;
+}
+
+export function getPlayer(players:Player[], id: string):Player | undefined{
+  return players.find(p => p.id === id);
 }

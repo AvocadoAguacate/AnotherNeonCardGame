@@ -7,11 +7,13 @@ export interface messageUI{
 }
 
 export interface UpdateUI extends messageUI{
-  lastDiscard   : CardUI,
+  lastDiscard  ?: CardUI,
   hand         ?: CardUI[],
   players      ?: PlayerUI[],
   deadNumber   ?: number,
-  turn          : number     
+  turn         ?: number,
+  chain        ?: number,
+  general      ?: number[]    
 }
 
 export interface CardUI{

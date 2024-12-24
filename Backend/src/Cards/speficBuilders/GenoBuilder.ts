@@ -1,6 +1,7 @@
 import { Card, PlayPayload } from "../../interfaces/card.model";
 import { Context } from "../../interfaces/context.model";
-import { checkColor, discardCard, fillPayload, updAllUI } from "../../Utils";
+import { updPlayersUI } from "../../UpdateUser";
+import { checkColor, discardCard, fillPayload } from "../../Utils";
 import { createCard } from "../CardBuilder";
 import { addWild } from "./WildBuilder";
 
@@ -31,6 +32,10 @@ function geno(context: Context, payload:PlayPayload):Context {
       }
     });
   });
-  updAllUI(context);
+  updPlayersUI(
+    context, false,
+    false, true, false,
+    true, false, false
+  );
   return context
 }
