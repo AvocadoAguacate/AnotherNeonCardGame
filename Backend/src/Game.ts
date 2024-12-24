@@ -3,7 +3,7 @@ import { Card, Color, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context, Player } from "./interfaces/context.model";
 import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
 import { PlayerUI } from "./interfaces/update.model";
-import { sendChallenge, updAllOneHandUI, updChallengeUI, updPlayersUI } from "./UpdateUser";
+import { sendChallenge, updAllOneHandUI, updChallengeUI, updHand, updPlayers1Hand, updPlayersUI } from "./UpdateUser";
 import { checkColor, deal, discardCard, getPlayer, nextTurn } from "./Utils";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -113,10 +113,20 @@ export class Game {
         this.resetChain();
       }
       this.context = nextTurn(this.context);
+      updPlayers1Hand(
+        this.context, players[turn],
+        false, true, false,
+        false, false, false
+      );
       this.startTurnTimer()
     }
+    updPlayers1Hand(
+      this.context, getPlayer(players, msg.id)!,
+      false, false, false,
+      true, false, false
+    );
+    updHand(this.context, getPlayer(players, msg.id)!);
     this.checkFinishGame();
-    updAllOneHandUI(this.context, getPlayer(players, msg.id)!);
   }
   
   deal(msg: Message) {
@@ -127,8 +137,12 @@ export class Game {
     ){
       this.context = deal(this.context, msg.id, 1);
     }
+    updPlayers1Hand(
+      this.context, getPlayer(players, msg.id)!,
+      false, false, false,
+      true, false, false
+    );
     this.checkFinishGame();
-    updAllOneHandUI(this.context, player!);
   }
 
   luckTry(msg: LuckTryMessage):void {
@@ -170,6 +184,7 @@ export class Game {
       members: [],
       lastAdd: 0
     }
+    updPlayersUI(this.context, false, false, false, false, false, true, false);
   }
   
   challenge(msg: ChallengeMessage):void {
@@ -264,6 +279,11 @@ export class Game {
       if(this.isGameOn){
         this.readyList.push(true);
         this.context = deal(this.context, msg.id, 10);
+        updPlayers1Hand(
+          this.context,
+          getPlayer(this.context.players, msg.id)!, 
+          true, true, true, true, true, true
+        );
       } else {
         this.readyList.push(false);
       }
@@ -272,7 +292,7 @@ export class Game {
     } else {
       this.context.players[index] = {...this.context.players[index], ...msg.payload};
     }
-    console.log(this.context.players);
+    console.log(`Players lenght: ${this.context.players.length}`);
   }
 
   private readyPlayer(msg: ReadyMessage): void {

@@ -50,10 +50,10 @@ export class GameComponent {
       this.socketService.players$.subscribe((players) => this.players = players);
       this.socketService.deadNumber$.subscribe((deadNumber) => this.deadNumber = deadNumber);
       this.socketService.turn$.subscribe((turn) => {
-        this.turn = turn
-        if(this.turn === -1){
+        if(turn === -1){
           this.router.navigate(['/waiting-room']);
         }
+        this.turn = turn;
       });
     }
 

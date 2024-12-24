@@ -14,6 +14,23 @@ export function updAllOneHandUI(context: Context, one: Player):void {
   );
 }
 
+export function updPlayers1Hand(
+  context: Context, one: Player,
+  upLastDiscard: boolean, upTurn: boolean,
+  upDeadNum: boolean, upPlayers: boolean, 
+  upChain: boolean, upGeneral: boolean
+):void {
+  context.players
+    .forEach((player) => {
+      if(player.id === one.id){
+        updatePlayerUI(context, player, upLastDiscard, upTurn, true, upDeadNum, upPlayers, upChain, upGeneral);
+      } else {
+        updatePlayerUI(context, player, upLastDiscard, upTurn, false, upDeadNum, upPlayers, upChain, upGeneral);
+      }
+    }
+  );
+}
+
 export function updAllUI(context: Context):void {
   context.players
     .forEach((player) => {
@@ -77,6 +94,7 @@ upGeneral: boolean
   if(upHand){
     let handUI: CardUI[] = player.hand
       .map(card => mapCardUI(card));
+    console.log(`${player.name} - ${handUI.length} cards`);
     msg.hand = handUI
   }
   if(upDeadNum){
@@ -122,4 +140,22 @@ export function sendChallenge(players: Player[], challenge: Challenge):void{
     type: 'challenge'
   };
   players[playerInd].socket.emit('message',msg);
+}
+
+export function updHand(context: Context, player: Player){
+  updatePlayerUI(
+    context, player,
+    false, false, true,
+    false, false, false,
+    false
+  );
+}
+
+export function updTurn(context: Context){
+  updPlayersUI(
+    context,
+    false, true, false,
+    false, false, false,
+    false
+  );
 }

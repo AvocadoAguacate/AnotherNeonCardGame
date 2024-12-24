@@ -49,9 +49,10 @@ export class SocketService  {
       switch (data.type) {
         case "updateUI":
           let update:UpdateUI = data as UpdateUI;
-          if(update.turn){
-            console.log(update.turn);
+          console.log(update);
+          if (update.turn !== undefined && update.turn !== null) {
             this.turnSubject.next(update.turn);
+            console.log(update.turn!);
           }
           if(update.lastDiscard){
             this.lastDiscardSubject.next(update.lastDiscard);
