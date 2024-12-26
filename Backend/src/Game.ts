@@ -96,7 +96,12 @@ export class Game {
     if(ind > -1){
       let player: Player = this.context.players.splice(ind, 1)[0];
       if(this.isGameOn){
-        let {players, direction, deadlyCounter, alifePlayers} = this.context;
+        let {players, direction, 
+          deadlyCounter, alifePlayers,
+          chain} = this.context;
+        if(chain.sum > 0){
+          chain.members.splice(ind, 1);
+        }
         let indP = 0;
         for (let index = 0; index < player.hand.length; index++) {
           if(players[indP].hand.length > 0){
@@ -110,9 +115,13 @@ export class Game {
           }
         });
         alifePlayers -=1;
-        updPlayersUI(this.context, false, false, true, false, true, false, false);
+        updPlayersUI(
+          this.context, false, 
+          false, true, false, 
+          true, false, false
+        );
         this.checkFinishGame();
-        this.context = {...this.context, players, alifePlayers};
+        this.context = {...this.context, players, alifePlayers, chain};
       }
       this.readyList.splice(ind,1);
       console.log(this.context.players);
