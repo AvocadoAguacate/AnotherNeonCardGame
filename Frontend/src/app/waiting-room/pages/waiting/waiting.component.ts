@@ -36,4 +36,8 @@ export class WaitingComponent {
     this.changeStatus()
     this.socketService.setReady(this.status);
   }
+  logOut(){
+    this.socketService.sendLogOut();
+    this.router.navigate(['home']);
+  }
 }

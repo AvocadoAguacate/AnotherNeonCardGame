@@ -82,9 +82,40 @@ export class Game {
       case 'voteDeck':
         this.voteDeck(message as VoteMessage);
         break;
+      case 'logOut':
+        this.logOut(message);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
+    }
+  }
+
+  logOut(msg: Message){
+    let ind = this.context.players.findIndex(p => p.id === msg.id);
+    if(ind > -1){
+      let player: Player = this.context.players.splice(ind, 1)[0];
+      if(this.isGameOn){
+        let {players, direction, deadlyCounter, alifePlayers} = this.context;
+        let indP = 0;
+        for (let index = 0; index < player.hand.length; index++) {
+          if(players[indP].hand.length > 0){
+            players[indP].hand.push(player.hand.splice(index, 1)[0]);
+          }
+          indP = (indP + direction + players.length) % players.length;
+        }
+        players.forEach(p => {
+          if(p.hand.length >=deadlyCounter.deadNumber){
+            alifePlayers -= 1;
+          }
+        });
+        alifePlayers -=1;
+        updPlayersUI(this.context, false, false, true, false, true, false, false);
+        this.checkFinishGame();
+        this.context = {...this.context, players, alifePlayers};
+      }
+      this.readyList.splice(ind,1);
+      console.log(this.context.players);
     }
   }
 

@@ -188,4 +188,13 @@ export class SocketService  {
     msg.id = this.playerData.id;
     this.send('message', msg);
   }
+
+  sendLogOut(){
+    let msg: Message = {
+      id: this.playerData.id,
+      type: 'logOut',
+      payload: ''
+    }
+    this.send('message', msg);
+  }
 }

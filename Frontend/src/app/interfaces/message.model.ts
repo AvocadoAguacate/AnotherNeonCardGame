@@ -1,5 +1,5 @@
 export type Color = 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'brown' | 'null'
-export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge' | 'luckTry' | 'deal' | 'pass'
+export type MessageType = 'editPlayer' | 'readyPlayer' | 'playCard' | 'voteDeck' | 'challenge' | 'luckTry' | 'deal' | 'pass' | 'logOut'
 
 export interface Message {
   id       : string,
