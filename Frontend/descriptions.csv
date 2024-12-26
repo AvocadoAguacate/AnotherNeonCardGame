@@ -26,10 +26,10 @@ number,tag, description
 35, kamizase, Todos los participantes de la cadena y el jugador que usó esta carta les toca comer todas las cartas de la cadena
 36, genocide, Todos los jugadores descartan todas las cartas que tengan el color que el jugador que jugó esta carta decida
 37, dare,
-38, hide,
+38, chainsaw,
 39, tax50,
 40, tax25,
-41, hideWild
+41, minefield, El jugador escoge un numero de 3 digitos y cada digito será una bomba que haga comer al jugador que decida jugar una carta con el mismo digito ( secreto para todas las cartas de acción ). Durante 10 turnos se mantiene el campo minado.
 42, tel1, 
 43, tel2,
 44, tel3,
