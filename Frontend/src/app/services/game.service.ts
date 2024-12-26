@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Color, PlayCardMessage } from '../interfaces/message.model';
+import { Color, PlayCardMessage, VoteMessage } from '../interfaces/message.model';
 import { CardUI } from '../interfaces/update.model';
 
 @Injectable({
@@ -94,5 +94,22 @@ export class GameService {
       }
     }
     return false;
+  }
+
+  getVoteMessage(like: boolean, number: number): VoteMessage {
+    let msg: VoteMessage = {
+      id: '',
+      type: 'voteDeck',
+      payload: {
+        isLiked: like,
+        id: number
+      }
+    }
+    return msg;
+  }
+
+  getVote():number{
+    const rand = Math.floor(Math.random() * 70) + 10;
+    return rand === 29 ? 30 : rand;
   }
 }

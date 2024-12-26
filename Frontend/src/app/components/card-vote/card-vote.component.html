@@ -1,0 +1,30 @@
+<div class="vote-conteiner">
+  <div>
+    <app-card-detail
+    [cardNumber]="number"
+    [isRandom]="false"
+    />
+  </div>
+  <div class="vote-button-container">
+    <button
+      class="btn btn-outline-info"
+      (click)="vote(true)"
+    >
+      <img 
+        src="assets/Buttons/thumb-up.svg" 
+        alt="like"
+        class="vote-button-img"
+      >
+    </button>
+    <button
+      class="btn btn-outline-danger vote-button"
+      (click)="vote(false)"
+    >
+      <img 
+        src="assets/Buttons/thumb-down.svg" 
+        alt="dis-like"
+        class="vote-button-img"
+      >
+    </button>
+  </div>
+</div>

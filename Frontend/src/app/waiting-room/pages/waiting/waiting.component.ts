@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { SocketService } from '../../../services/socket.service';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardVoteComponent } from "../../../components/card-vote/card-vote.component";
 
 @Component({
   selector: 'app-waiting',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, CardVoteComponent],
   templateUrl: './waiting.component.html',
   styleUrl: './waiting.component.scss'
 })

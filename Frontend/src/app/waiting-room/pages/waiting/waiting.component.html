@@ -1,8 +1,11 @@
 <div class="waiting-container vh-100">
   <!-- Primera fila -->
   <div class="row first-row">
-    <div class="column large m-2 p-4">
-      <h2>{{'APP.WAITING.TITLE'| translate}}</h2>
+    <div class="column large">
+      <h2 class="waiting-title">{{'APP.WAITING.TITLE'| translate}}</h2>
+      <div class="waiting-vote-container">
+        <app-card-vote/>
+      </div>
     </div>
     <div class="column small">
       <!-- Contenido de la columna derecha (20%) -->

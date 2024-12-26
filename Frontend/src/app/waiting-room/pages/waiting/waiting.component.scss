@@ -6,11 +6,11 @@
     display: flex;
     &.first-row {
       height: 87%; /* Mitad superior */
-      margin-left: 50px;
-      text-align: center;
       .column { 
         &.large {
           flex: 4; /* Ocupa el 80% */
+          overflow-y: auto;
+          max-height: 100%;
         }
         &.small {
           flex: 1; /* Ocupa el 20% */
@@ -26,4 +26,13 @@
       }
     }
   }
+}
+.waiting-vote-container{
+  overflow-y: auto;
+  max-height: 100%;
+  text-align: justify;
+}
+
+.waiting-title{
+  margin: 20px;
 }

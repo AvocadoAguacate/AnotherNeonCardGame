@@ -1,5 +1,5 @@
 import { GameService } from './game.service';
-import { ChallengeMessage } from './../interfaces/message.model';
+import { ChallengeMessage, VoteMessage } from './../interfaces/message.model';
 import { ChallengeUI, messageUI, PlayerUI, UpdateUI } from './../interfaces/update.model';
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
@@ -182,5 +182,10 @@ export class SocketService  {
       payload: {}
     }
     this.send('message',msg);
+  }
+
+  sendVote(msg: VoteMessage) {
+    msg.id = this.playerData.id;
+    this.send('message', msg);
   }
 }

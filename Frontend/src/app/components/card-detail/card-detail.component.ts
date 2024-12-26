@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { CardComponent } from "../card/card.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CardUI } from '../../interfaces/update.model';
@@ -23,6 +23,13 @@ export class CardDetailComponent {
   public isDescription = false;
   public isFakeDescription = false;
   public isFail = false;
+  private colors = [
+    ['blue'], ['red'], ['purple'], ['yellow'], ['green'],
+    ['blue', 'red'], ['blue', 'purple'], ['blue', 'green'],
+    ['yellow', 'red'], ['yellow', 'purple'], ['yellow', 'green'],
+    ['green', 'red'], ['green', 'purple'], ['green', 'blue'],
+    ['red', 'blue'], ['red', 'purple'], ['red', 'green'],
+  ];
 
   @Input()
   public isRandom!:boolean;
@@ -50,19 +57,20 @@ export class CardDetailComponent {
         this.isFail = true;
       }
     }
-    const colors = [
-      ['blue'], ['red'], ['purple'], ['yellow'], ['green'],
-      ['blue', 'red'], ['blue', 'purple'], ['blue', 'green'],
-      ['yellow', 'red'], ['yellow', 'purple'], ['yellow', 'green'],
-      ['green', 'red'], ['green', 'purple'], ['green', 'blue'],
-      ['red', 'blue'], ['red', 'purple'], ['red', 'green'],
-    ];
-    let rInd = Math.floor(Math.random() * colors.length);
-    this.card = {
+    this.card = this.getCard();
+  }
+
+  getCard(): CardUI{
+    let rInd = Math.floor(Math.random() * this.colors.length);
+    return {
       number: this.cardNumber,
-      colors: colors[rInd] as Color[],
+      colors: this.colors[rInd] as Color[],
       id: 'UniqueId'
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.card = this.getCard();
   }
 
   isChain(num: number): boolean {

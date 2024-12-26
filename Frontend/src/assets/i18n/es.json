@@ -63,22 +63,22 @@
       "FAKEDESCRIPTION": "Todos los jugadores que tengas menos cartas que el jugador que utilizó esta carta deben tomar 4 cartas"
     },
     "C14": {
-      "NAME": "Cambio de dirección lv1",
+      "NAME": "Cambiando dirección lv1",
       "DESCRIPTION": "El juego cambia de dirección y te proteges del 10% de la cadena en caso de existir, no termina la cadena",
       "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 30% de la cadena en caso de existir"
     },
     "C15": {
-      "NAME": "Cambio de dirección lv2",
+      "NAME": "Cambiando dirección lv2",
       "DESCRIPTION": "El juego cambia de dirección y te proteges del 25% de la cadena en caso de existir, no termina la cadena",
       "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 50% de la cadena en caso de existir"
     },
     "C16": {
-      "NAME": "Cambio de dirección lv3",
+      "NAME": "Cambiando dirección lv3",
       "DESCRIPTION": "El juego cambia de dirección y te proteges del 50% de la cadena en caso de existir, no termina la cadena",
       "FAKEDESCRIPTION": "El juego cambia de dirección y te proteges del 80% de la cadena en caso de existir"
     },
     "C17": {
-      "NAME": "Cambio de dirección lv4",
+      "NAME": "Cambiando dirección lv4",
       "DESCRIPTION": "El juego cambia de dirección y te proteges del 100% de la cadena en caso de existir, termina la cadena",
       "FAKEDESCRIPTION": "El juego cambia de dirección y devuelves la cadena al siguiente jugador"
     },

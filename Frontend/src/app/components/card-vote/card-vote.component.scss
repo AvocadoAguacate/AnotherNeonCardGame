@@ -1,0 +1,15 @@
+.vote-conteiner{
+  display: flex;
+  align-items: center;
+  margin-left: 0;
+}
+
+.vote-button-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vote-button-img{
+  height: 30px;
+}
