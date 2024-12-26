@@ -13,6 +13,10 @@ export class Game {
     6,4,4,2,6,2,4,5,2,2,
     0,0,6,8,6,8,4,6,4,0,
     4,4,6,4,6,4,4,8,4,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
   ];
   // private deckConfig =[
   //   0,0,0,0,0,0,0,0,0,0, //0-9
@@ -87,20 +91,24 @@ export class Game {
   voteDeck(msg: VoteMessage){
     let {isLiked, id} = msg.payload;
     let amount = Math.ceil(Math.random() * 4);
-    amount = isLiked ? amount : amount * -1; 
     if(!isLiked && amount > this.deckConfig[id]) {
       amount = this.deckConfig[id];
     }
+    amount = isLiked ? amount : amount * -1; 
     this.deckConfig[id] += amount;
     this.ajustVoteDeck(amount, isLiked);
   }
 
   ajustVoteDeck(amount: number, isLike: boolean){
-    const len = this.deckConfig.length;
     const ajust = isLike ? -1 : 1;
-    for (let ind = 0; ind < amount; ind++) {
-      let rand = Math.floor(Math.random() * len);
-      this.deckConfig[rand] += ajust;
+    amount = isLike ? amount : amount * -1;
+    let ind = 0;
+    while(ind < amount){
+      let rand = Math.floor(Math.random() * 80);
+      if(!isLike || (isLike && this.deckConfig[rand] > 0)){
+        this.deckConfig[rand] += ajust;
+        ind ++;
+      }
     }
   }
 
