@@ -48,3 +48,10 @@ export interface LuckTryMessage extends Message{
     isOdd           : boolean
   }
 }
+
+export interface VoteMessage extends Message{
+  payload :{
+    id              : number,
+    isLiked         : boolean
+  }
+}

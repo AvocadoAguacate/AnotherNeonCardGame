@@ -1,7 +1,7 @@
 import { createDeck } from "./cards/CardBuilder";
 import { Card, Color, PlayPayload } from "./interfaces/card.model";
 import { Challenge, Context, Player } from "./interfaces/context.model";
-import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage } from "./interfaces/message.model";
+import { ChallengeMessage, EditPlayerMessage, LuckTryMessage, Message, PlayCardMessage, ReadyMessage, VoteMessage } from "./interfaces/message.model";
 import { PlayerUI } from "./interfaces/update.model";
 import { sendChallenge, updAllOneHandUI, updChallengeUI, updHand, updPlayers1Hand, updPlayersUI } from "./UpdateUser";
 import { checkColor, deal, discardCard, getPlayer, nextTurn } from "./Utils";
@@ -74,10 +74,33 @@ export class Game {
         break;
       case 'pass':
         this.pass(message);
-        break
+        break;
+      case 'voteDeck':
+        this.voteDeck(message as VoteMessage);
+        break;
       default:
         console.error(`Unknown message type ${message.type}:`);
         console.log(message);
+    }
+  }
+
+  voteDeck(msg: VoteMessage){
+    let {isLiked, id} = msg.payload;
+    let amount = Math.ceil(Math.random() * 4);
+    amount = isLiked ? amount : amount * -1; 
+    if(!isLiked && amount > this.deckConfig[id]) {
+      amount = this.deckConfig[id];
+    }
+    this.deckConfig[id] += amount;
+    this.ajustVoteDeck(amount, isLiked);
+  }
+
+  ajustVoteDeck(amount: number, isLike: boolean){
+    const len = this.deckConfig.length;
+    const ajust = isLike ? -1 : 1;
+    for (let ind = 0; ind < amount; ind++) {
+      let rand = Math.floor(Math.random() * len);
+      this.deckConfig[rand] += ajust;
     }
   }
 
@@ -268,8 +291,9 @@ export class Game {
   }
 
   editPlayer(msg: EditPlayerMessage):void {
-    const index = this.context.players.findIndex(player => player.id === msg.id);
-    if(index === -1){
+    let {players} = this.context;
+    const index = players.findIndex(player => player.id === msg.id);
+    if(index === -1 && players.length < 16){
       this.context.players.push({
         socket: msg.socket!,
         hand: [],
@@ -292,9 +316,9 @@ export class Game {
       this.context.alifePlayers += 1;
       //TODO notify new player via Chat
     } else {
-      this.context.players[index] = {...this.context.players[index], ...msg.payload};
+      this.context.players[index] = {...players[index], ...msg.payload};
     }
-    console.log(`Players lenght: ${this.context.players.length}`);
+    console.log(`Players lenght: ${players.length}`);
   }
 
   private readyPlayer(msg: ReadyMessage): void {
