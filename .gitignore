@@ -6,3 +6,4 @@ Frontend/node_modules
 Backend/*.js
 Backend/build/*
 Backend/deck.json
+testPixi/*
