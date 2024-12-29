@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 512 512"
+   style="height: 512px; width: 512px;"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="ruletaRusaS.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="1.361733"
+     inkscape:cx="186.15984"
+     inkscape:cy="242.70544"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g1" />
+  <g
+     class=""
+     transform="translate(0,0)"
+     style=""
+     id="g1">
+    <path
+       d="m 384,190.5 c -39.3,0 -75.7,12.6 -105.3,34 2.3,15.7 4.1,28.9 7.3,41.6 0.5,0 0.9,-0.1 1.4,-0.1 h 1.8 c 9,-0.1 17.8,2.2 25.6,6.7 23.8,13.8 32,44.5 18.3,68.3 -13.8,23.8 -44.5,32 -68.3,18.3 -8.5,-4.9 -15,-12.1 -19.3,-20.3 -12.7,1 -25.9,1.4 -38.9,1.2 -1.6,9.8 -2.5,19.9 -2.5,30.2 0,47.9 18.7,91.4 49.2,123.6 h 83.1 c -1.4,-4.6 -2.2,-9.5 -2.2,-14.6 0,-27.5 22.5,-50 50,-50 27.5,0 50,22.5 50,50 0,5.1 -0.8,10 -2.2,14.6 h 62 v -21.7 c -13.1,4.3 -27.8,3.3 -40.6,-4.1 -23.8,-13.8 -32,-44.5 -18.3,-68.3 8.5,-14.8 24,-24.2 41,-25 h 1.8 c 5.5,-0.1 10.9,0.8 16.1,2.5 v -14.2 c -21.9,7.1 -46.7,-1.8 -58.7,-22.5 -13.7,-23.8 -5.5,-54.5 18.3,-68.3 7.3,-4.2 15.5,-6.4 23.9,-6.6 h 1.7 c 5.1,0.1 10.1,0.9 14.8,2.4 V 228 C 463.6,204.5 425.4,190.5 384,190.5 Z m 0,20.9 c 27.5,0 50,22.5 50,50 0,27.5 -22.5,50 -50,50 -27.5,0 -50,-22.5 -50,-50 0,-27.5 22.5,-50 50,-50 z m 0,143 c 8.8,0 16,7.2 16,16 0,8.8 -7.2,16 -16,16 -8.8,0 -16,-7.2 -16,-16 0,-8.8 7.2,-16 16,-16 z m -95.6,20.5 h 1.7 c 17.7,0.2 34,9.7 42.8,25 13.7,23.8 5.5,54.5 -18.3,68.3 -23.8,13.7 -54.5,5.5 -68.3,-18.3 -13.7,-23.8 -5.5,-54.5 18.3,-68.3 7.2,-4.2 15.4,-6.5 23.8,-6.7 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path1"
+       sodipodi:nodetypes="sccsccccccsccssscccccccccccccccsssssssssssccccccc" />
+    <path
+       d="M 63.678965,163.6131 35.01254,222.07769 48.490389,228.683 76.996811,170.14225 Z m 29.482964,14.44408 -28.517873,58.54905 132.907824,65.14713 28.76361,-58.43895 z m 149.027811,73.66246 -28.19532,57.41567 c 15.69551,6.35146 35.67186,11.25913 54.84121,13.60777 17.37606,2.16386 34.11113,1.99768 45.85286,0.1237 -5.72831,-10.43248 -15.94895,-23.80926 -28.15187,-36.18579 -13.60969,-13.71482 -29.71119,-26.40938 -44.34688,-34.96135 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path1-9"
+       sodipodi:nodetypes="cccccccccccccccc" />
+  </g>
+</svg>

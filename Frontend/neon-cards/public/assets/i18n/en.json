@@ -1,0 +1,176 @@
+{
+  "APP": {
+    "MENU": {
+      "CONNECT": "Connect",
+      "RECONECT": "Reconnect",
+      "ABOUT": "How to play?"
+    },
+    "NAVBAR": {
+      "TITLES": [
+        "Another card game",
+        "Simple card game for beginners",
+        "Something with cards",
+        "A card game",
+        "Card game with neon effects!"
+      ]
+    },
+    "CONNECT": {
+      "NAME": "Name",
+      "JOIN": "Join"
+    },
+    "ABOUT": {
+      "TITLE": "Game Explanation",
+      "WINMETHODS": "Imagine a deck of cards, not like the ones you know, but one where victory does not come easily. The most boring way to win, if you want to call it that, is to play your last card. That might seem like the end of a game, but don’t be fooled—there’s something far more interesting. The true way to win: be the last player standing.",
+      "DEADLYNUMBER": "The game progresses at a dangerous pace, always on the brink of elimination. There are two ways to fall into the abyss. The most direct way to lose: if someone takes all your cards, you’re out. And there’s something even more insidious: the deadly number, always in red in the top left corner. That number, so easy to ignore at first, starts to drop as the game progresses. What does it mean? That the number of cards you can hold keeps reducing, and the deadly number falls even faster, becoming a constant threat. It’s a relentless fight against time and the cards in your hand.",
+      "CHAINS": "The game is full of aggressive strategies. “Chainable” cards have a chain icon in the top right corner (in the game), showing that you can play them in sequence. When you respond with a chainable card and the previous one is higher, you’ll have to pay the difference.",
+      "GENERALS": "And then there are the cards with lasting effects. They’re not just tricks; they are curses that stay against all players for several turns. These cards have a radar icon, always watching, waiting for your downfall. You won’t escape them until the necessary turns have passed.",
+      "WILDS": "In your hand, colorless cards give you the power to decide the color. Do you have a card of the same color? Or maybe the same number or figure? You can play it. But don’t forget: if there’s a chain, you’ll have to use a chainable card, or if you don’t have one, face your luck.",
+      "LUCKYTRIES": "Playing with your luck is a desperate path. You’ll roll a die; if you hit the exact number, you’ll escape having to take all the cards in the chain. But if you only guess whether the number is even or odd, you’ll be saved from half the cards in the chain. Luck is never kind—you only have 5 tries throughout the game. You’ll need to keep track mentally, as the game will never tell you how many tries you have left. Both you and other players can play cards to modify that number of tries without revealing the result.",
+      "FINAL": "Next, the explanation of each card…"
+    },
+    "WAITING": {
+      "READY": "Ready",
+      "NOTREADY": "Not ready",
+      "LOGOUT": "Run away",
+      "STATUS": "Status",
+      "TITLE": "Waiting Room"
+    },
+    "DISCARDMODAL": {
+      "TITLE": "Select the cards to discard",
+      "SEND": "Confirm selected cards"
+    }
+  },
+  "CARDS": {
+    "FAIL": "Sorry, I forgot.",
+    "C10": {
+      "NAME": "Halfway",
+      "DESCRIPTION": "The player discards half of their cards and chooses a color",
+      "FAKEDESCRIPTION": "Everyone discards half of their cards"
+    },
+    "C11": {
+      "NAME": "1/4",
+      "DESCRIPTION": "The player discards a quarter of their cards",
+      "FAKEDESCRIPTION": "The player discards all cards of the same color as this card"
+    },
+    "C12": {
+      "NAME": "Grenade",
+      "DESCRIPTION": "The player who plays this card, along with those next to them, will take a random number of cards (max 12)",
+      "FAKEDESCRIPTION": "All players except the one who plays this card will take a random number of cards (max 10)"
+    },
+    "C13": {
+      "NAME": "Smash",
+      "DESCRIPTION": "All players with 1 card will take 4 cards, if no players have 1 card, those with less than 6 cards will take 2 cards, if no one meets these conditions, the player who played this card must take 5 cards",
+      "FAKEDESCRIPTION": "All players who have fewer cards than the player who used this card must take 4 cards"
+    },
+    "C14": {
+      "NAME": "Direction Change lv1",
+      "DESCRIPTION": "The game changes direction and you are protected from 10% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 30% of the chain if it exists"
+    },
+    "C15": {
+      "NAME": "Direction Change lv2",
+      "DESCRIPTION": "The game changes direction and you are protected from 25% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 50% of the chain if it exists"
+    },
+    "C16": {
+      "NAME": "Direction Change lv3",
+      "DESCRIPTION": "The game changes direction and you are protected from 50% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The game changes direction and you are protected from 80% of the chain if it exists"
+    },
+    "C17": {
+      "NAME": "Direction Change lv4",
+      "DESCRIPTION": "The game changes direction and you are protected from 100% of the chain if it exists, the chain ends",
+      "FAKEDESCRIPTION": "The game changes direction and you return the chain to the next player"
+    },
+    "C18": {
+      "NAME": "Dodge lv1",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 10% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 30% of the chain if it exists"
+    },
+    "C19": {
+      "NAME": "Dodge lv2",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 25% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 50% of the chain if it exists"
+    },
+    "C20": {
+      "NAME": "Dodge lv3",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 50% of the chain if it exists, the chain does not end",
+      "FAKEDESCRIPTION": "The next player loses their turn and you are protected from 80% of the chain if it exists"
+    },
+    "C21": {
+      "NAME": "Dodge lv4",
+      "DESCRIPTION": "The next player loses their turn and you are protected from 100% of the chain if it exists, the chain ends",
+      "FAKEDESCRIPTION": "The next player loses their turn and you return the chain to the next player"
+    },
+    "C22": {
+      "NAME": "Take 2 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 3 Cards"
+    },
+    "C23": {
+      "NAME": "Take 3 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 4 Cards"
+    },
+    "C24": {
+      "NAME": "Take 4 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 5 Cards"
+    },
+    "C25": {
+      "NAME": "Take 5 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 5 Cards"
+    },
+    "C26": {
+      "NAME": "Take 6 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 8 Cards"
+    },
+    "C27": {
+      "NAME": "Take 7 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 9 Cards"
+    },
+    "C28": {
+      "NAME": "Take 8 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 9 Cards"
+    },
+    "C30": {
+      "NAME": "Take 10 Cards",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Take 12 Cards"
+    },
+    "C31": {
+      "NAME": "Take a d6 Die",
+      "DESCRIPTION": "Roll a die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll a die and the result will be the number of cards everyone must take"
+    },
+    "C32": {
+      "NAME": "Take an Octahedron Die",
+      "DESCRIPTION": "Roll an octahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll an octahedron die and the result will be the number of cards everyone must take"
+    },
+    "C33": {
+      "NAME": "Take a Dodecahedron Die",
+      "DESCRIPTION": "Roll a dodecahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll a dodecahedron die and the result will be the number of cards everyone must take"
+    },
+    "C34": {
+      "NAME": "Take an Icosahedron Die",
+      "DESCRIPTION": "Roll an icosahedron die and the result will be added to the chain",
+      "FAKEDESCRIPTION": "Roll an icosahedron die and the result will be the number of cards everyone must take"
+    },
+    "C35": {
+      "NAME": "Kamikaze",
+      "DESCRIPTION": "All participants in a chain, including the player of this card, receive the total number of cards in the chain",
+      "FAKEDESCRIPTION": "You avoid the chain but start speaking in Japanese"
+    },
+    "C36": {
+      "NAME": "Genocide",
+      "DESCRIPTION": "The player chooses a color and ALL cards of that color are discarded, regardless of which player holds them",
+      "FAKEDESCRIPTION": "The player chooses a color and all players discard cards of that color, but they must draw double the number of cards they discarded"
+    }
+  }
+}

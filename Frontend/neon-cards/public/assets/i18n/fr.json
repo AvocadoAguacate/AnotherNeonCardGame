@@ -1,0 +1,172 @@
+{
+  "APP": {
+    "MENU": {
+      "CONNECT": "Se connecter",
+      "RECONECT": "Se reconnecter",
+      "ABOUT": "Comment jouer?"
+    },
+    "NAVBAR": {
+      "TITLES": [
+        "Un autre jeu de cartes",
+        "Jeu de cartes simple pour débutants",
+        "Quelque chose avec des cartes",
+        "Un jeu de cartes",
+        "Jeu de cartes avec des effets néon!"
+      ]
+    },
+    "CONNECT": {
+      "NAME": "Nom",
+      "JOIN": "Rejoindre"
+    },
+    "ABOUT": {
+      "TITLE": "Explication du jeu",
+      "WINMETHODS": "Imaginez un jeu de cartes, pas comme ceux que vous connaissez, mais un où la victoire n’est pas facilement atteinte. La façon la plus ennuyeuse de gagner, si vous voulez l’appeler ainsi, est de jouer votre dernière carte. Cela pourrait sembler être la fin d’une partie, mais ne vous y trompez pas, il y a quelque chose de bien plus intéressant. La vraie manière de gagner : être le dernier joueur encore en jeu.",
+      "DEADLYNUMBER": "Le jeu avance à un rythme dangereux, toujours au bord de l’élimination. Il existe deux façons de sombrer dans l’abîme. La façon la plus directe de perdre : si quelqu’un prend toutes vos cartes, vous êtes éliminé. Et il y a quelque chose de plus insidieux encore : le nombre mortel, toujours en rouge dans le coin supérieur gauche. Ce nombre, si facile à ignorer au début, commence à diminuer au fur et à mesure que le jeu progresse. Que signifie-t-il ? Que le nombre de cartes que vous pouvez avoir se réduit, et le nombre mortel diminue encore plus rapidement, devenant une menace constante. C’est une lutte incessante contre le temps et les cartes dans votre main.",
+      "CHAINS": "Le jeu est rempli de stratégies agressives. Les cartes « enchaînables » ont une icône de chaîne dans le coin supérieur droit (dans le jeu), vous indiquant que vous pouvez les jouer en séquence. Lorsque vous répondez avec une carte enchaînable et que la précédente est plus élevée, vous devrez payer la différence.",
+      "GENERALS": "Et puis, il y a les cartes à effets durables. Ce ne sont pas de simples astuces ; ce sont des malédictions qui restent contre tous les joueurs pendant plusieurs tours. Ces cartes ont une icône radar, toujours en train de surveiller, attendant votre chute. Vous ne pourrez pas y échapper avant la fin des tours nécessaires.",
+      "WILDS": "Dans votre main, les cartes sans couleur vous donnent le pouvoir de décider de la couleur. Avez-vous une carte de la même couleur ? Ou peut-être du même nombre ou de la même figure ? Vous pouvez la jouer. Mais n’oubliez pas : s’il y a une chaîne, vous devrez utiliser une carte enchaînable ou, si vous n’en avez pas, faire face à votre chance.",
+      "LUCKYTRIES": "Jouer avec votre chance est un chemin désespéré. Vous lancerez un dé ; si vous devinez le nombre exact, vous échapperez à devoir prendre toutes les cartes de la chaîne. Mais si vous ne devinez que si le nombre est pair ou impair, vous serez sauvé de la moitié des cartes de la chaîne. La chance n’est jamais clémente, vous n’avez que 5 tentatives pendant toute la partie. Vous devrez en garder le compte mentalement, car le jeu ne vous dira jamais combien de tentatives il vous reste. Vous, ainsi que les autres joueurs, pourrez jouer des cartes pour modifier ce nombre de tentatives sans en indiquer le résultat.",
+      "FINAL": "Voici maintenant l’explication de chaque carte…"
+    },
+    "WAITING": {
+      "READY": "Prêt",
+      "NOTREADY": "Pas prêt",
+      "LOGOUT": "Fuyez",
+      "STATUS": "Statut",
+      "TITLE": "Salle d'attente"
+    },
+    "DISCARDMODAL": {
+      "TITLE": "Sélectionnez les cartes à défausser",
+      "SEND": "Confirmer les cartes sélectionnées"
+    }
+  },
+  "CARDS": {
+    "FAIL": "Désolé, je ne m'en suis pas souvenu.",
+    "C10": {
+      "NAME": "À moitié",
+      "DESCRIPTION": "Le joueur défausse la moitié de ses cartes et choisit une couleur",
+      "FAKEDESCRIPTION": "Tous les joueurs défaussent la moitié de leurs cartes"
+    },
+    "C11": {
+      "NAME": "1/4",
+      "DESCRIPTION": "Le joueur défausse un quart de ses cartes",
+      "FAKEDESCRIPTION": "Le joueur défausse toutes les cartes de la même couleur que cette carte"
+    },
+    "C12": {
+      "NAME": "Grenade",
+      "DESCRIPTION": "Le joueur et les joueurs adjacents prennent un nombre aléatoire de cartes (max 12)",
+      "FAKEDESCRIPTION": "Tous les joueurs, sauf celui qui joue cette carte, prennent un nombre aléatoire de cartes (max 10)"
+    },
+    "C13": {
+      "NAME": "Coup dur",
+      "DESCRIPTION": "Tous les joueurs avec 1 carte prennent 4 cartes. S'il n'y en a pas, tous les joueurs avec moins de 6 cartes prennent 2 cartes. Sinon, le joueur qui joue cette carte prend 5 cartes.",
+      "FAKEDESCRIPTION": "Tous les joueurs ayant moins de cartes que le joueur qui a joué cette carte prennent 4 cartes"
+    },
+    "C14": {
+      "NAME": "Changement de direction lv1",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 10% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 30% de la chaîne existante"
+    },
+    "C15": {
+      "NAME": "Changement de direction lv2",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 25% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 50% de la chaîne existante"
+    },
+    "C16": {
+      "NAME": "Changement de direction lv3",
+      "DESCRIPTION": "Le jeu change de direction et vous vous protégez de 50% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le jeu change de direction et vous vous protégez de 80% de la chaîne existante"
+    },
+    "C17": {
+      "NAME": "Changement de direction lv4",
+      "DESCRIPTION": "Le jeu change de direction, vous vous protégez de 100% de la chaîne existante et la chaîne se termine",
+      "FAKEDESCRIPTION": "Le jeu change de direction et renvoie la chaîne au joueur suivant"
+    },
+    "C18": {
+      "NAME": "Esquive lv1",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 10% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 30% de la chaîne existante"
+    },
+    "C19": {
+      "NAME": "Esquive lv2",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 25% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 50% de la chaîne existante"
+    },
+    "C20": {
+      "NAME": "Esquive lv3",
+      "DESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 50% de la chaîne existante, sans l'interrompre",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et vous vous protégez de 80% de la chaîne existante"
+    },
+    "C21": {
+      "NAME": "Esquive lv4",
+      "DESCRIPTION": "Le joueur suivant perd son tour, vous vous protégez de 100% de la chaîne existante et la chaîne se termine",
+      "FAKEDESCRIPTION": "Le joueur suivant perd son tour et renvoie la chaîne au joueur suivant"
+    },
+    "C22": {
+      "NAME": "Prends 2 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 3 cartes"
+    },
+    "C23": {
+      "NAME": "Prends 3 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 4 cartes"
+    },
+    "C24": {
+      "NAME": "Prends 4 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 5 cartes"
+    },
+    "C25": {
+      "NAME": "Prends 5 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 5 cartes"
+    },
+    "C26": {
+      "NAME": "Prends 6 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 8 cartes"
+    },
+    "C27": {
+      "NAME": "Prends 7 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 9 cartes"
+    },
+    "C28": {
+      "NAME": "Prends 8 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 9 cartes"
+    },
+    "C30": {
+      "NAME": "Prends 10 cartes",
+      "DESCRIPTION": "",
+      "FAKEDESCRIPTION": "Prends 12 cartes"
+    },
+    "C31": {
+      "NAME": "Prends un dé d6",
+      "DESCRIPTION": "Lancez un dé et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C32": {
+      "NAME": "Prends un dé octaédrique",
+      "DESCRIPTION": "Lancez un dé octaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé octaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C33": {
+      "NAME": "Prends un dé dodécaédrique",
+      "DESCRIPTION": "Lancez un dé dodécaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé dodécaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C34": {
+      "NAME": "Prends un dé icosaédrique",
+      "DESCRIPTION": "Lancez un dé icosaédrique et le résultat sera ajouté à la chaîne",
+      "FAKEDESCRIPTION": "Lancez un dé icosaédrique et le résultat sera le nombre de cartes que tous devront prendre"
+    },
+    "C35": {
+      "NAME": "Kamikaze",
+      "DESCRIPTION": "Tous les participants de la chaîne, y compris le joueur de cette carte, reçoivent le total de cartes de la chaîne",
+      "FAKEDESCRIPTION": "Vous échappez à la chaîne mais commencez à parler japonais"
+    }
+  }
+}
+
