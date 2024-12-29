@@ -13,3 +13,17 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+input{
+    border-radius: 5px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #1d2242;
+    color: #d1d7ff;
+    font-size: large;
+    border: 1px solid #1d2242;
+}
+
+input:focus{
+    outline: none;
+    border: 1px solid #271d54;
+}
