@@ -1,8 +1,10 @@
 import { Application, Text, Graphics } from "pixi.js";
 import { LanguageService } from "../services/language";
+import { SocketService } from "../services/socket";
+import { GameService } from "../services/game";
 
 export function showGame(
-  app: Application, socket: any, game: any,
+  app: Application, socket: SocketService, game: GameService,
   lang: LanguageService, navigate: (stage:string) => void
 ) {
   // Limpia el stage

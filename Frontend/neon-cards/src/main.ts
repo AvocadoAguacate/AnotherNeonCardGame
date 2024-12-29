@@ -3,6 +3,8 @@ import {LanguageService} from './services/language'
 import { showMenu } from "./stages/menu";
 import { showWaiting } from "./stages/waitingRoom";
 import { showGame } from "./stages/game";
+import { SocketService } from "./services/socket";
+import { GameService } from "./services/game";
 
 (async () => {
   // Create a new application
@@ -14,8 +16,8 @@ import { showGame } from "./stages/game";
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
-  const socketService = {};
-  const gameService = {};
+  const socketService = new SocketService();
+  const gameService = new GameService();
   const langService = new LanguageService();
 
   function navigate(stage: string) {
