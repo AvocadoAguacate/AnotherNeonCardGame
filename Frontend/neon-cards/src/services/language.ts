@@ -7,6 +7,8 @@ export class LanguageService {
     this.translations = {
       en: {
         IP_SERVER: "...",
+        CONNECT: "Connect",
+        NAME: "Enter your name",
         waitingRoom: "Waiting Room",
         gameOver: "Game Over",
         welcome: "Welcome to the Game",
@@ -15,6 +17,8 @@ export class LanguageService {
       },
       es: {
         IP_SERVER: "Ingresa el ip del server",
+        CONNECT: "Conectarse",
+        NAME: "Ingresa tu nombre",
         waitingRoom: "Sala de Espera",
         gameOver: "Fin del Juego",
         welcome: "Bienvenido al Juego",
