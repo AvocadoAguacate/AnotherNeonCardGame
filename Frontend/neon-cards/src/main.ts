@@ -16,9 +16,10 @@ import { GameService } from "./services/game";
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
-  const socketService = new SocketService();
+  const socketService = new SocketService(navigate);
   const gameService = new GameService();
   const langService = new LanguageService();
+  // socketService.connectToServer("http://localhost:3000");
 
   function navigate(stage: string) {
     switch (stage) {
