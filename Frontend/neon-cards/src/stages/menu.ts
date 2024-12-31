@@ -1,4 +1,4 @@
-import { Application, Text, Assets, Sprite, Texture } from "pixi.js";
+import { Application, Text, Assets, Sprite, Texture, Graphics, Container } from "pixi.js";
 import { LanguageService } from "../services/language";
 import { SocketService } from "../services/socket";
 import { GameService } from "../services/game";
@@ -70,28 +70,39 @@ export async function showMenu(
   menuInput.value = "localhost:3000"; //TODO delete
   document.body.appendChild(menuInput);
 
+  const connectContainer = new Container();
   const connectBtn = new Text({
     text: lang.translate('CONNECT'),
     style: {
       fontFamily: 'Orbitron',
       fontSize: 24,
-      fill: 0xfa15a0,
+      fill: 0xd1d7ff,
       align: 'center',
     }
   });
-  connectBtn.anchor.set(0.5);
-  connectBtn.x = app.screen.width / 2;
-  connectBtn.y = app.screen.height / 2 + 100;
-  connectBtn.eventMode = 'static';
+  connectContainer.eventMode = 'static';
+  connectContainer.interactive = true;
   // Navegar al stage de juego
-  connectBtn.on("pointerdown", () => {
+  const connectBg = new Graphics()
+  connectBg.roundRect(-10, -10, width/5 + 20, 50, 5); // 20 del padding 10px
+  connectBg.stroke({
+    color: 0x3366ff,
+    width: 1,
+    alignment: 0.5
+  });
+  connectBg.filters = [glowFilter];
+  connectContainer.addChild(connectBg);
+  connectContainer.addChild(connectBtn);
+  connectContainer.x = (width / 2) - (width/5)/2 + 10;
+  connectContainer.y = app.screen.height / 2 + 100;
+  connectContainer.on("pointerdown", () => {
     socket.connectToServer(menuInput.value);
     setTimeout(() => {
       if (socket.id.length > 0) {
         menuInput.value = "";
         menuInput.placeholder = lang.translate('NAME');
         menuInput.style.top = `${height / 3 }px`;
-        connectBtn.destroy();
+        connectContainer.destroy();
         menuInput.addEventListener('input', () => {
           if(menuInput.value.trim() !== ""){
             addProfileSelect(app, options);
@@ -103,7 +114,7 @@ export async function showMenu(
       }
     }, 100);
   });
-  app.stage.addChild(connectBtn);
+  app.stage.addChild(connectContainer);
 }
 
 function chooseRandomPics():number[]{
