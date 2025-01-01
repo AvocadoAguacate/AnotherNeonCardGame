@@ -1,4 +1,4 @@
-import { GlowFilter } from "pixi-filters";
+import { GlowFilter, GrayscaleFilter } from "pixi-filters";
 import { Ticker } from "pixi.js";
 
 export const glowFilter = new GlowFilter({
@@ -21,3 +21,5 @@ export function basicGlowCallback(this: GlowFilter, ticker: Ticker) {
     pulseDirection *= -1; // Invertir la dirección del pulso
   }
 }
+
+export const noGlowFilter = new GrayscaleFilter();
