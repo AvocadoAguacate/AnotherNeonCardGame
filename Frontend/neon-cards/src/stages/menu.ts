@@ -5,6 +5,7 @@ import { GameService } from "../services/game";
 import { avatarPaths } from "../services/avatarPaths";
 import { GlowFilter } from "pixi-filters";
 import { Message } from "../interfaces/message.model";
+import { glowFilter, basicGlowCallback } from "../utils/neon-effects";
 export async function showMenu(
   app: Application, socket: SocketService, game: GameService,
   lang: LanguageService, navigate: (stage:string) => void
@@ -12,13 +13,6 @@ export async function showMenu(
   const width = app.renderer.width;
   const height = app.renderer.height
   const optionsPic: number[] = chooseRandomPics();
-  const glowFilter = new GlowFilter({
-    distance: 15,
-    outerStrength: 0, 
-    innerStrength: 1,
-    color: 0x14feff, 
-    quality: 0.5,
-  });
   const profileTex0 = await Assets.load(avatarPaths[optionsPic[0]]);
   const profileTex1 = await Assets.load(avatarPaths[optionsPic[1]]);
   const profileTex2 = await Assets.load(avatarPaths[optionsPic[2]]);
@@ -44,17 +38,7 @@ export async function showMenu(
       sendProfile(msg, navigate, socket);
     });
   })
-  let pulseDirection = 1;  // 1 para aumento, -1 para disminución
-  let pulseSpeed = 0.1;    // Velocidad del pulso 
-  app.ticker.add((_delta) => {
-    // Pulso del resplandor
-    glowFilter.outerStrength += pulseSpeed * pulseDirection;
-    glowFilter.innerStrength += pulseSpeed * pulseDirection;
-    // Si el "outerStrength" supera un umbral o baja demasiado, invertir la dirección
-    if (glowFilter.outerStrength > 5 || glowFilter.outerStrength < 0) {
-      pulseDirection *= -1; // Invertir la dirección del pulso
-    }
-  });
+  app.ticker.add(basicGlowCallback, glowFilter);
   const menuInput = document.createElement("input");
   menuInput.type = "text";
   menuInput.placeholder = lang.translate("IP_SERVER");
@@ -87,7 +71,7 @@ export async function showMenu(
   connectBg.roundRect(-10, -10, width/5 + 20, 50, 5); // 20 del padding 10px
   connectBg.stroke({
     color: 0x3366ff,
-    width: 1,
+    width: 2,
     alignment: 0.5
   });
   connectBg.filters = [glowFilter];
@@ -150,3 +134,4 @@ function sendProfile(msg: Message, navigate: (stage: string) => void, socket: So
     navigate('waiting-room')
   }, 1000);
 }
+
