@@ -9,6 +9,8 @@ export class GameService {
   }
 
   public getEditPlayerMsg(name: string, pic: number):EditPlayerMessage{
+    this.picInd = pic;
+    this.name = name;
     return {
       id: "",
       type: 'editPlayer',
