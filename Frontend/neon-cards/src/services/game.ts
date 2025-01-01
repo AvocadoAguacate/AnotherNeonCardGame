@@ -1,4 +1,4 @@
-import { EditPlayerMessage } from "../interfaces/message.model";
+import { EditPlayerMessage, Message, ReadyMessage } from "../interfaces/message.model";
 
 export class GameService {
   private picInd: number
@@ -18,6 +18,24 @@ export class GameService {
         name,
         img: pic
       }
+    }
+  }
+
+  public getReadyPlayerMsg(status: boolean):ReadyMessage{
+    return {
+      id: "",
+      type: 'readyPlayer',
+      payload: {
+        status
+      }
+    }
+  }
+
+  public getLogOutMsg():Message{
+    return {
+      id: "",
+      type: 'logOut',
+      payload: ''
     }
   }
 }
