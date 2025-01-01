@@ -12,6 +12,7 @@ export async function showMenu(
 ) {
   const width = app.renderer.width;
   const height = app.renderer.height
+  app.stage.removeChildren();
   const optionsPic: number[] = chooseRandomPics();
   const profileTex0 = await Assets.load(avatarPaths[optionsPic[0]]);
   const profileTex1 = await Assets.load(avatarPaths[optionsPic[1]]);
@@ -74,6 +75,9 @@ export async function showMenu(
     width: 2,
     alignment: 0.5
   });
+  connectBg.fill({
+    color: 0x000a14
+  })
   connectBg.filters = [glowFilter];
   connectContainer.addChild(connectBg);
   connectContainer.addChild(connectBtn);
