@@ -2,9 +2,10 @@ import { Application, Container, Graphics, Text } from "pixi.js";
 import { LanguageService } from "../services/language";
 import { SocketService } from "../services/socket";
 import { GameService } from "../services/game";
-import { glowFilter, basicGlowCallback, noGlowFilter } from "../utils/neon-effects";
+import { glowFilter, basicGlowCallback, noGlowFilter, getGlowObjects } from "../utils/neon-effects";
+import { createCard } from "../components/card";
 
-export function showWaiting(
+export async function showWaiting(
   app: Application, socket: SocketService, game: GameService,
   lang: LanguageService, navigate: (stage:string) => void
 ) {
