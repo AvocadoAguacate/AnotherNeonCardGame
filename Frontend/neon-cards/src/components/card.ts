@@ -1,12 +1,11 @@
 import { Assets, Container, Graphics, Sprite } from "pixi.js";
 import { getCardFilter } from "../utils/neon-effects";
-import { Color } from "../interfaces/message.model";
 import { getSecondIcon } from "../utils/cards";
+import { CardUI } from "../interfaces/update.model";
 
-export async function createCard(
-  number: number, colors: Color[], size: number[]
-):Promise<Container> {
-  const card = new Container({
+async function createCard(card:CardUI, size:number[]):Promise<Container>{
+  let {number, colors} = card;
+  const newCard = new Container({
     eventMode: 'static'
   });
   const cardBg = new Graphics();
@@ -26,11 +25,11 @@ export async function createCard(
     width: size[0] * 0.75,
     height: size[1] * 0.75,
     filters: neon,
-    x: size[0] * 0.1,
+    x: size[0] * 0.125,
     y: size[1] * 0.2
   });
-  card.addChild(cardBg);
-  card.addChild(mainIcon);
+  newCard.addChild(cardBg);
+  newCard.addChild(mainIcon);
   if(number > 9){
     const secondIcon = new Sprite({
       texture: getSecondIcon(number),
@@ -40,7 +39,13 @@ export async function createCard(
       x: size[0] * 0.7,
       y: size[1] * 0.03
     });
-    card.addChild(secondIcon);
+    newCard.addChild(secondIcon);
+  } else { // center when its only a number
+    mainIcon.y = size[1] * 0.125
   }
-  return card;
+  return newCard;
 }
+
+export { createCard };
+
+//TODO object-fit: contain; (mantener la relación de aspecto)
