@@ -1,5 +1,7 @@
 import { Texture } from "pixi.js";
 import { allTexture, chainTexture, generalTexture, oneTexture, randomTexture } from "./common-textures";
+import { CardUI } from "../interfaces/update.model";
+import { Color } from "../interfaces/message.model";
 
 export function getSecondIcon(number:number):Texture {
   let result: Texture = new Texture();
@@ -23,4 +25,18 @@ export function getSecondIcon(number:number):Texture {
     return randomTexture;
   }
   return result;
+}
+
+export function getNewCard(actual:number):CardUI{
+  const colors: Color[] = ['blue', 'red', 'purple', 'yellow', 'green'];
+  let newRandom = Math.floor(Math.random() * 80);
+  while(newRandom === actual){
+    newRandom = Math.floor(Math.random() * 80);
+  }
+  const newColor = colors.splice(Math.floor(Math.random() * 5), 1);
+  return {
+    id: 'uniqueId',
+    number: newRandom,
+    colors: newColor
+  }
 }
