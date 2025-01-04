@@ -40,3 +40,7 @@ export function getNewCard(actual:number):CardUI{
     colors: newColor
   }
 }
+
+export function getSizeCards(width:number, height:number) {
+  return [width/6, height/4];
+}
