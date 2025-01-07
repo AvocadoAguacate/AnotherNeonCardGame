@@ -36,10 +36,8 @@ export async function createCardDetail(
   const textContainer = new ScrollBox({
     height: size[1],
     width: size[0] * 2,
-    items: [title, textDetail],
-    // background: 0xffffff
+    items: [title, textDetail]
   });
-  title.x = size[0] - title.width /2;
   textContainer.position.set(size[0] * 1.125, 0);
   textContainer.label = `card-detail-text-${card.number}`
   detail.addChild(textContainer);
