@@ -8,7 +8,7 @@ export function getSecondIcon(number:number):Texture {
   if((number > 13 && number < 36) || number === 46){
     return chainTexture;
   }
-  const ones = [10,11,37,49,50,51,52,53,55,56,58,63,70,71,72,77,80];
+  const ones = [10,11,12,37,49,50,51,52,53,55,56,58,63,70,71,72,77,80];
   if(ones.findIndex(opt => opt === number) !== -1){
     return oneTexture;
   }
@@ -30,9 +30,10 @@ export function getSecondIcon(number:number):Texture {
 export function getNewCard(actual:number):CardUI{
   const colors: Color[] = ['blue', 'red', 'purple', 'yellow', 'green'];
   let newRandom = Math.floor(Math.random() * 80);
-  while(newRandom === actual){
+  while(newRandom === actual || newRandom < 10){
     newRandom = Math.floor(Math.random() * 80);
   }
+  newRandom = newRandom === 29 ? 30: newRandom;
   const newColor = colors.splice(Math.floor(Math.random() * 5), 1);
   return {
     id: 'uniqueId',
