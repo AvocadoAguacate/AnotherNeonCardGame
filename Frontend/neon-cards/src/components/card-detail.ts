@@ -7,8 +7,8 @@ export async function createCardDetail(
   card:CardUI, lang:LanguageService, size:number[]
 ):Promise<Container>{
   const detail = new Container({
-    height: 300,
-    width: 600,
+    height: size[1] * 1.5,
+    width: size[0] * 3.5,
   });  
   const title = new Text({
     text: lang.translate(`c${card.number}TITLE`),
