@@ -5,3 +5,6 @@ export const generalTexture = await Assets.load(`/assets/Cards/general.svg`);
 export const allTexture = await Assets.load(`/assets/Cards/all.svg`);
 export const randomTexture = await Assets.load(`/assets/Cards/random.svg`); 
 export const oneTexture = await Assets.load(`/assets/Cards/one.svg`); 
+
+export const likeTexture = await Assets.load(`/assets/Buttons/thumb-up.svg`); 
+export const disLikeTexture = await Assets.load(`/assets/Buttons/thumb-down.svg`); 
