@@ -218,17 +218,17 @@ export function getGlowObjects():glowObject[] {
   first.forEach(first => {
     console.log(first);
     list.push({
-      isActive: false,
       colors: [first],
-      glow: getCardFilter([first])[0]
+      glow: getCardFilter([first])[0],
+      members: 0
     });
     
     second.forEach(second => {
       if(second !== first){
         list.push({
-          isActive: false,
           colors: [first, second],
-          glow: getCardFilter([first, second])[0]
+          glow: getCardFilter([first, second])[0],
+          members: 0
         });
       }
     });
