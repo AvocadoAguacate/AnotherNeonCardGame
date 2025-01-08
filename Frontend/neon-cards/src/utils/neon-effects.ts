@@ -1,6 +1,7 @@
+import { glowColor } from './../interfaces/glow.models';
 import { glowObject } from '../interfaces/glow.models';
 import { GlowFilter, GlowFilterOptions, GrayscaleFilter } from "pixi-filters";
-import { Filter, Ticker } from "pixi.js";
+import { Filter, Ticker, TickerCallback } from "pixi.js";
 import { Color } from '../interfaces/message.model'
 
 export const glowFilter = new GlowFilter({
@@ -24,17 +25,19 @@ export function basicGlowCallback(this: GlowFilter, ticker: Ticker) {
   }
 }
 
-export function duoGlowCallback(this: glowObject, ticker: Ticker){
+export function duoGlowCallback(this: glowColor, ticker: Ticker){
   // Pulso del resplandor
   this.glow.outerStrength += pulseSpeed * pulseDirection;
   this.glow.innerStrength += pulseSpeed * pulseDirection;
   // Si el "outerStrength" supera un umbral o baja demasiado, invertir la dirección
   if (this.glow.outerStrength >= 5 || this.glow.outerStrength <= 0) {
     pulseDirection *= -1; // Invertir la dirección del pulso
-    if(this.glow.outerStrength >= 5){
-      this.glow.color = getColor(this.colors[0]);
-    } else {
-      this.glow.color = getColor(this.colors[1]);
+    if(this.colors.length === 2){
+      if(this.glow.outerStrength >= 5){
+        this.glow.color = getColor(this.colors[0]);
+      } else {
+        this.glow.color = getColor(this.colors[1]);
+      }
     }
   }
 }
@@ -256,19 +259,19 @@ export function getGlowObjects():glowObject[] {
   const first: Color[] = ['blue', 'red', 'green', 'yellow', 'purple']; 
   let second: Color[] = ['blue', 'red', 'green', 'yellow', 'purple']; 
   first.forEach(first => {
-    console.log(first);
     list.push({
       colors: [first],
       glow: getCardFilter([first])[0] as GlowFilter,
-      members: 0
+      members: 0,
+      callback: (ticker: Ticker) => duoGlowCallback
     });
-    
     second.forEach(second => {
       if(second !== first){
         list.push({
           colors: [first, second],
           glow: getCardFilter([first, second])[0] as GlowFilter,
-          members: 0
+          members: 0,
+          callback: (ticker: Ticker) => duoGlowCallback
         });
       }
     });
