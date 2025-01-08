@@ -24,6 +24,8 @@ export class LanguageService {
         welcome: "Bienvenido al Juego",
         play: "Jugar",
         exit: "Salir",
+        c10TITLE: "A la mitad",
+        c10DETAIL: "El jugador descarta la mitad de sus cartas y escoge color",
       },
     };
   }
