@@ -22,11 +22,11 @@ async function createCard(card:CardUI, size:number[]):Promise<Container>{
   const neon = getCardFilter(colors);
   const mainIcon = new Sprite({
     texture: mainIconT,
-    width: size[0] * 0.75,
-    height: size[1] * 0.75,
+    width: size[0] * 0.7,
+    height: size[1] * 0.7,
     filters: neon,
-    x: size[0] * 0.125,
-    y: size[1] * 0.2
+    x: size[0] * 0.15,
+    y: size[1] * 0.25
   });
   newCard.addChild(cardBg);
   newCard.addChild(mainIcon);
