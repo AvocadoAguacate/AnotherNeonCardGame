@@ -259,7 +259,7 @@ export function getGlowObjects():glowObject[] {
     console.log(first);
     list.push({
       colors: [first],
-      glow: getCardFilter([first])[0],
+      glow: getCardFilter([first])[0] as GlowFilter,
       members: 0
     });
     
@@ -267,7 +267,7 @@ export function getGlowObjects():glowObject[] {
       if(second !== first){
         list.push({
           colors: [first, second],
-          glow: getCardFilter([first, second])[0],
+          glow: getCardFilter([first, second])[0] as GlowFilter,
           members: 0
         });
       }
