@@ -1,6 +1,7 @@
-import { EditPlayerMessage, Message, ReadyMessage } from "../interfaces/message.model";
+import { EditPlayerMessage, Message, ReadyMessage, VoteMessage } from "../interfaces/message.model";
 
 export class GameService {
+
   private picInd: number
   private name: string 
   constructor(){
@@ -36,6 +37,16 @@ export class GameService {
       id: "",
       type: 'logOut',
       payload: ''
+    }
+  }
+  public getVoteMessage(number: number, status: boolean):VoteMessage {
+    return {
+      id:'',
+      type: 'voteDeck',
+      payload: {
+        id: number,
+        isLiked: status
+      }
     }
   }
 }

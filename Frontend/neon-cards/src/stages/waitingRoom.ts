@@ -2,8 +2,10 @@ import { Application, Container, Graphics, Text } from "pixi.js";
 import { LanguageService } from "../services/language";
 import { SocketService } from "../services/socket";
 import { GameService } from "../services/game";
-import { glowFilter, basicGlowCallback, noGlowFilter, getGlowObjects } from "../utils/neon-effects";
-import { createCard } from "../components/card";
+import { glowFilter, basicGlowCallback, noGlowFilter } from "../utils/neon-effects";
+import { getNewCard } from "../utils/cards";
+import { createCardVote } from "../components/card-vote";
+
 
 export async function showWaiting(
   app: Application, socket: SocketService, game: GameService,
@@ -13,19 +15,6 @@ export async function showWaiting(
   app.stage.removeChildren();
   const width = app.renderer.width;
   const height = app.renderer.height
-
-  const title = new Text({
-    text: 'Waiting Room Working!',
-    style: {
-        fontFamily: 'Orbitron',
-        fontSize: 24,
-    fill: 0xff1010,
-    align: 'center',
-    }
-  });
-  title.x = app.screen.width / 2 - title.width / 2;
-  title.y = 50;
-  app.stage.addChild(title);
   // Buttons
   const readyBtnContainer = new Container();
   const readyTxt = new Text({
@@ -100,4 +89,16 @@ export async function showWaiting(
   });
   app.stage.addChild(runAwayBtnContainer);
   app.stage.addChild(readyBtnContainer);
+  // const card = (await createCardDetail(getNewCard(0), lang,[width/6, height/4]));
+  const voter = async (number: number, status: boolean) => {
+    let msg = game.getVoteMessage(number, status);
+    socket.send('message',msg);
+    app.stage.getChildByLabel(`card-vote-${number}`)?.destroy();
+    let newCard = await createCardVote(getNewCard(number), lang,[width/6, height/4], voter);
+    newCard.position.set(10,10);
+    app.stage.addChild(newCard);
+  }  
+  let card = (await createCardVote({number: 78, colors:['blue'], id: ''}, lang,[width/6, height/4], voter));
+  card.position.set(10,10);
+  app.stage.addChild(card);
 }
