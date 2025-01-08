@@ -23,6 +23,46 @@ export function basicGlowCallback(this: GlowFilter, ticker: Ticker) {
     pulseDirection *= -1; // Invertir la dirección del pulso
   }
 }
+
+export function duoGlowCallback(this: glowObject, ticker: Ticker){
+  // Pulso del resplandor
+  this.glow.outerStrength += pulseSpeed * pulseDirection;
+  this.glow.innerStrength += pulseSpeed * pulseDirection;
+  // Si el "outerStrength" supera un umbral o baja demasiado, invertir la dirección
+  if (this.glow.outerStrength >= 5 || this.glow.outerStrength <= 0) {
+    pulseDirection *= -1; // Invertir la dirección del pulso
+    if(this.glow.outerStrength >= 5){
+      this.glow.color = getColor(this.colors[0]);
+    } else {
+      this.glow.color = getColor(this.colors[1]);
+    }
+  }
+}
+
+function getColor(color: string){
+  let result = 0xff0000;
+  switch (color) {
+    case 'blue':
+      result = 0x0000ff;
+      break;
+    case 'green':
+      result = 0x00ff00;
+      break;
+    case 'purple':
+      result = 0x9900ff;
+      break;
+    case 'red':
+      result = 0xff0000;
+      break;
+    case 'yellow':
+      result = 0xffff66;
+      break;
+    default:
+      result = 0x00ff00;
+      break;
+  }
+  return result;
+}
 const redGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 

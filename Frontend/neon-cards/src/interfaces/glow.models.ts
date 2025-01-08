@@ -1,7 +1,7 @@
-import { Filter } from "pixi.js";
+import { GlowFilter } from "pixi-filters";
 
 export interface glowObject {
   colors        :       string[];
-  glow          :       Filter;
+  glow          :       GlowFilter;
   members       :       number;
 }
