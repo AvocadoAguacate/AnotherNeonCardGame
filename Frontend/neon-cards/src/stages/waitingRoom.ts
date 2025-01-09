@@ -2,15 +2,16 @@ import { Application, Container, Graphics, Text } from "pixi.js";
 import { LanguageService } from "../services/language";
 import { SocketService } from "../services/socket";
 import { GameService } from "../services/game";
-import { glowFilter, basicGlowCallback, noGlowFilter } from "../utils/neon-effects";
+import { noGlowFilter, getCardFilter } from "../utils/neon-effects";
 import { getNewCard } from "../utils/cards";
 import { createCardVote } from "../components/card-vote";
-
+import { NeonService } from "../services/neon";
+import { CardUI } from "../interfaces/update.model";
 
 export async function showWaiting(
   app: Application, socket: SocketService, game: GameService,
-  lang: LanguageService, navigate: (stage:string) => void
-) {
+lang: LanguageService, navigate: (stage: string) => void, 
+neon: NeonService) {
   // Limpia el stage
   app.stage.removeChildren();
   const width = app.renderer.width;
@@ -46,13 +47,15 @@ export async function showWaiting(
   readyBtnContainer.on('mousedown', () => {
     if(ready){
       readyTxt.text = "Estado: No listo";
-      app.ticker.remove(basicGlowCallback,glowFilter);
+      neon.checkColor(['blue'], false);
       readyBtnContainer.filters = [noGlowFilter];
+      readyTxt.style.fill = 0x14feff;
       ready = false;
     } else {
       readyTxt.text = "Estado: Listo";
-      readyBtnContainer.filters = [glowFilter];
-      app.ticker.add(basicGlowCallback, glowFilter);
+      readyTxt.style.fill = 0x0000ff;
+      readyBtnContainer.filters = getCardFilter(['blue']);
+      neon.checkColor(['blue'], true);
       ready = true;
     }
     socket.send('message', game.getReadyPlayerMsg(ready));
@@ -100,5 +103,6 @@ export async function showWaiting(
   }  
   let card = (await createCardVote({number: 78, colors:['blue'], id: ''}, lang,[width/6, height/4], voter));
   card.position.set(10,10);
+  neon.checkColor(['red', 'green', 'yellow'], true);
   app.stage.addChild(card);
 }
