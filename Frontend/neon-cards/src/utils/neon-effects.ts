@@ -1,7 +1,7 @@
 import { glowColor } from './../interfaces/glow.models';
 import { glowObject } from '../interfaces/glow.models';
 import { GlowFilter, GlowFilterOptions, GrayscaleFilter } from "pixi-filters";
-import { Filter, Ticker, TickerCallback } from "pixi.js";
+import { Filter, Ticker } from "pixi.js";
 import { Color } from '../interfaces/message.model'
 
 export const glowFilter = new GlowFilter({
@@ -13,7 +13,7 @@ export const glowFilter = new GlowFilter({
 });
 
 let pulseDirection = 1;  // 1 para aumento, -1 para disminución
-let pulseSpeed = 0.1;    // Velocidad del pulso  
+let pulseSpeed = 0.075;    // Velocidad del pulso  
 
 export function basicGlowCallback(this: GlowFilter, ticker: Ticker) {
   // Pulso del resplandor
@@ -26,78 +26,45 @@ export function basicGlowCallback(this: GlowFilter, ticker: Ticker) {
 }
 
 export function duoGlowCallback(this: glowColor, ticker: Ticker){
-  // Pulso del resplandor
   this.glow.outerStrength += pulseSpeed * pulseDirection;
-  this.glow.innerStrength += pulseSpeed * pulseDirection;
-  // Si el "outerStrength" supera un umbral o baja demasiado, invertir la dirección
   if (this.glow.outerStrength >= 5 || this.glow.outerStrength <= 0) {
-    pulseDirection *= -1; // Invertir la dirección del pulso
-    if(this.colors.length === 2){
-      if(this.glow.outerStrength >= 5){
-        this.glow.color = getColor(this.colors[0]);
-      } else {
-        this.glow.color = getColor(this.colors[1]);
-      }
-    }
+    pulseDirection *= -1; 
+    this.glow.outerStrength = Math.max(0, Math.min(5, this.glow.outerStrength)); 
   }
 }
 
-function getColor(color: string){
-  let result = 0xff0000;
-  switch (color) {
-    case 'blue':
-      result = 0x0000ff;
-      break;
-    case 'green':
-      result = 0x00ff00;
-      break;
-    case 'purple':
-      result = 0x9900ff;
-      break;
-    case 'red':
-      result = 0xff0000;
-      break;
-    case 'yellow':
-      result = 0xffff66;
-      break;
-    default:
-      result = 0x00ff00;
-      break;
-  }
-  return result;
-}
 const redGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 
-  innerStrength: 1,
+  innerStrength: 2,
   color: 0xff0000, 
   quality: 0.5,
 };
 const blueGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 
-  innerStrength: 1,
+  innerStrength: 2,
   color: 0x0000ff, 
   quality: 0.5,
 };
 const greenGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 
-  innerStrength: 1,
+  innerStrength: 2,
   color: 0x00ff00, 
   quality: 0.5,
 };
 const yellowGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 
-  innerStrength: 1,
+  innerStrength: 2,
   color: 0xffff66, 
   quality: 0.5,
 };
 const purpleGlowOptions: GlowFilterOptions = {
   distance: 15,
   outerStrength: 0, 
-  innerStrength: 1,
+  innerStrength: 2,
   color: 0x9900ff, 
   quality: 0.5,
 };
@@ -110,20 +77,8 @@ export const purpleGlow = new GlowFilter(purpleGlowOptions);
 
 export const noGlowFilter = new GrayscaleFilter();
 
-export const blueRedFilter = new GlowFilter(blueGlowOptions);
-export const blueGreenFilter = new GlowFilter(blueGlowOptions);
-export const blueYellowFilter = new GlowFilter(blueGlowOptions);
-export const bluePurpleFilter = new GlowFilter(blueGlowOptions);
-export const redGreenFilter = new GlowFilter(redGlowOptions);
-export const redYellowFilter = new GlowFilter(redGlowOptions);
-export const redPurpleFilter = new GlowFilter(redGlowOptions);
-export const greenYellowFilter = new GlowFilter(greenGlowOptions);
-export const greenPurpleFilter = new GlowFilter(greenGlowOptions);
-export const yellowPurpleFilter = new GlowFilter(yellowGlowOptions);
-
 export function getCardFilter(colors: Color[]):Filter[]{
   let filter: Filter[] = [];
-
   if(colors.length === 1){
     switch (colors[0]) {
       case 'red':
@@ -146,110 +101,7 @@ export function getCardFilter(colors: Color[]):Filter[]{
         break;
     } 
   } else {
-    if(colors.length === 2){
-      switch (colors[0]) {
-        case 'blue':
-          switch (colors[1]) {
-            case 'red':
-              console.log('its redblue')
-              filter = [blueRedFilter];
-              break;
-            case 'green':
-              filter = [blueGreenFilter];
-              break;
-            case 'yellow':
-              filter = [blueYellowFilter];
-              break;
-            case 'purple':
-              filter = [bluePurpleFilter];
-              break;
-            default:
-              filter = [blueGlow];
-              break;
-          }
-          break;
-        case 'red':
-          switch (colors[1]) {
-            case 'blue':
-              filter = [blueRedFilter];
-              break;
-            case 'green':
-              filter = [redGreenFilter];
-              break;
-            case 'yellow':
-              filter = [redYellowFilter];
-              break;
-            case 'purple':
-              filter = [redPurpleFilter];
-              break;
-            default:
-              filter = [redGlow];
-              break;
-          }
-          break;
-        case 'green':
-          switch (colors[1]) {
-            case 'blue':
-              filter = [blueGreenFilter];
-              break;
-            case 'red': 
-              filter = [redGreenFilter];
-              break;
-            case 'yellow':
-              filter = [greenYellowFilter];
-              break;
-            case 'purple':
-              filter = [greenPurpleFilter];
-              break;
-            default:
-              filter = [greenGlow];
-              break;
-          }
-          break;
-        case 'yellow':
-          switch (colors[1]) {
-            case 'blue':
-              filter = [blueYellowFilter];
-              break;
-            case 'red':
-              filter = [redYellowFilter];
-              break;
-            case 'green':
-              filter = [greenYellowFilter];
-              break;
-            case 'purple':
-              filter = [yellowPurpleFilter];
-              break;
-            default:
-              filter = [yellowGlow];
-              break;
-          }
-          break;
-        case 'purple':
-          switch (colors[1]) {
-            case 'blue':
-              filter = [bluePurpleFilter];
-              break;
-            case 'red':
-              filter = [redPurpleFilter];
-              break;
-            case 'green':
-              filter = [greenPurpleFilter];
-              break;
-            case 'yellow':
-              filter = [yellowPurpleFilter];
-              break;              
-            default:
-              filter = [purpleGlow];
-              break;
-          }
-          break;
-        default:
-          break;
-      }
-    } else {
-      filter = [noGlowFilter];
-    }
+    filter = [noGlowFilter];
   }
   return filter;
 }
@@ -257,26 +109,19 @@ export function getCardFilter(colors: Color[]):Filter[]{
 export function getGlowObjects():glowObject[] {
   const list: glowObject[] = []
   const first: Color[] = ['blue', 'red', 'green', 'yellow', 'purple']; 
-  let second: Color[] = ['blue', 'red', 'green', 'yellow', 'purple']; 
   first.forEach(first => {
+    const paramCallBackFirst:glowColor = {
+      colors: [first],
+      glow: getCardFilter([first])[0] as GlowFilter
+    }
     list.push({
       colors: [first],
       glow: getCardFilter([first])[0] as GlowFilter,
       members: 0,
-      callback: (ticker: Ticker) => duoGlowCallback
-    });
-    second.forEach(second => {
-      if(second !== first){
-        list.push({
-          colors: [first, second],
-          glow: getCardFilter([first, second])[0] as GlowFilter,
-          members: 0,
-          callback: (ticker: Ticker) => duoGlowCallback
-        });
+      callback: (ticker: Ticker) => {
+        duoGlowCallback.call(paramCallBackFirst, ticker);
       }
     });
-    second.splice(0,1); // TODO por el momemnto no son diferente red-blue que blue-red
   });
-  console.log(list);
   return list;
 }

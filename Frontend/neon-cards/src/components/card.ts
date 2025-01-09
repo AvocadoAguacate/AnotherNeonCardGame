@@ -19,7 +19,8 @@ async function createCard(card:CardUI, size:number[]):Promise<Container>{
     color: 0x000015
   });
   const mainIconT = await Assets.load(`/assets/Cards/c${number}.svg`);
-  const neon = getCardFilter(colors);
+  const neon = getCardFilter(colors.length > 0 ? [colors[0]] : []);
+  cardBg.filters = colors.length === 2 ? getCardFilter([colors[1]]) : neon;
   const mainIcon = new Sprite({
     texture: mainIconT,
     width: size[0] * 0.7,
