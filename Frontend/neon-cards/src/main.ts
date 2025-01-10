@@ -5,6 +5,7 @@ import { showWaiting } from "./stages/waitingRoom";
 import { showGame } from "./stages/game";
 import { SocketService } from "./services/socket";
 import { GameService } from "./services/game";
+import { NeonService } from "./services/neon";
 
 (async () => {
   // Create a new application
@@ -19,6 +20,7 @@ import { GameService } from "./services/game";
   const socketService = new SocketService(navigate);
   const gameService = new GameService();
   const langService = new LanguageService();
+  const neonService = new NeonService(app.ticker);
   // socketService.connectToServer("http://localhost:3000");
 
   function navigate(stage: string) {
@@ -27,10 +29,10 @@ import { GameService } from "./services/game";
         showMenu(app, socketService, gameService, langService, navigate);
         break;
       case "waiting-room":
-        showWaiting(app, socketService, gameService, langService, navigate);
+        showWaiting(app, socketService, gameService, langService, navigate, neonService);
         break;
       case "game":
-        showGame(app, socketService, gameService, langService, navigate);
+        showGame(app, socketService, gameService, langService, navigate, neonService);
         break;
       default:
         showMenu(app, socketService, gameService, langService, navigate);
