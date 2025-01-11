@@ -1,9 +1,14 @@
 import { io, Socket } from 'socket.io-client'
+import { MySubject } from '../components/observable';
+import { UpdateUI } from '../interfaces/update.model';
 
 export class SocketService {
   public id!:string;
   private socket!: Socket | null;
   private server!:string;
+
+  private turnSubject = new MySubject<number>(-1);
+  public turn$ = this.turnSubject;
 
   constructor(nav: (stage:string)=>void){
     if(this.loadData()){
@@ -18,6 +23,7 @@ export class SocketService {
 
   send(channel:string, msg:any){
     msg.id = this.id;
+    console.log(msg);
     this.socket!.emit(channel, msg);
   }
 
@@ -34,6 +40,7 @@ export class SocketService {
         this.server = serverUrl;
         console.log(`Conectado al servidor:${serverUrl} con id(${this.id})`);
         this.saveData();
+        this.listenMessages();
       }
     });
     this.socket.on('disconnect', () => {
@@ -75,5 +82,16 @@ export class SocketService {
       }
     }
     return false;
+  }
+
+  private listenMessages() {
+    this.socket!.on('message', (data: UpdateUI)=> {
+      if(data.type === 'updateUI'){
+        console.log(data);
+        if(data.turn){
+          this.turnSubject.next(data.turn);
+        }
+      }
+    })
   }
 }

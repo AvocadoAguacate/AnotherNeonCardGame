@@ -1,6 +1,6 @@
 type Listener<T> = (value: T) => void;
 
-class MySubject<T> {
+export class MySubject<T> {
   private listeners: Listener<T>[] = [];
   private currentValue: T;
 

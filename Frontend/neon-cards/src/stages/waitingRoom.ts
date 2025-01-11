@@ -9,7 +9,7 @@ import { NeonService } from "../services/neon";
 import { CardUI } from "../interfaces/update.model";
 
 export async function showWaiting(
-  app: Application, socket: SocketService, game: GameService,
+app: Application, socket: SocketService, game: GameService,
 lang: LanguageService, navigate: (stage: string) => void, 
 neon: NeonService) {
   // Limpia el stage
@@ -92,17 +92,39 @@ neon: NeonService) {
   });
   app.stage.addChild(runAwayBtnContainer);
   app.stage.addChild(readyBtnContainer);
-  // const card = (await createCardDetail(getNewCard(0), lang,[width/6, height/4]));
   const voter = async (number: number, status: boolean) => {
     let msg = game.getVoteMessage(number, status);
     socket.send('message',msg);
-    app.stage.getChildByLabel(`card-vote-${number}`)?.destroy();
-    let newCard = await createCardVote(getNewCard(number), lang,[width/6, height/4], voter);
+    const oldCard = app.stage.getChildByLabel(`card-vote-${number}`);
+    if(oldCard){
+      oldCard.destroy();
+    }
+    let newCard = await createCardVote(
+      getNewCard(number),
+      lang,
+      [width/6, height/4],
+      voter
+    );
     newCard.position.set(10,10);
     app.stage.addChild(newCard);
-  }  
-  let card = (await createCardVote({number: 78, colors:['blue'], id: ''}, lang,[width/6, height/4], voter));
+  };
+  let cardData:CardUI = {
+    number: 78,
+    colors:['red', 'yellow'], 
+    id: ''
+  };
+  let card = (await createCardVote(
+    cardData, 
+    lang,
+    [width/6, height/4], 
+    voter
+  ));
   card.position.set(10,10);
   neon.checkColor(['red', 'green', 'yellow'], true);
   app.stage.addChild(card);
+  socket.turn$.subscribe((turn: number) => {
+    if(turn !== -1){
+      navigate('game')
+    }
+  });
 }
