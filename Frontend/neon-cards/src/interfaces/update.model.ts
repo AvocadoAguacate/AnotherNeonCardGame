@@ -1,10 +1,16 @@
 import { Color } from "./message.model"
 
 
-export type TypeUI = 'updateUI' | 'challenge' | 'voteDeck' 
+export type TypeUI = 'updateUI' | 'challenge' | 'voteDeck' | 'chat'
 
 export interface messageUI{
   type: TypeUI
+}
+
+export interface chatMessage extends messageUI{
+  players:  number[],
+  case:     number,
+  values:   number[]
 }
 
 export interface UpdateUI extends messageUI{
