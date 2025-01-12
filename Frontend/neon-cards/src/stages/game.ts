@@ -23,4 +23,10 @@ neon: NeonService) {
   title.x = app.screen.width / 2 - title.width / 2;
   title.y = 50;
   app.stage.addChild(title);
+
+  socket.turn$.subscribe((turn: number) => {
+    if(turn === -1){
+      navigate('waiting-room');
+    }
+  });
 }
