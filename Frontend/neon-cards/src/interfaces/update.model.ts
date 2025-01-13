@@ -10,7 +10,8 @@ export interface messageUI{
 export interface chatMessage extends messageUI{
   players:  number[],
   case:     number,
-  values:   number[]
+  values:   number[],
+  chatType: number
 }
 
 export interface UpdateUI extends messageUI{
