@@ -18,8 +18,9 @@ neon: NeonService) {
   const height = app.renderer.height
   // Buttons
   const readyBtnContainer = new Container();
+  let textBtn = `${lang.translate('STATE')} ${lang.translate('READY')}`;
   const readyTxt = new Text({
-    text: "Estado: No listo",
+    text: textBtn,
     style:{
       fontFamily: 'Orbitron',
       fontSize: 24,
@@ -46,13 +47,15 @@ neon: NeonService) {
   let ready = false;
   readyBtnContainer.on('mousedown', () => {
     if(ready){
-      readyTxt.text = "Estado: No listo";
+      textBtn = `${lang.translate('STATE')} ${lang.translate('NOTREADY')}`;
+      readyTxt.text = textBtn;
       neon.checkColor(['blue'], false);
       readyBtnContainer.filters = [noGlowFilter];
       readyTxt.style.fill = 0x14feff;
       ready = false;
     } else {
-      readyTxt.text = "Estado: Listo";
+      textBtn = `${lang.translate('STATE')} ${lang.translate('READY')}`;
+      readyTxt.text = textBtn;
       readyTxt.style.fill = 0x0000ff;
       readyBtnContainer.filters = getCardFilter(['blue']);
       neon.checkColor(['blue'], true);
@@ -62,7 +65,7 @@ neon: NeonService) {
   });
   const runAwayBtnContainer = new Container();
   const runAwayTxt = new Text({
-    text: "Huir",
+    text: lang.translate('RUNAWAY'),
     style:{
       fontFamily: 'Orbitron',
       fontSize: 24,
