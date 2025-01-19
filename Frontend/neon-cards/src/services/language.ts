@@ -104,6 +104,18 @@ export class LanguageService {
         c28DETAIL:"",
         c30TITLE:"Come 10 cartas",
         c30DETAIL:"",
+        c31TITLE:"Come un dado d6",
+        c31DETAIL:"Lanza un dado y el resultado será agregado a la cadena",
+        c32TITLE:"Come un dado octaedro",
+        c32DETAIL:"Lanza un dado octaedro y el resultado será agregado a la cadena",
+        c33TITLE:"Come un dado dodecaedro",
+        c33DETAIL:"Lanza un dado dodecaedro y el resultado será agregado a la cadena",
+        c34TITLE:"Come un dado icosaedro",
+        c34DETAIL:"Lanza un dado icosaedro y el resultado será agregado a la cadena",
+        c35TITLE:"Kamikaze",
+        c35DETAIL:"Todos los participantes de una cadena, incluyendo el jugador de esta carta, reciben el total de cartas de la cadena",
+        c36TITLE:"Genocidio",
+        c36DETAIL:"El jugador escoge un color y TODAS las cartas de ese color se descartaran, no importa que jugador las tenga en mano",
       },
     };
     this.chats = {
