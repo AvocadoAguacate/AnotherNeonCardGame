@@ -11,19 +11,6 @@ neon: NeonService) {
   // Limpia el stage
   app.stage.removeChildren();
 
-  const title = new Text({
-    text: 'Game working!',
-    style: {
-        fontFamily: 'Orbitron',
-        fontSize: 24,
-    fill: 0xff1010,
-    align: 'center',
-    }
-  });
-  title.x = app.screen.width / 2 - title.width / 2;
-  title.y = 50;
-  app.stage.addChild(title);
-
   socket.turn$.subscribe((turn: number) => {
     if(turn === -1){
       navigate('waiting-room');
